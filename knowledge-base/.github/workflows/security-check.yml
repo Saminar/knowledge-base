@@ -1,0 +1,91 @@
+name: 🔐 Security Check
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  # =============================
+  # 密钥泄露检测
+  # =============================
+  secret-scan:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog Secret Scan
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified --results=verified
+
+  # =============================
+  # 敏感文件检测
+  # =============================
+  sensitive-files:
+    name: Sensitive File Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check for sensitive files
+        run: |
+          echo "🔍 Checking for sensitive files..."
+          FOUND=0
+
+          # 检查常见敏感文件
+          for pattern in "*.env" "*.key" "*.pem" "*.p12" "*secret*" "*credential*" "*password*"; do
+            files=$(find . -name "$pattern" -not -path "./.git/*" 2>/dev/null)
+            if [ -n "$files" ]; then
+              echo "⚠️  Found sensitive file pattern '$pattern':"
+              echo "$files"
+              FOUND=1
+            fi
+          done
+
+          # 检查文件内容中的敏感信息模式
+          echo ""
+          echo "🔍 Checking file contents for potential secrets..."
+
+          # API Key patterns
+          if grep -rn --include="*.md" --include="*.yml" --include="*.yaml" --include="*.json" \
+            -E "(api[_-]?key|api[_-]?secret|access[_-]?token|auth[_-]?token)\s*[:=]\s*['\"][a-zA-Z0-9]" \
+            . --exclude-dir=.git 2>/dev/null; then
+            echo "⚠️  Potential API keys found in files!"
+            FOUND=1
+          fi
+
+          if [ $FOUND -eq 1 ]; then
+            echo ""
+            echo "❌ Sensitive content detected! Please review and remove before merging."
+            exit 1
+          else
+            echo "✅ No sensitive files or content detected."
+          fi
+
+  # =============================
+  # Markdown 链接检查
+  # =============================
+  link-check:
+    name: Link Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check markdown links
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.github/markdown-link-check-config.json'
+        continue-on-error: true

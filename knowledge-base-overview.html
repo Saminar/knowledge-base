@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 知识库 - 项目结构总览</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+            color: #c9d1d9;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .header h1 {
+            font-size: 36px;
+            color: #f0f6fc;
+            margin-bottom: 12px;
+        }
+        .header h1 .emoji { font-size: 40px; }
+        .header p {
+            font-size: 16px;
+            color: #8b949e;
+        }
+        .badge-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .badge-private { background: #1f1a2e; color: #d2a8ff; border: 1px solid #3d2e5c; }
+        .badge-security { background: #1a2e1f; color: #7ee787; border: 1px solid #2e5c3d; }
+        .badge-mkdocs { background: #1a2433; color: #79c0ff; border: 1px solid #2e4a5c; }
+        .badge-files { background: #2e1f1a; color: #ffa657; border: 1px solid #5c3d2e; }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f0f6fc;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            color: #8b949e;
+            margin-top: 4px;
+        }
+
+        /* Two Column Layout */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        /* Section */
+        .section {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* File Tree */
+        .file-tree {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 13px;
+            line-height: 1.8;
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+        }
+        .file-tree .dir { color: #79c0ff; font-weight: 600; }
+        .file-tree .file { color: #c9d1d9; }
+        .file-tree .config { color: #ffa657; }
+        .file-tree .security { color: #7ee787; }
+        .file-tree .workflow { color: #d2a8ff; }
+
+        /* Knowledge Sections */
+        .kb-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .kb-card {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.2s;
+        }
+        .kb-card:hover {
+            border-color: #58a6ff;
+            transform: translateY(-2px);
+        }
+        .kb-card .icon { font-size: 28px; margin-bottom: 8px; }
+        .kb-card .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 6px;
+        }
+        .kb-card .desc {
+            font-size: 13px;
+            color: #8b949e;
+            line-height: 1.5;
+        }
+        .kb-card .file-count {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #58a6ff;
+        }
+
+        /* Security Features */
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .security-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px;
+            background: #0d1117;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+        }
+        .security-item .icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .security-item .text .title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #f0f6fc;
+        }
+        .security-item .text .desc {
+            font-size: 12px;
+            color: #8b949e;
+            margin-top: 2px;
+        }
+
+        /* Workflow */
+        .workflow-steps {
+            display: flex;
+            gap: 0;
+            align-items: center;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .workflow-step {
+            flex-shrink: 0;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .workflow-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+        .workflow-step .step-title { font-size: 13px; font-weight: 600; color: #f0f6fc; }
+        .workflow-step .step-desc { font-size: 11px; color: #8b949e; margin-top: 4px; }
+        .workflow-arrow {
+            font-size: 20px;
+            color: #30363d;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+
+        /* Quick Start */
+        .code-block {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+        .code-block .comment { color: #8b949e; }
+        .code-block .cmd { color: #79c0ff; }
+        .code-block .str { color: #a5d6ff; }
+
+        /* Checklist */
+        .checklist { list-style: none; }
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid #21262d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .priority-high { color: #f85149; font-weight: 700; }
+        .priority-mid { color: #d29922; font-weight: 700; }
+        .priority-low { color: #3fb950; font-weight: 700; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 0;
+            color: #484f58;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .two-col { grid-template-columns: 1fr; }
+            .kb-grid { grid-template-columns: 1fr; }
+            .security-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <div class="header">
+            <h1><span class="emoji">📚</span> Sami's Knowledge Base</h1>
+            <p>基于 GitHub + MkDocs 的个人知识管理系统</p>
+            <div class="badge-row">
+                <span class="badge badge-private">🔒 Private Repo</span>
+                <span class="badge badge-security">🛡️ Security Scanning</span>
+                <span class="badge badge-mkdocs">📖 MkDocs Material</span>
+                <span class="badge badge-files">📁 32 Files</span>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="number">5</div>
+                <div class="label">知识板块</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">32</div>
+                <div class="label">初始文件数</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">2</div>
+                <div class="label">CI/CD 工作流</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">6</div>
+                <div class="label">安全防护层</div>
+            </div>
+        </div>
+
+        <!-- Knowledge Sections -->
+        <div class="section">
+            <div class="section-title">📂 知识板块</div>
+            <div class="kb-grid">
+                <div class="kb-card">
+                    <div class="icon">🎣</div>
+                    <div class="title">钓鱼与户外</div>
+                    <div class="desc">大湾区钓点数据、攻略、露营指南</div>
+                    <div class="file-count">📄 3 个索引页 · 钓点/攻略/露营</div>
+                </div>
+                <div class="kb-card">
+                    <div class="icon">🧴</div>
+                    <div class="title">香氛收藏</div>
+                    <div class="desc">品牌档案、香评笔记、选购指南</div>
+                    <div class="file-count">📄 4 个索引页 · 含品鉴模板</div>
+                </div>
+                <div class="kb-card">
+                    <div class="icon">📋</div>
+                    <div class="title">产品规划</div>
+                    <div class="desc">链路产品规划、答辩材料</div>
+                    <div class="file-count">📄 4 个索引页 · 2025H2/2026H1/答辩</div>
+                </div>
+                <div class="kb-card">
+                    <div class="icon">💻</div>
+                    <div class="title">技术笔记</div>
+                    <div class="desc">MCP 开发、CloudBase、小程序</div>
+                    <div class="file-count">📄 5 个索引页 · 含项目记录</div>
+                </div>
+                <div class="kb-card">
+                    <div class="icon">🍵</div>
+                    <div class="title">茶文化</div>
+                    <div class="desc">六大茶类知识、品鉴笔记</div>
+                    <div class="file-count">📄 3 个索引页 · 含六大茶类表</div>
+                </div>
+                <div class="kb-card">
+                    <div class="icon">🔐</div>
+                    <div class="title">安全管理</div>
+                    <div class="desc">信息安全策略、审计指南</div>
+                    <div class="file-count">📄 完整安全手册</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <!-- File Tree -->
+            <div class="section">
+                <div class="section-title">🌳 项目结构</div>
+                <div class="file-tree">
+<span class="dir">knowledge-base/</span>
+├── <span class="file">README.md</span>
+├── <span class="config">mkdocs.yml</span>
+├── <span class="security">.gitignore</span>
+├── <span class="security">.pre-commit-config.yaml</span>
+├── <span class="workflow">.github/</span>
+│   ├── <span class="file">PULL_REQUEST_TEMPLATE.md</span>
+│   ├── <span class="file">markdown-link-check-config.json</span>
+│   └── <span class="workflow">workflows/</span>
+│       ├── <span class="workflow">security-check.yml</span>
+│       └── <span class="workflow">deploy-docs.yml</span>
+├── <span class="dir">docs/</span>
+│   ├── <span class="file">index.md</span>
+│   ├── <span class="dir">fishing/</span>  🎣
+│   │   ├── <span class="dir">spots/</span>
+│   │   └── <span class="dir">guides/</span>
+│   ├── <span class="dir">fragrance/</span>  🧴
+│   │   ├── <span class="dir">brands/</span>
+│   │   ├── <span class="dir">reviews/</span>
+│   │   └── <span class="dir">guides/</span>
+│   ├── <span class="dir">product/</span>  📋
+│   │   ├── <span class="dir">2025-h2/</span>
+│   │   ├── <span class="dir">2026-h1/</span>
+│   │   └── <span class="dir">review/</span>
+│   ├── <span class="dir">tech/</span>  💻
+│   │   ├── <span class="dir">mcp/</span>
+│   │   ├── <span class="dir">cloudbase/</span>
+│   │   ├── <span class="dir">miniprogram/</span>
+│   │   └── <span class="dir">tools/</span>
+│   ├── <span class="dir">tea/</span>  🍵
+│   │   ├── <span class="dir">categories/</span>
+│   │   └── <span class="dir">notes/</span>
+│   ├── <span class="dir">outdoor/</span>  ⛺
+│   │   └── <span class="dir">camping/</span>
+│   └── <span class="security">security/</span>  🔐
+│       └── <span class="security">SECURITY.md</span>
+├── <span class="dir">assets/images/</span>
+└── <span class="dir">templates/</span>
+    └── <span class="file">doc-template.md</span></div>
+            </div>
+
+            <!-- Security -->
+            <div class="section">
+                <div class="section-title">🛡️ 安全防护体系</div>
+                <div class="security-grid">
+                    <div class="security-item">
+                        <div class="icon">🔒</div>
+                        <div class="text">
+                            <div class="title">Private 仓库</div>
+                            <div class="desc">仓库默认设为私有，外部不可见</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">🔑</div>
+                        <div class="text">
+                            <div class="title">Secret Scanning</div>
+                            <div class="desc">自动检测泄露的密钥和 Token</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">🚫</div>
+                        <div class="text">
+                            <div class="title">Push Protection</div>
+                            <div class="desc">阻止推送包含密钥的提交</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">🔍</div>
+                        <div class="text">
+                            <div class="title">TruffleHog CI</div>
+                            <div class="desc">PR 时自动扫描敏感信息</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">🪝</div>
+                        <div class="text">
+                            <div class="title">Pre-commit Hooks</div>
+                            <div class="desc">本地提交前拦截私钥和大文件</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">📋</div>
+                        <div class="text">
+                            <div class="title">PR Review 模板</div>
+                            <div class="desc">强制安全自查清单</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">🛡️</div>
+                        <div class="text">
+                            <div class="title">分支保护</div>
+                            <div class="desc">main 分支必须 PR + Review</div>
+                        </div>
+                    </div>
+                    <div class="security-item">
+                        <div class="icon">📊</div>
+                        <div class="text">
+                            <div class="title">月度安全审计</div>
+                            <div class="desc">定期检查权限和访问日志</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow -->
+        <div class="section">
+            <div class="section-title">🔄 使用流程</div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="step-icon">📝</div>
+                    <div class="step-title">编写文档</div>
+                    <div class="step-desc">Markdown 格式</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-icon">🪝</div>
+                    <div class="step-title">本地检查</div>
+                    <div class="step-desc">pre-commit hooks</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-icon">🔀</div>
+                    <div class="step-title">创建 PR</div>
+                    <div class="step-desc">安全自查清单</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-icon">🔍</div>
+                    <div class="step-title">CI 安全扫描</div>
+                    <div class="step-desc">TruffleHog + 敏感文件检测</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">合并发布</div>
+                    <div class="step-desc">合并到 main</div>
+                </div>
+                <div class="workflow-arrow">→</div>
+                <div class="workflow-step">
+                    <div class="step-icon">🌐</div>
+                    <div class="step-title">自动部署</div>
+                    <div class="step-desc">GitHub Pages</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-col">
+            <!-- Quick Start -->
+            <div class="section">
+                <div class="section-title">🚀 快速开始</div>
+                <div class="code-block">
+<span class="comment"># 1. 在 GitHub 创建 Private 仓库</span>
+<span class="comment"># 登录 github.com → New repository</span>
+<span class="comment"># Name: knowledge-base / Visibility: Private</span>
+
+<span class="comment"># 2. 关联远程仓库</span>
+<span class="cmd">cd</span> knowledge-base
+<span class="cmd">git remote add</span> origin <span class="str">git@github.com:YOUR_USERNAME/knowledge-base.git</span>
+
+<span class="comment"># 3. 首次推送</span>
+<span class="cmd">git commit</span> -m <span class="str">"🎉 init: knowledge base scaffold"</span>
+<span class="cmd">git push</span> -u origin main
+
+<span class="comment"># 4. 开启安全功能</span>
+<span class="comment"># Settings → Code security → 开启所有选项</span>
+
+<span class="comment"># 5. 安装 pre-commit（可选）</span>
+<span class="cmd">pip install</span> pre-commit
+<span class="cmd">pre-commit install</span>
+
+<span class="comment"># 6. 本地预览文档站点</span>
+<span class="cmd">pip install</span> mkdocs-material
+<span class="cmd">mkdocs serve</span>
+                </div>
+            </div>
+
+            <!-- Checklist -->
+            <div class="section">
+                <div class="section-title">✅ 上线清单</div>
+                <ul class="checklist">
+                    <li>
+                        <span class="priority-high">🔴 高</span>
+                        在 GitHub 创建 Private 仓库
+                    </li>
+                    <li>
+                        <span class="priority-high">🔴 高</span>
+                        启用两步验证 (2FA)
+                    </li>
+                    <li>
+                        <span class="priority-high">🔴 高</span>
+                        开启 Secret Scanning + Push Protection
+                    </li>
+                    <li>
+                        <span class="priority-high">🔴 高</span>
+                        推送初始代码到仓库
+                    </li>
+                    <li>
+                        <span class="priority-mid">🟡 中</span>
+                        配置 main 分支保护规则
+                    </li>
+                    <li>
+                        <span class="priority-mid">🟡 中</span>
+                        禁止仓库 Fork
+                    </li>
+                    <li>
+                        <span class="priority-mid">🟡 中</span>
+                        安装本地 pre-commit hooks
+                    </li>
+                    <li>
+                        <span class="priority-low">🟢 低</span>
+                        部署 MkDocs 到 GitHub Pages
+                    </li>
+                    <li>
+                        <span class="priority-low">🟢 低</span>
+                        开始填充知识内容
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⛵ Generated by Skipper · 2026-04-13</p>
+            <p style="margin-top: 8px;">knowledge-base · Private · GitHub + MkDocs Material</p>
+        </div>
+    </div>
+</body>
+</html>
