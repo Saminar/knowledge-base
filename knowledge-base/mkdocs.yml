@@ -121,6 +121,8 @@ nav:
     - tea/index.md
     - 六大茶类: tea/categories/index.md
     - 品鉴笔记: tea/notes/index.md
+  - 📈 投资研究:
+    - investment/index.md
   - 🔐 安全管理:
     - security/SECURITY.md
 
