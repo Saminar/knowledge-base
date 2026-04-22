@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 英伟达产业链追踪 — 2026-04-22</title>
+<style>
+:root {
+  --bg: #f8f9fb;
+  --card: #ffffff;
+  --border: #e8ecf1;
+  --text: #1a202c;
+  --text2: #64748b;
+  --accent: #0ea5e9;
+  --green: #22c55e;
+  --red: #ef4444;
+  --orange: #f97316;
+  --yellow: #eab308;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+  }
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 16px;
+}
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 32px 0 24px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.header .meta {
+  color: var(--text2);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.summary-card .value {
+  font-size: 28px;
+  font-weight: 700;
+}
+.summary-card .label {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.summary-card.up .value { color: var(--red); }
+.summary-card.down .value { color: var(--green); }
+.summary-card.flat .value { color: var(--text2); }
+
+/* Section */
+.section {
+  margin: 28px 0 16px;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Tab Navigation */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.tab:hover { border-color: var(--accent); }
+.tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Stock Table */
+.stock-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--bg);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: rgba(14,165,233,0.04); }
+.price { font-weight: 600; font-variant-numeric: tabular-nums; }
+.up { color: var(--red); }
+.down { color: var(--green); }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-core { background: #dbeafe; color: #1e40af; }
+.tag-upstream { background: #fef3c7; color: #92400e; }
+.tag-downstream { background: #d1fae5; color: #065f46; }
+
+/* Analysis Cards */
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+.analysis-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: box-shadow 0.2s;
+}
+.analysis-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.analysis-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.analysis-card .signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.signal-buy { background: #dcfce7; color: #166534; }
+.signal-sell { background: #fee2e2; color: #991b1b; }
+.signal-hold { background: #fef9c3; color: #854d0e; }
+.signal-watch { background: #e0e7ff; color: #3730a3; }
+.analysis-card .reason {
+  font-size: 13px;
+  color: var(--text2);
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.analysis-card .sources {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.analysis-card .sources a {
+  display: block;
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  margin: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.analysis-card .sources a:hover { text-decoration: underline; }
+
+/* News Section */
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+.news-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.news-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.news-item .snippet {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-item .news-meta {
+  font-size: 11px;
+  color: var(--text2);
+  display: flex;
+  justify-content: space-between;
+}
+.news-item a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 40px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header h1 { font-size: 22px; }
+  .analysis-grid { grid-template-columns: 1fr; }
+  .news-list { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🚀 英伟达产业链追踪</h1>
+    <div class="meta">2026-04-22 · 数据来源：腾讯财经 · 仅供学习参考</div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-grid" id="summary-grid"></div>
+
+  <!-- Tab Nav -->
+  <div class="section">
+    <div class="tabs" id="main-tabs">
+      <div class="tab active" data-tab="quotes">📊 行情总览</div>
+      <div class="tab" data-tab="analysis">🧠 分析建议</div>
+      <div class="tab" data-tab="news">📰 要闻速递</div>
+      <div class="tab" data-tab="ecosystem">🌐 全景透视</div>
+    </div>
+  </div>
+
+  <!-- Quotes Panel -->
+  <div id="panel-quotes">
+    <div class="tabs" id="cat-tabs">
+      <div class="tab active" data-cat="all">全部</div>
+      <div class="tab" data-cat="core">核心</div>
+      <div class="tab" data-cat="upstream_foundry">晶圆代工</div>
+      <div class="tab" data-cat="upstream_memory">HBM/存储</div>
+      <div class="tab" data-cat="upstream_equipment">半导体设备</div>
+      <div class="tab" data-cat="upstream_ip_eda">IP/EDA</div>
+      <div class="tab" data-cat="peer_competitor">同业竞争</div>
+      <div class="tab" data-cat="downstream_cloud">海外云厂</div>
+      <div class="tab" data-cat="downstream_server">AI服务器</div>
+      <div class="tab" data-cat="downstream_cn_ai">国内AI算力</div>
+      <div class="tab" data-cat="downstream_optical">光模块</div>
+    </div>
+    <div class="stock-table-wrap">
+      <table id="stock-table">
+        <thead>
+          <tr>
+            <th>公司</th>
+            <th>代码</th>
+            <th>分类</th>
+            <th>最新价</th>
+            <th>昨收</th>
+            <th>涨跌幅</th>
+            <th>涨跌额</th>
+            <th>成交量</th>
+            <th>成交额</th>
+            <th>换手率</th>
+            <th>市盈率</th>
+            <th>PEG</th>
+          </tr>
+        </thead>
+        <tbody id="stock-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Analysis Panel -->
+  <div id="panel-analysis" style="display:none;">
+    <div class="analysis-grid" id="analysis-grid"></div>
+  </div>
+
+  <!-- News Panel -->
+  <div id="panel-news" style="display:none;">
+    <div class="section-title">行业要闻</div>
+    <div class="news-list" id="industry-news"></div>
+    <div style="margin-top:24px;">
+      <div class="section-title">个股新闻</div>
+    </div>
+    <div class="news-list" id="company-news"></div>
+  </div>
+
+  <!-- Ecosystem Panel -->
+  <div id="panel-ecosystem" style="display:none;">
+    <div style="background: var(--bg); padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;">
+  <!-- Header -->
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+    <div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 24px;">🧠</span>
+        <h2 style="font-size: 24px; font-weight: 700; margin: 0; color: var(--text);">英伟达 (NVIDIA) — AI 算力霸主全景透视</h2>
+      </div>
+      <div style="color: var(--text2); font-size: 14px; margin-top: 4px;">全球 AI 芯片垄断者 | CUDA 护城河 | 加速计算时代的“卖铲人”</div>
+    </div>
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 12px 24px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 700; color: #2563eb; line-height: 1;">98.5</div>
+      <div style="font-size: 12px; color: #60a5fa; margin-top: 4px;">护城河评分</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <!-- Left Column: Core Stats -->
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span>📊</span> 1. 核心壁垒 (Core)
+      </h3>
+      <div style="color: #2563eb; font-size: 13px; font-weight: 500; margin-bottom: 12px;">核心指标速览</div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">数据中心业务营收占比</span>
+          <span><strong>超 85%</strong> <span style="color: var(--red); font-size: 12px;">绝对主导</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">AI 训练/推理 GPU 市占率</span>
+          <span><strong>近 90%</strong> <span style="color: var(--red); font-size: 12px;">事实垄断</span></span>
+        </div>
+         <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">毛利率 (Gross Margin)</span>
+          <span><strong>约 76%</strong> <span style="color: var(--red); font-size: 12px;">硬件奇迹</span></span>
+        </div>
+         <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">架构更新节奏</span>
+          <span><strong>每年一代</strong> (Hopper -> Blackwell -> Rubin)</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <div style="color: #16a34a; font-size: 13px; font-weight: 600; margin-bottom: 8px;">🟩 核心护城河：CUDA 与系统级创新</div>
+        <ol style="margin: 0; padding-left: 16px; font-size: 12px; color: var(--text2); line-height: 1.6;">
+          <li><strong>软硬一体的 CUDA 生态：</strong> 拥有超过百万的开发者和深厚的代码库壁垒，让竞争对手难以通过单纯的硬件性能赶超。</li>
+          <li><strong>从卖芯片到卖系统：</strong> 不仅提供 GPU，还提供 NVLink 交换机、InfiniBand 网络、机架乃至超级计算机，实现系统级垄断。</li>
+          <li><strong>超强供应链话语权：</strong> 绑定台积电 CoWoS 产能与 SK 海力士 HBM 产能，形成对竞争对手的“产能挤压”。</li>
+          <li><strong>迭代速度极快：</strong> 创始人黄仁勋将架构更新周期缩短至一年一更，让追赶者永远处于“发布即落后”的窘境。</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Right Column: Radar Chart -->
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span>🎯</span> 竞争力多维解析
+      </h3>
+
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+          <svg width="280" height="280" viewBox="0 0 300 300">
+            <g transform="translate(150, 150)">
+              <!-- Background grid -->
+              <polygon points="0,-120 114,-37 74,101 -74,101 -114,-37" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-96 91,-30 59,81 -59,81 -91,-30" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-72 68,-22 44,61 -44,61 -68,-22" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-48 45,-15 29,40 -29,40 -45,-15" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-24 23,-7 15,20 -15,20 -23,-7" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+              <!-- Axes -->
+              <line x1="0" y1="0" x2="0" y2="-120" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="114" y2="-37" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="74" y2="101" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="-74" y2="101" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="-114" y2="-37" stroke="#e2e8f0" stroke-width="1"/>
+
+              <!-- Data Polygon for NVDA -->
+              <polygon points="0,-120 114,-37 67,90 -52,70 -108,-35" fill="#10b981" fill-opacity="0.2" stroke="#059669" stroke-width="2"/>
+
+              <!-- Data Points -->
+              <circle cx="0" cy="-120" r="4" fill="#059669"/> <!-- 硬件性能: 100 -->
+              <circle cx="114" cy="-37" r="4" fill="#059669"/> <!-- CUDA生态: 100 -->
+              <circle cx="67" cy="90" r="4" fill="#059669"/> <!-- 定价权: 90 -->
+              <circle cx="-52" cy="70" r="4" fill="#059669"/> <!-- 客户集中度风险: 70 (这里分数越低代表集中度越高、风险越大，70代表处于中高风险但可控) -->
+              <circle cx="-108" cy="-35" r="4" fill="#059669"/> <!-- 供应链整合: 95 -->
+            </g>
+
+            <!-- Labels -->
+            <text x="150" y="20" text-anchor="middle" font-size="10" fill="#64748b">硬件演进速度 (100)</text>
+            <text x="270" y="105" text-anchor="start" font-size="10" fill="#64748b">CUDA 软件生态 (100)</text>
+            <text x="230" y="260" text-anchor="middle" font-size="10" fill="#64748b">定价与利润能力 (90)</text>
+            <text x="70" y="260" text-anchor="middle" font-size="10" fill="#64748b">客户集中度容忍 (70)</text>
+            <text x="30" y="105" text-anchor="end" font-size="10" fill="#64748b">供应链掌控力 (95)</text>
+          </svg>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px;">
+        <div style="background: #f0fdf4; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #16a34a; font-size: 24px; font-weight: 700;">100</div>
+          <div style="color: #15803d; font-size: 11px; margin-top: 4px; font-weight: 500;">软件生态</div>
+          <div style="color: #4ade80; font-size: 10px; margin-top: 2px;">无解的 CUDA 壁垒</div>
+        </div>
+        <div style="background: #f0fdfa; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #0d9488; font-size: 24px; font-weight: 700;">90%</div>
+          <div style="color: #0f766e; font-size: 11px; margin-top: 4px; font-weight: 500;">AI 市占率</div>
+          <div style="color: #5eead4; font-size: 10px; margin-top: 2px;">全行业的事实标准</div>
+        </div>
+        <div style="background: #fef2f2; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #dc2626; font-size: 24px; font-weight: 700;">76%</div>
+          <div style="color: #b91c1c; font-size: 11px; margin-top: 4px; font-weight: 500;">超高毛利</div>
+          <div style="color: #f87171; font-size: 10px; margin-top: 2px;">印钞机级别的盈利</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table 1: Upstream -->
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; overflow-x: auto;">
+    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #10b981; padding-bottom: 12px;">
+      <span>⚙️</span> 2. 关键上游供应链 — 制造、存储与封装
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+      <thead>
+        <tr style="color: var(--text2); border-bottom: 1px solid var(--border);">
+          <th style="padding: 12px 8px; font-weight: 500;">公司</th>
+          <th style="padding: 12px 8px; font-weight: 500;">角色</th>
+          <th style="padding: 12px 8px; font-weight: 500;">核心逻辑</th>
+          <th style="padding: 12px 8px; font-weight: 500; text-align: center;">英伟达依赖度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">台积电 (TSM)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">晶圆代工 & CoWoS</td>
+          <td style="padding: 12px 8px;">独家代工先进制程 GPU，其 CoWoS 产能是决定英伟达出货量的最终瓶颈。</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">极高</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">SK 海力士 / 美光 (MU)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">HBM 高带宽内存</td>
+          <td style="padding: 12px 8px;">AI 芯片必需的显存。SK 海力士是最大供应商，美光正在快速切入 HBM3E 份额。</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">极高</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">ASML (ASML)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">EUV 光刻机设备</td>
+          <td style="padding: 12px 8px;">位于台积电更上游，决定了全球尖端半导体制造的上限，间接影响英伟达。</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中间接</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">ARM (ARM)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">CPU IP 授权</td>
+          <td style="padding: 12px 8px;">英伟达 Grace CPU 以及下一代系统芯片的底层指令集架构提供方。</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中高</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table 2: Downstream & Competitors -->
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; overflow-x: auto;">
+    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #10b981; padding-bottom: 12px;">
+      <span>☁️</span> 3. 下游客户与替代者生态
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+      <thead>
+        <tr style="color: var(--text2); border-bottom: 1px solid var(--border);">
+          <th style="padding: 12px 8px; font-weight: 500;">公司</th>
+          <th style="padding: 12px 8px; font-weight: 500;">领域</th>
+          <th style="padding: 12px 8px; font-weight: 500;">与英伟达的关系逻辑</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">超微电脑 (SMCI)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">AI 服务器整机</td>
+          <td style="padding: 12px 8px;">英伟达最紧密的服务器组装伙伴，提供液冷等高端机架，其业绩是英伟达出货的“风向标”。</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">微软/Meta/谷歌/亚马逊</td>
+          <td style="padding: 12px 8px; color: var(--text2);">CSP 大模型云厂</td>
+          <td style="padding: 12px 8px;"><strong>“金主爸爸”与“潜在反叛者”</strong>。贡献了英伟达约 40% 的营收，但都在加紧自研 ASIC 芯片（如谷歌 TPU、AWS Trainium）以摆脱依赖。</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">中际旭创 (300308)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">高速光模块 (中国)</td>
+          <td style="padding: 12px 8px;">AI 集群需要极高的网络互联带宽。英伟达 800G/1.6T 光模块的核心核心供应商，A 股最纯正的“英伟达算力概念股”。</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">AMD (AMD)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">GPU 竞争对手</td>
+          <td style="padding: 12px 8px;">唯一能在高端 AI 训练/推理卡上（MI300系列）对英伟达形成实质威胁的商业对手，但在软件生态上大幅落后。</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ 免责声明：本报告数据来自公开市场信息，通过腾讯财经获取，仅供学习和参考，不构成任何投资建议。投资有风险，入市需谨慎。
+  </div>
+</div>
+
+<script>
+// ============= DATA INJECTION =============
+const stockData = {"timestamp": "2026-04-22 11:37:56", "date": "2026-04-22", "source": "Tencent Finance (qt.gtimg.cn)", "total_companies": 34, "companies": [{"name": "英伟达", "name_en": "NVIDIA", "role": "AI算力/GPU龙头", "category": "core", "market": "US", "code": "NVDA", "tencent": "usNVDA"}, {"name": "台积电", "name_en": "TSMC", "role": "GPU独家代工", "category": "upstream_foundry", "market": "US", "code": "TSM", "tencent": "usTSM"}, {"name": "中芯国际", "name_en": "SMIC", "role": "大陆代工龙头(港)", "category": "upstream_foundry", "market": "HK", "code": "00981", "tencent": "hk00981"}, {"name": "中芯国际", "name_en": "SMIC", "role": "大陆代工龙头(A)", "category": "upstream_foundry", "market": "SH", "code": "688981"}, {"name": "美光科技", "name_en": "Micron", "role": "HBM3E/DDR5主力", "category": "upstream_memory", "market": "US", "code": "MU", "tencent": "usMU"}, {"name": "ASML", "name_en": "ASML Holding", "role": "EUV光刻机独占", "category": "upstream_equipment", "market": "US", "code": "ASML", "tencent": "usASML"}, {"name": "应用材料", "name_en": "Applied Materials", "role": "沉积/刻蚀设备", "category": "upstream_equipment", "market": "US", "code": "AMAT", "tencent": "usAMAT"}, {"name": "科林研发", "name_en": "Lam Research", "role": "刻蚀/CMP设备", "category": "upstream_equipment", "market": "US", "code": "LRCX", "tencent": "usLRCX"}, {"name": "科磊", "name_en": "KLA Corp", "role": "量测设备", "category": "upstream_equipment", "market": "US", "code": "KLAC", "tencent": "usKLAC"}, {"name": "Arm", "name_en": "Arm Holdings", "role": "CPU IP", "category": "upstream_ip_eda", "market": "US", "code": "ARM", "tencent": "usARM"}, {"name": "新思科技", "name_en": "Synopsys", "role": "EDA工具", "category": "upstream_ip_eda", "market": "US", "code": "SNPS", "tencent": "usSNPS"}, {"name": "Cadence", "name_en": "Cadence Design", "role": "EDA工具", "category": "upstream_ip_eda", "market": "US", "code": "CDNS", "tencent": "usCDNS"}, {"name": "AMD", "name_en": "AMD", "role": "MI系列加速卡", "category": "peer_competitor", "market": "US", "code": "AMD", "tencent": "usAMD"}, {"name": "英特尔", "name_en": "Intel", "role": "Gaudi/GPU Max", "category": "peer_competitor", "market": "US", "code": "INTC", "tencent": "usINTC"}, {"name": "博通", "name_en": "Broadcom", "role": "定制ASIC/AI网络", "category": "peer_competitor", "market": "US", "code": "AVGO", "tencent": "usAVGO"}, {"name": "微软", "name_en": "Microsoft", "role": "Azure/OpenAI最大客户", "category": "downstream_cloud", "market": "US", "code": "MSFT", "tencent": "usMSFT"}, {"name": "Meta", "name_en": "Meta", "role": "AI训练集群", "category": "downstream_cloud", "market": "US", "code": "META", "tencent": "usMETA"}, {"name": "Alphabet", "name_en": "Alphabet", "role": "GCP/Gemini", "category": "downstream_cloud", "market": "US", "code": "GOOGL", "tencent": "usGOOGL"}, {"name": "亚马逊", "name_en": "Amazon", "role": "AWS", "category": "downstream_cloud", "market": "US", "code": "AMZN", "tencent": "usAMZN"}, {"name": "甲骨文", "name_en": "Oracle", "role": "OCI/AI训练云", "category": "downstream_cloud", "market": "US", "code": "ORCL", "tencent": "usORCL"}, {"name": "Super Micro", "name_en": "Super Micro", "role": "AI服务器龙头", "category": "downstream_server", "market": "US", "code": "SMCI", "tencent": "usSMCI"}, {"name": "Dell", "name_en": "Dell Technologies", "role": "AI服务器", "category": "downstream_server", "market": "US", "code": "DELL", "tencent": "usDELL"}, {"name": "工业富联", "name_en": "Foxconn Industrial", "role": "AI服务器ODM", "category": "downstream_server", "market": "SH", "code": "601138"}, {"name": "阿里巴巴", "name_en": "Alibaba", "role": "阿里云/通义(港)", "category": "downstream_cn_ai", "market": "HK", "code": "09988", "tencent": "hk09988"}, {"name": "阿里巴巴", "name_en": "Alibaba", "role": "阿里云/通义(美)", "category": "downstream_cn_ai", "market": "US", "code": "BABA", "tencent": "usBABA"}, {"name": "腾讯控股", "name_en": "Tencent", "role": "腾讯云/混元", "category": "downstream_cn_ai", "market": "HK", "code": "00700", "tencent": "hk00700"}, {"name": "百度", "name_en": "Baidu", "role": "百度智能云/文心(港)", "category": "downstream_cn_ai", "market": "HK", "code": "09888", "tencent": "hk09888"}, {"name": "百度", "name_en": "Baidu", "role": "百度智能云/文心(美)", "category": "downstream_cn_ai", "market": "US", "code": "BIDU", "tencent": "usBIDU"}, {"name": "浪潮信息", "name_en": "Inspur", "role": "AI服务器国内龙头", "category": "downstream_cn_ai", "market": "SZ", "code": "000977"}, {"name": "中科曙光", "name_en": "Sugon", "role": "高端计算机", "category": "downstream_cn_ai", "market": "SH", "code": "603019"}, {"name": "寒武纪", "name_en": "Cambricon", "role": "国产AI芯片", "category": "downstream_cn_ai", "market": "SH", "code": "688256"}, {"name": "中际旭创", "name_en": "Innolight", "role": "800G/1.6T光模块龙头", "category": "downstream_optical", "market": "SZ", "code": "300308"}, {"name": "新易盛", "name_en": "Eoptolink", "role": "高速光模块", "category": "downstream_optical", "market": "SZ", "code": "300502"}, {"name": "天孚通信", "name_en": "T&S Communications", "role": "光器件", "category": "downstream_optical", "market": "SZ", "code": "300394"}], "quotes": {"NVDA": {"name": "英伟达", "name_en": "NVIDIA", "code": "NVDA", "market": "US", "price": 199.88, "prev_close": 202.06, "open": 202.13, "high": 202.75, "low": 199.0, "volume": 107945302.0, "amount": 21662722490.0, "change_pct": -1.08, "change_amt": -2.18, "turnover": 0.44, "pe": 40.79, "market_cap": 4857084000000.0, "float_cap": 4653118209000.0}, "TSM": {"name": "台积电", "name_en": "TSMC", "code": "TSM", "market": "US", "price": 368.08, "prev_close": 366.24, "open": 368.08, "high": 370.75, "low": 365.11, "volume": 9808159.0, "amount": 3609618850.0, "change_pct": 0.5, "change_amt": 1.84, "turnover": 0.19, "pe": 31.99, "market_cap": 1909010112000.0, "float_cap": 1782755290999.9998}, "00981": {"name": "中芯国际", "name_en": "SMIC", "code": "00981", "market": "HK", "price": 58.8, "prev_close": 60.1, "open": 59.6, "high": 60.15, "low": 58.7, "volume": 26455541.0, "amount": 15662465586000.0, "change_pct": -2.16, "change_amt": -1.3, "turnover": 0.0, "pe": 88.37, "market_cap": 471171730000.0, "float_cap": 353597450000.0}, "688981": {"name": "中芯国际", "name_en": "SMIC", "code": "688981", "market": "SH", "price": 106.98, "prev_close": 107.46, "open": 106.8, "high": 108.08, "low": 106.5, "volume": 18836001.0, "amount": 2017810000.0, "change_pct": -0.45, "change_amt": -0.48, "turnover": 0.94, "pe": 170.06, "market_cap": 857244000000.0, "float_cap": 213913000000.0}, "MU": {"name": "美光科技", "name_en": "Micron", "code": "MU", "market": "US", "price": 449.38, "prev_close": 448.42, "open": 451.32, "high": 457.82, "low": 441.3, "volume": 27733985.0, "amount": 12456993319.0, "change_pct": 0.21, "change_amt": 0.96, "turnover": 2.46, "pe": 21.21, "market_cap": 506781128000.0, "float_cap": 505578914999.99994}, "ASML": {"name": "ASML", "name_en": "ASML Holding", "code": "ASML", "market": "US", "price": 1458.97, "prev_close": 1476.5, "open": 1476.09, "high": 1480.17, "low": 1446.25, "volume": 1274593.0, "amount": 1862617212.0, "change_pct": -1.19, "change_amt": -17.53, "turnover": 0.33, "pe": 49.07, "market_cap": 562312811000.0, "float_cap": 562238265000.0}, "AMAT": {"name": "应用材料", "name_en": "Applied Materials", "code": "AMAT", "market": "US", "price": 394.33, "prev_close": 391.62, "open": 393.0, "high": 397.51, "low": 391.06, "volume": 5414899.0, "amount": 2136977157.0, "change_pct": 0.69, "change_amt": 2.71, "turnover": 0.68, "pe": 40.44, "market_cap": 312944179000.0, "float_cap": 312031730000.0}, "LRCX": {"name": "科林研发", "name_en": "Lam Research", "code": "LRCX", "market": "US", "price": 258.37, "prev_close": 263.16, "open": 263.81, "high": 265.6, "low": 256.71, "volume": 7830288.0, "amount": 2034857071.0, "change_pct": -1.82, "change_amt": -4.79, "turnover": 0.63, "pe": 53.05, "market_cap": 322644963000.0, "float_cap": 288498073000.0}, "KLAC": {"name": "科磊", "name_en": "KLA Corp", "code": "KLAC", "market": "US", "price": 1785.37, "prev_close": 1805.32, "open": 1814.0, "high": 1823.27, "low": 1772.43, "volume": 676364.0, "amount": 1212509851.0, "change_pct": -1.11, "change_amt": -19.95, "turnover": 0.52, "pe": 51.98, "market_cap": 234020249000.0, "float_cap": 209708610000.0}, "ARM": {"name": "Arm", "name_en": "Arm Holdings", "code": "ARM", "market": "US", "price": 175.49, "prev_close": 175.1, "open": 175.37, "high": 179.4, "low": 173.3, "volume": 6479929.0, "amount": 1141537984.0, "change_pct": 0.22, "change_amt": 0.39, "turnover": 0.61, "pe": 233.99, "market_cap": 186370129000.0, "float_cap": 24439539000.0}, "SNPS": {"name": "新思科技", "name_en": "Synopsys", "code": "SNPS", "market": "US", "price": 467.58, "prev_close": 460.95, "open": 464.27, "high": 480.25, "low": 462.0, "volume": 1833026.0, "amount": 862596755.0, "change_pct": 1.44, "change_amt": 6.63, "turnover": 0.96, "pe": 72.05, "market_cap": 89570573000.0, "float_cap": 89209468000.0}, "CDNS": {"name": "Cadence", "name_en": "Cadence Design", "code": "CDNS", "market": "US", "price": 325.84, "prev_close": 318.5, "open": 319.75, "high": 331.23, "low": 318.9, "volume": 3475139.0, "amount": 1133859043.0, "change_pct": 2.3, "change_amt": 7.34, "turnover": 1.26, "pe": 80.26, "market_cap": 89961839000.0, "float_cap": 89520653000.0}, "AMD": {"name": "AMD", "name_en": "AMD", "code": "AMD", "market": "US", "price": 284.49, "prev_close": 274.95, "open": 277.33, "high": 286.2, "low": 276.62, "volume": 38950875.0, "amount": 10983951349.0, "change_pct": 3.47, "change_amt": 9.54, "turnover": 2.39, "pe": 107.35, "market_cap": 463815078999.99994, "float_cap": 461846332000.0}, "INTC": {"name": "英特尔", "name_en": "Intel", "code": "INTC", "market": "US", "price": 66.26, "prev_close": 65.7, "open": 67.14, "high": 67.67, "low": 65.64, "volume": 91402314.0, "amount": 6084287969.0, "change_pct": 0.85, "change_amt": 0.56, "turnover": 1.82, "pe": -1104.33, "market_cap": 332692138000.0, "float_cap": 332594016000.0}, "AVGO": {"name": "博通", "name_en": "Broadcom", "code": "AVGO", "market": "US", "price": 402.17, "prev_close": 399.63, "open": 399.41, "high": 403.6, "low": 394.57, "volume": 16275473.0, "amount": 6519806501.0, "change_pct": 0.64, "change_amt": 2.54, "turnover": 0.34, "pe": 78.4, "market_cap": 1904141504000.0, "float_cap": 1868183241000.0}, "MSFT": {"name": "微软", "name_en": "Microsoft", "code": "MSFT", "market": "US", "price": 424.16, "prev_close": 418.07, "open": 420.24, "high": 427.18, "low": 417.2, "volume": 32048495.0, "amount": 13605401143.0, "change_pct": 1.46, "change_amt": 6.09, "turnover": 0.43, "pe": 26.54, "market_cap": 3149654829000.0, "float_cap": 3148687905000.0}, "META": {"name": "Meta", "name_en": "Meta", "code": "META", "market": "US", "price": 668.84, "prev_close": 670.91, "open": 671.0, "high": 676.2, "low": 667.33, "volume": 8660100.0, "amount": 5813473695.0, "change_pct": -0.31, "change_amt": -2.07, "turnover": 0.34, "pe": 28.47, "market_cap": 1697799043000.0002, "float_cap": 1467824646000.0}, "GOOGL": {"name": "Alphabet", "name_en": "Alphabet", "code": "GOOGL", "market": "US", "price": 332.29, "prev_close": 337.42, "open": 337.69, "high": 339.34, "low": 331.35, "volume": 23123795.0, "amount": 7732408168.0, "change_pct": -1.52, "change_amt": -5.13, "turnover": 0.19, "pe": 30.74, "market_cap": 4019712130000.0, "float_cap": 1933559322999.9998}, "AMZN": {"name": "亚马逊", "name_en": "Amazon", "code": "AMZN", "market": "US", "price": 249.91, "prev_close": 248.28, "open": 255.09, "high": 255.09, "low": 249.1, "volume": 42922398.0, "amount": 10808766741.0, "change_pct": 0.66, "change_amt": 1.63, "turnover": 0.4, "pe": 34.85, "market_cap": 2687595067000.0, "float_cap": 2449215082000.0}, "ORCL": {"name": "甲骨文", "name_en": "Oracle", "code": "ORCL", "market": "US", "price": 181.17, "prev_close": 177.58, "open": 178.35, "high": 185.34, "low": 176.01, "volume": 39638047.0, "amount": 7238934891.0, "change_pct": 2.02, "change_amt": 3.59, "turnover": 1.38, "pe": 32.53, "market_cap": 521053254000.0, "float_cap": 310435977000.0}, "SMCI": {"name": "Super Micro", "name_en": "Super Micro", "code": "SMCI", "market": "US", "price": 28.43, "prev_close": 28.81, "open": 29.09, "high": 29.94, "low": 28.35, "volume": 29805186.0, "amount": 868659377.0, "change_pct": -1.32, "change_amt": -0.38, "turnover": 4.96, "pe": 20.75, "market_cap": 17071702000.0, "float_cap": 12767469000.0}, "DELL": {"name": "Dell", "name_en": "Dell Technologies", "code": "DELL", "market": "US", "price": 212.36, "prev_close": 203.61, "open": 205.85, "high": 214.33, "low": 205.35, "volume": 9078170.0, "amount": 1914118808.0, "change_pct": 4.3, "change_amt": 8.75, "turnover": 1.4, "pe": 24.47, "market_cap": 138074077000.0, "float_cap": 60732935000.0}, "601138": {"name": "工业富联", "name_en": "Foxconn Industrial", "code": "601138", "market": "SH", "price": 63.8, "prev_close": 61.41, "open": 61.19, "high": 64.0, "low": 61.03, "volume": 1429628.0, "amount": 8999700000.0, "change_pct": 3.89, "change_amt": 2.39, "turnover": 0.72, "pe": 35.88, "market_cap": 1266053000000.0, "float_cap": 1266053000000.0}, "09988": {"name": "阿里巴巴", "name_en": "Alibaba", "code": "09988", "market": "HK", "price": 131.2, "prev_close": 136.3, "open": 133.3, "high": 133.4, "low": 130.6, "volume": 36547739.0, "amount": 48185867087000.0, "change_pct": -3.74, "change_amt": -5.1, "turnover": 0.0, "pe": 17.86, "market_cap": 2518041560000.0, "float_cap": 2518041560000.0}, "BABA": {"name": "阿里巴巴", "name_en": "Alibaba", "code": "BABA", "market": "US", "price": 135.38, "prev_close": 140.17, "open": 139.25, "high": 139.25, "low": 134.46, "volume": 11388172.0, "amount": 1551184288.0, "change_pct": -3.42, "change_amt": -4.79, "turnover": 0.48, "pe": 24.48, "market_cap": 323795982000.0, "float_cap": 271353447000.0}, "00700": {"name": "腾讯控股", "name_en": "Tencent", "code": "00700", "market": "HK", "price": 505.5, "prev_close": 519.0, "open": 513.5, "high": 514.5, "low": 505.0, "volume": 9333727.0, "amount": 47427689495200.01, "change_pct": -2.6, "change_amt": -13.5, "turnover": 0.0, "pe": 18.53, "market_cap": 4612989600000.0, "float_cap": 4612989600000.0}, "09888": {"name": "百度", "name_en": "Baidu", "code": "09888", "market": "HK", "price": 120.8, "prev_close": 124.6, "open": 121.4, "high": 122.2, "low": 120.2, "volume": 2367489.0, "amount": 2863656221500.0, "change_pct": -3.05, "change_amt": -3.8, "turnover": 0.0, "pe": 53.14, "market_cap": 328820170000.0, "float_cap": 265518520000.0}, "BIDU": {"name": "百度", "name_en": "Baidu", "code": "BIDU", "market": "US", "price": 123.49, "prev_close": 127.75, "open": 128.07, "high": 128.38, "low": 123.11, "volume": 1978657.0, "amount": 246808351.0, "change_pct": -3.33, "change_amt": -4.26, "turnover": 0.58, "pe": 73.51, "market_cap": 42017801000.0, "float_cap": 32904233000.0}, "000977": {"name": "浪潮信息", "name_en": "Inspur", "code": "000977", "market": "SZ", "price": 74.98, "prev_close": 71.37, "open": 71.65, "high": 75.44, "low": 70.98, "volume": 727294.0, "amount": 5376710000.0, "change_pct": 5.06, "change_amt": 3.61, "turnover": 4.96, "pe": 45.63, "market_cap": 110106000000.0, "float_cap": 109983000000.0}, "603019": {"name": "中科曙光", "name_en": "Sugon", "code": "603019", "market": "SH", "price": 90.83, "prev_close": 89.4, "open": 89.0, "high": 91.13, "low": 88.7, "volume": 266780.0, "amount": 2411670000.0, "change_pct": 1.6, "change_amt": 1.43, "turnover": 1.82, "pe": 59.99, "market_cap": 132895000000.0, "float_cap": 132858000000.0}, "688256": {"name": "寒武纪", "name_en": "Cambricon", "code": "688256", "market": "SH", "price": 1330.88, "prev_close": 1330.0, "open": 1317.99, "high": 1335.98, "low": 1308.08, "volume": 3766581.0, "amount": 4986100000.0, "change_pct": 0.07, "change_amt": 0.88, "turnover": 0.89, "pe": 272.54, "market_cap": 561212000000.0, "float_cap": 561212000000.0}, "300308": {"name": "中际旭创", "name_en": "Innolight", "code": "300308", "market": "SZ", "price": 865.67, "prev_close": 864.86, "open": 859.3, "high": 875.0, "low": 854.0, "volume": 152607.0, "amount": 13200300000.0, "change_pct": 0.09, "change_amt": 0.81, "turnover": 1.38, "pe": 64.49, "market_cap": 964011000000.0, "float_cap": 959427000000.0}, "300502": {"name": "新易盛", "name_en": "Eoptolink", "code": "300502", "market": "SZ", "price": 595.03, "prev_close": 578.5, "open": 569.0, "high": 595.97, "low": 568.03, "volume": 220324.0, "amount": 12807650000.0, "change_pct": 2.86, "change_amt": 16.53, "turnover": 2.49, "pe": 78.66, "market_cap": 591465000000.0, "float_cap": 526851000000.0}, "300394": {"name": "天孚通信", "name_en": "T&S Communications", "code": "300394", "market": "SZ", "price": 370.29, "prev_close": 353.0, "open": 346.65, "high": 380.5, "low": 342.0, "volume": 388426.0, "amount": 14013910000.0, "change_pct": 4.9, "change_amt": 17.29, "turnover": 5.01, "pe": 132.55, "market_cap": 287869000000.0, "float_cap": 287290000000.0}}};
+const newsData = {"timestamp": "2026-04-22 11:38:15", "company_news": {"601138": {"name": "工业富联", "news": [{"title": "002229，垂直涨停！利好，大爆发！601138，巨资抢筹", "content": "Wind实时监测数据显示，截至午间收盘，算力板块获得逾74亿元主力资金净流入，其中工业富联601138获得逾20亿元净流入，新易盛、协创数据均获得超10亿元净流入，中际旭创、英维克等8股也获得超亿元净流入。", "source": "证券时报网", "time": "2026-04-14 12:59:00", "url": "http://finance.eastmoney.com/a/202604143704205989.html"}, {"title": "3月10日晚间重要公告 | 601138 拟分红超194亿元", "content": "聚焦四：工业富联：拟分红超194亿元 工业富联（601138）：披露年报。2025年度，公司实现营业收入9,028.87亿元，同比增长48.22%；归属于上市公司股东的净利润352.86亿元，同比增长51.99%；基本每股收益1.78元。", "source": "上海证券报", "time": "2026-03-10 23:45:23", "url": "http://finance.eastmoney.com/a/202603103667847591.html"}, {"title": "这家公司为全球AI服务器及交换机市场龙头 核心产品将持续受益于行业红利！", "content": "工业富联601138日前在业绩说明会上表示，在AI相关业务的带动下，2026年一季度公司经营状况预计实现同比改善。其中，AI服务器与交换机业务有望进一步增强公司整体业绩韧性。", "source": "人民财讯", "time": "2026-04-20 09:07:53", "url": "http://finance.eastmoney.com/a/202604203710091717.html"}, {"title": "一季度增持多只科技股，银华基金李晓星：港股互联网大厂业绩和估值有望迎来双击", "content": "李晓星的另一只代表作基金——银华心怡前十大重仓股分别为：宁德时代（300750）、腾讯控股（00700.HK）、阿里巴巴-W（09988.HK）、海光信息、中芯国际（00981.HK）、金山云（03896.HK）、恒瑞医药（600276）、华虹半导体（01347.HK）、工业富联（601138", "source": "澎湃新闻", "time": "2026-04-21 20:36:00", "url": "http://finance.eastmoney.com/a/202604213712713420.html"}, {"title": "工业富联：GB200、GB300出货顺畅 CPO全光交换机样机开始生产", "content": "工业富联601138.SH)发布投资者关系活动记录表公告，在AI相关业务的带动下，2026年一季度公司经营状况预计实现同比改善。其中，AI服务器与交换机业务有望进一步增强公司整体业绩韧性。", "source": "科创板日报", "time": "2026-04-17 16:09:03", "url": "http://finance.eastmoney.com/a/202604173708922175.html"}, {"title": "工业富联：去年存货大幅增长是战略性资金占用，非经营出现问题", "content": "【大河财立方消息】4月17日，工业富联（601138.SH）发布2025年业绩会的投资者关系活动记录表，有投资者问及如何解读公司2025年存货大幅增长、经营现金流净额同比下降的数据指标。", "source": "大河财立方", "time": "2026-04-17 19:18:20", "url": "http://finance.eastmoney.com/a/202604173709158941.html"}, {"title": "工业富联：GB200、GB300出货顺畅 CPO全光交换机样机开始生产", "content": "每经AI快讯，4月17日，工业富联601138.SH)发布投资者关系活动记录表公告，在AI相关业务的带动下，2026年一季度公司经营状况预计实现同比改善。其中，AI服务器与交换机业务有望进一步增强公司整体业绩韧性。", "source": "每日经济新闻", "time": "2026-04-17 16:13:55", "url": "http://finance.eastmoney.com/a/202604173708925922.html"}, {"title": "63.20亿元主力资金今日撤离电子板块", "content": "112626.85 300476 胜宏科技 -3.53 5.82 -88208.39 002217 合力泰 1.02 18.94 -79634.21 600330 天通股份 -1.59 31.39 -76731.27 002371 北方华创 -4.43 2.21 -70374.72 601138", "source": "证券时报网", "time": "2026-04-21 16:46:00", "url": "http://finance.eastmoney.com/a/202604213712343581.html"}]}, "000977": {"name": "浪潮信息", "news": [{"title": "今日盘中突破五日均线个股一览", "content": "10.07 3.22 7.33 7.87 7.43 600979 广安爱众 10.00 7.62 4.51 4.84 7.36 603017 中衡设计 9.98 4.39 13.29 14.21 6.91 003006 百亚股份 10.02 1.38 17.16 18.33 6.84 000977", "source": "证券时报网", "time": "2026-04-20 10:59:00", "url": "http://finance.eastmoney.com/a/202604203710365948.html"}, {"title": "计算机行业4月21日资金流向日报", "content": "600100 同方股份 -1.06 1.06 1435.33 300559 佳发教育 0.92 5.35 1403.81 002421 达实智能 -1.72 3.61 1323.18 计算机行业资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 000977", "source": "证券时报网", "time": "2026-04-21 16:46:00", "url": "http://finance.eastmoney.com/a/202604213712343772.html"}, {"title": "国产操作系统概念下跌2.03%，7股主力资金净流出超亿元", "content": "（数据宝） 国产操作系统概念资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 000977 浪潮信息 -2.39 7.30 -95076.16 688256 寒武纪 -3.50 1.94 -67840.59 002261 拓维信息 -4.04 8.91", "source": "证券时报网", "time": "2026-04-21 16:22:00", "url": "http://finance.eastmoney.com/a/202604213712299927.html"}, {"title": "主力动向：4月21日特大单净流出255.00亿元", "content": "688008 澜起科技 158.40 2.42 3.56 电子 002361 神剑股份 22.69 9.99 3.39 基础化工 特大单净流出资金排名 代码 简称 收盘价（元） 涨跌幅（%） 特大单净流入（亿元） 行业 002475 立讯精密 65.75 0.03 -12.86 电子 000977", "source": "证券时报网", "time": "2026-04-21 16:47:00", "url": "http://finance.eastmoney.com/a/202604213712343668.html"}, {"title": "杠杆资金大手笔加仓股名单", "content": "3.22 通信 600487 亨通光电 9.42 29910.59 509102.42 3.42 通信 601899 紫金矿业 0.26 28990.51 1256000.44 1.75 有色金属 603083 剑桥科技 4.82 23484.21 293150.58 6.98 通信 000977", "source": "证券时报网", "time": "2026-04-21 09:44:00", "url": "http://finance.eastmoney.com/a/202604213711927821.html"}, {"title": "主力动向：4月20日特大单净流入58.70亿元", "content": "特大单净流入资金排名 代码 简称 收盘价（元） 涨跌幅（%） 特大单净流入（亿元） 行业 002475 立讯精密 65.73 10.01 40.89 电子 600118 中国卫星 94.52 10.00 18.74 国防军工 600522 中天科技 30.95 9.99 18.12 通信 000977", "source": "证券时报网", "time": "2026-04-20 17:55:00", "url": "http://finance.eastmoney.com/a/202604203710774152.html"}, {"title": "浪潮信息：2025年净利润同比增长5.2% 拟10派0.4元", "content": "人民财讯4月10日电，浪潮信息0009774月10日披露年报，2025年实现营业收入1647.82亿元，同比增长43.25%；归母净利润24.13亿元，同比增长5.2%；基本每股收益1.639元。公司拟每10股派发现金红利0.4元(含税)。", "source": "证券时报网", "time": "2026-04-10 22:24:00", "url": "http://finance.eastmoney.com/a/202604103701661067.html"}, {"title": "碳中和ETF鹏华(159885)低碳指数大涨2.38%，新能源赛道全线爆发", "content": "截至2026年4月10日 09:48，中证内地低碳经济主题指数000977强势上涨2.55%，成分股国轩高科上涨10.01%，德业股份上涨10.00%，璞泰来上涨5.83%，厦钨新能，亿纬锂能等个股跟涨。", "source": "界面新闻", "time": "2026-04-10 09:52:07", "url": "http://finance.eastmoney.com/a/202604103700999486.html"}]}, "603019": {"name": "中科曙光", "news": [{"title": "一季度增持多只科技股，银华基金李晓星：港股互联网大厂业绩和估值有望迎来双击", "content": "以其代表作基金——银华中小盘精选为例，据2026年一季报，该基金的前十大重仓股分别为中科曙光（603019）、海光信息（688041）、华勤技术（603296）、兆易创新（603986）、天孚通信（300394）、东山精密（002384）、东阳光（600673）、芯原股份（688521", "source": "澎湃新闻", "time": "2026-04-21 20:36:00", "url": "http://finance.eastmoney.com/a/202604213712713420.html"}, {"title": "中科曙光拟每10股派发现金红利3.8元", "content": "4月14日，中科曙光（603019）发布公告，公司拟向全体股东每10股派发现金红利3.8元（含税），预计总派发金额为5.56亿元。", "source": "财中社", "time": "2026-04-15 09:06:00", "url": "http://finance.eastmoney.com/a/202604153705435247.html"}, {"title": "中科曙光：2025年度净利润21.76亿元 同比增长13.87%", "content": "每经AI快讯，4月14日，中科曙光603019.SH)公告称，公司发布2025年年度报告，实现营业收入149.64亿元，同比增长13.81%；归属于上市公司股东的净利润为21.76亿元，同比增长13.87%。", "source": "每日经济新闻", "time": "2026-04-14 21:36:17", "url": "http://finance.eastmoney.com/a/202604143704763441.html"}, {"title": "计算机行业4月21日资金流向日报", "content": "主力资金流量（万元） 000977 浪潮信息 -2.39 7.30 -95076.15 002261 拓维信息 -4.04 8.91 -50578.53 300017 网宿科技 -3.64 8.27 -48110.13 600410 华胜天成 -3.76 13.47 -43894.96 603019", "source": "证券时报网", "time": "2026-04-21 16:46:00", "url": "http://finance.eastmoney.com/a/202604213712343772.html"}, {"title": "中科曙光：2025年度净利润21.76亿元 同比增长13.87%", "content": "中科曙光603019.SH)公告称，公司发布2025年年度报告，实现营业收入149.64亿元，同比增长13.81%；归属于上市公司股东的净利润为21.76亿元，同比增长13.87%。公司拟向全体股东每10股派发现金红利3.80元(含税)。", "source": "财联社", "time": "2026-04-14 21:33:07", "url": "http://finance.eastmoney.com/a/202604143704748913.html"}, {"title": "国产操作系统概念下跌2.03%，7股主力资金净流出超亿元", "content": "主力资金流量（万元） 000977 浪潮信息 -2.39 7.30 -95076.16 688256 寒武纪 -3.50 1.94 -67840.59 002261 拓维信息 -4.04 8.91 -50578.53 000063 中兴通讯 -1.76 1.96 -46792.01 603019", "source": "证券时报网", "time": "2026-04-21 16:22:00", "url": "http://finance.eastmoney.com/a/202604213712299927.html"}, {"title": "中科曙光：公司变为无控股股东、无实际控制人", "content": "每经AI快讯，4月14日，中科曙光603019.SH)公告称，鉴于原控股股东北京中科算源资产管理有限公司持股比例降至14.68%，且公司股权分散，不存在任一股东能对股东会或董事会形成控制的情形，也无一致行动安排。因此，公司控制权状态变更为无控股股东、无实际控制人。", "source": "每日经济新闻", "time": "2026-04-14 21:42:18", "url": "http://finance.eastmoney.com/a/202604143704768898.html"}, {"title": "中科曙光：公司变为无控股股东、无实际控制人", "content": "中科曙光603019.SH)公告称，鉴于原控股股东北京中科算源资产管理有限公司持股比例降至14.68%，且公司股权分散，不存在任一股东能对股东会或董事会形成控制的情形，也无一致行动安排。因此，公司控制权状态变更为无控股股东、无实际控制人。", "source": "财联社", "time": "2026-04-14 21:32:08", "url": "http://finance.eastmoney.com/a/202604143704766929.html"}]}, "688256": {"name": "寒武纪", "news": [{"title": "大爆发！688256，飙涨", "content": "【导读】A股市场冲高回落，算力芯片、猪产业、化工板块表现活跃，寒武纪盘中大涨超11% 中国基金报记者李智 4月7日上午，A股市场冲高回落，创业板指翻绿，此前一度涨超1%。截至午间收盘，沪指涨0.03%，深成指跌0.2%，创业板指跌0.46%。此外，科创综指涨0.74%。", "source": "中国基金报", "time": "2026-04-07 12:52:00", "url": "http://finance.eastmoney.com/a/202604073696310290.html"}, {"title": "算力芯片板块早盘持续走强 品高股份实现三连板", "content": "其中，品高股份（688227.SH）股价再度涨停，达成20%幅度的三连板；仁东控股（002647.SZ）同步涨停，翱捷科技（688220.SH）、海光信息（688041.SH）、盛视科技（002990.SZ）、寒武纪（688256.SH）等多只个股亦随之上涨。（央广财经）", "source": "央广财经", "time": "2026-04-20 11:25:11", "url": "http://finance.eastmoney.com/a/202604203710384874.html"}, {"title": "688256，拟10派15元转增4.9股！002916，拟10派24元！", "content": "寒武纪（688256）3月12日晚间发布2025年度报告，报告期内，公司实现营业收入64.97亿元，同比增长453.21%；归属于上市公司股东的净利润20.59亿元，同比扭亏为盈。", "source": "证券时报", "time": "2026-03-12 22:01:27", "url": "http://finance.eastmoney.com/a/202603123670450329.html"}, {"title": "2571家公司公布年报 341家业绩增幅翻倍", "content": "0.3100 13673.10 628.42 236029.50 -2.43 300016 北陆药业 0.1800 9273.47 579.29 120527.58 22.54 002975 博杰股份 0.9600 14632.37 557.51 183588.28 48.92 688256", "source": "证券时报网", "time": "2026-04-22 10:56:00", "url": "http://finance.eastmoney.com/a/202604223713761736.html"}, {"title": "2376家公司公布年报 311家业绩增幅翻倍", "content": "0.0759 9131.86 660.50 664065.72 -1.63 000037 深南电A 0.2672 16103.82 635.04 40168.16 -9.32 002975 博杰股份 0.9600 14632.37 557.51 183588.28 48.92 688256", "source": "证券时报网", "time": "2026-04-21 10:18:00", "url": "http://finance.eastmoney.com/a/202604213711984522.html"}, {"title": "2148家公司公布年报 285家业绩增幅翻倍", "content": "0.0759 9131.86 660.50 664065.72 -1.63 000037 深南电A 0.2672 16103.82 635.04 40168.16 -9.32 002975 博杰股份 0.9600 14632.37 557.51 183588.28 48.92 688256", "source": "证券时报网", "time": "2026-04-20 10:25:00", "url": "http://finance.eastmoney.com/a/202604203710339919.html"}, {"title": "63.20亿元主力资金今日撤离电子板块", "content": "88208.39 002217 合力泰 1.02 18.94 -79634.21 600330 天通股份 -1.59 31.39 -76731.27 002371 北方华创 -4.43 2.21 -70374.72 601138 工业富联 -0.16 0.70 -68654.68 688256", "source": "证券时报网", "time": "2026-04-21 16:46:00", "url": "http://finance.eastmoney.com/a/202604213712343581.html"}, {"title": "国产操作系统概念下跌2.03%，7股主力资金净流出超亿元", "content": "（数据宝） 国产操作系统概念资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 000977 浪潮信息 -2.39 7.30 -95076.16 688256 寒武纪 -3.50 1.94 -67840.59 002261 拓维信息 -4.04 8.91", "source": "证券时报网", "time": "2026-04-21 16:22:00", "url": "http://finance.eastmoney.com/a/202604213712299927.html"}]}, "688981": {"name": "中芯国际", "news": [{"title": "4月20日科创板主力资金净流出30.07亿元", "content": "（数据宝） 主力资金净流入排名 代码 简称 主力资金净流入（万元） 主力资金流入率（%） 涨跌幅（%） 换手率（%） 688008 澜起科技 37345.76 5.59 2.57 3.77 688126 沪硅产业 34476.11 14.88 14.73 4.21 688981", "source": "证券时报网", "time": "2026-04-20 16:42:00", "url": "http://finance.eastmoney.com/a/202604203710648033.html"}, {"title": "电子行业今日净流出资金3.13亿元，东山精密等40股净流出资金超亿元", "content": "14.73 4.21 34476.11 300475 香农芯创 3.07 9.04 32223.84 002885 京泉华 9.98 15.05 30105.37 002241 歌尔股份 2.85 3.39 27317.28 002217 合力泰 10.07 3.41 27254.45 688981", "source": "证券时报网", "time": "2026-04-20 16:43:00", "url": "http://finance.eastmoney.com/a/202604203710653064.html"}, {"title": "【盘中播报】41只个股突破年线", "content": "1.39 1.19 17.94 18.18 1.32 002244 滨江集团 3.26 0.69 10.32 10.45 1.28 002439 启明星辰 3.31 4.61 15.14 15.31 1.15 600051 宁波联合 2.85 3.76 7.49 7.58 1.14 688981", "source": "证券时报网", "time": "2026-04-17 11:15:00", "url": "http://finance.eastmoney.com/a/202604173708660210.html"}, {"title": "4月17日科创板主力资金净流出40.54亿元", "content": "炬光科技 21581.07 6.76 -1.79 9.05 688630 芯碁微装 20690.44 11.02 1.74 5.95 688498 源杰科技 19675.27 3.96 10.05 4.15 688502 茂莱光学 17540.34 14.02 16.33 6.18 688981", "source": "证券时报网", "time": "2026-04-17 17:27:00", "url": "http://finance.eastmoney.com/a/202604173709018331.html"}, {"title": "杠杆资金大手笔净买入的科创板股曝光", "content": "16371.48 8.57 0.51 688498 源杰科技 164322.43 12572.04 8.28 0.81 688777 中控技术 212645.63 11055.08 5.48 -3.63 688227 品高股份 71802.50 10727.98 17.57 -9.33 688981", "source": "证券时报网", "time": "2026-04-22 09:24:00", "url": "http://finance.eastmoney.com/a/202604223713562352.html"}, {"title": "科创板平均股价48.23元，14股股价超300元", "content": "电子 688356 键凯科技 108.59 -0.71 1.62 医药生物 688717 艾罗能源 108.09 -0.52 3.17 电力设备 688160 步科股份 108.04 0.14 2.06 机械设备 688228 开普云 108.00 -1.61 2.19 计算机 688981", "source": "证券时报网", "time": "2026-04-21 16:22:00", "url": "http://finance.eastmoney.com/a/202604213712301021.html"}, {"title": "科创板百元股达99只，源杰科技股价最高", "content": "1.63 医药生物 688717 艾罗能源 108.65 2.89 6.42 电力设备 688183 生益电子 108.49 -1.71 2.40 电子 688028 沃尔德 108.18 2.64 5.58 机械设备 688652 京仪装备 108.00 0.09 3.10 电子 688981", "source": "证券时报网", "time": "2026-04-20 16:43:00", "url": "http://finance.eastmoney.com/a/202604203710653429.html"}, {"title": "台积电、中芯国际等多家半导体厂商回应海外氦气供应短缺影响", "content": "记者以投资者身份拨打中芯国际（688981.SH）证券事务部门电话，工作人员则表示，公司在氦气方面多渠道供应，目前供应正常。", "source": "第一财经", "time": "2026-04-17 19:45:22", "url": "http://finance.eastmoney.com/a/202604173709195516.html"}]}, "300308": {"name": "中际旭创", "news": [{"title": "AI算力需求爆发！300308，一季度净利大增262%！", "content": "4月16日晚，中际旭创300308披露一季报显示，2026年第一季度，公司实现营业收入194.96亿元，同比增长192.12%，实现净利润57.35亿元，同比增长262.28%，经营活动现金流净额同比增长55.58%，基本每股收益5.18元。", "source": "证券时报网", "time": "2026-04-16 22:13:00", "url": "http://finance.eastmoney.com/a/202604163707856889.html"}, {"title": "300502、300308，股价历史新高", "content": "A股中际旭创（300308）盘中涨超4%，续创历史新高，总市值超8000亿元。 早盘，CPO等算力硬件股再度拉升。沃格光电涨停，中富电路、泰晶科技等多股纷纷上扬。", "source": "上海证券报", "time": "2026-04-10 10:35:00", "url": "http://finance.eastmoney.com/a/202604103700818289.html"}, {"title": "全线大涨！300308，成交额A股第一", "content": "盘面上，CPO、PCB等算力硬件股集体大涨，中际旭创（300308）盘中创出历史新高。AI应用概念股同样表现强势，蓝色光标20cm涨停。黄金股跟随国际金价上涨，西部黄金涨停。另一方面，美伊停火后国际油价大幅跳水，油气股跟随下跌，中曼石油等跌停。", "source": "上海证券报", "time": "2026-04-08 12:28:00", "url": "http://finance.eastmoney.com/a/202604083697784722.html"}, {"title": "A股大反攻！超5000只个股上涨，创业板指半日大涨4.8%，300308成交额A股第一", "content": "盘面上，美伊暂时停火生效，市场风险偏好回升，CPO、PCB等算力硬件股集体大涨，中际旭创（300308）盘中创出历史新高，半日成交169亿元，位居A股第一；剑桥科技（603083）、广合科技（001389）等10余股涨停。", "source": "华夏时报", "time": "2026-04-08 13:02:00", "url": "http://finance.eastmoney.com/a/202604083697809354.html"}, {"title": "300308 成交额A股第一！", "content": "沪深北三市半日成交10790亿元，中际旭创（300308）成交额130.7亿元，位居A股第一。", "source": "上海证券报", "time": "2026-04-03 12:55:00", "url": "http://finance.eastmoney.com/a/202604033694724668.html"}, {"title": "300308 成交额A股第一", "content": "盘面上，光模块、CPO概念股集体上涨，源杰科技盘中“20cm”涨停，股价突破1000元；中际旭创（300308）、新易盛同步大涨，半日成交额包揽A股前二。光伏、电池设备股盘中走强，正泰电源、上能电气等股收获涨停。", "source": "上海证券报", "time": "2026-03-20 12:32:37", "url": "http://finance.eastmoney.com/a/202603203678610088.html"}, {"title": "中际旭创：公司产能具备一定的复用性", "content": "中际旭创（300308.SZ）4月19日在投资者互动平台表示，公司产能具备一定的复用性。", "source": "每日经济新闻", "time": "2026-04-20 15:35:29", "url": "http://finance.eastmoney.com/a/202604203710565117.html"}, {"title": "中际旭创：公司核心原材料供应稳定", "content": "中际旭创（300308.SZ）4月19日在投资者互动平台表示，公司核心原材料供应稳定。", "source": "每日经济新闻", "time": "2026-04-20 15:35:07", "url": "http://finance.eastmoney.com/a/202604203710565490.html"}]}, "300502": {"name": "新易盛", "news": [{"title": "300502、300308，股价历史新高", "content": "早盘，CPO概念龙头新易盛（300502）盘中涨逾3%，续创历史新高，总市值超5000亿元。 A股中际旭创（300308）盘中涨超4%，续创历史新高，总市值超8000亿元。 早盘，CPO等算力硬件股再度拉升。沃格光电涨停，中富电路、泰晶科技等多股纷纷上扬。", "source": "上海证券报", "time": "2026-04-10 10:35:00", "url": "http://finance.eastmoney.com/a/202604103700818289.html"}, {"title": "4月17日A股534只个股融资买入超亿元 中际旭创以60.98亿元居首", "content": "具体来看，中际旭创（300308.SZ）、胜宏科技（300476.SZ）、新易盛（300502.SZ）的融资买入额位居前三，分别达到60.98亿元、38.17亿元和35.33亿元。", "source": "央广财经", "time": "2026-04-20 09:28:45", "url": "http://finance.eastmoney.com/a/202604203710132667.html"}, {"title": "7只个股大宗交易超5000万元", "content": "（数据宝） 4月21日大宗交易成交额居前股票 证券代码 证券简称 涨幅（%） 收盘价（元） 成交量（万股） 成交额（万元） 笔数 成交价（元） 折溢价（%） 002475 立讯精密 0.03 65.75 246.46 16204.75 1 65.75 0.00 300502 新易盛", "source": "证券时报网", "time": "2026-04-21 22:00:00", "url": "http://finance.eastmoney.com/a/202604213712830883.html"}, {"title": "36股受融资客青睐，净买入超亿元", "content": "1.00 电子 300308 中际旭创 1.75 28441.50 2550006.33 2.67 通信 688525 佰维存储 2.70 27802.22 837927.80 6.45 电子 600330 天通股份 -1.59 26244.60 172161.93 5.93 电子 300502", "source": "证券时报网", "time": "2026-04-22 09:23:00", "url": "http://finance.eastmoney.com/a/202604223713547653.html"}, {"title": "通信行业今日净流出资金68.04亿元，润泽科技等18股净流出资金超亿元", "content": "主力资金流量（万元） 300442 润泽科技 -5.41 3.57 -98753.00 300308 中际旭创 1.75 2.27 -86464.30 300394 天孚通信 -5.74 7.11 -83703.54 600522 中天科技 4.81 11.59 -82926.60 300502", "source": "证券时报网", "time": "2026-04-21 16:47:00", "url": "http://finance.eastmoney.com/a/202604213712342819.html"}, {"title": "一季度建仓茅台、牧原 万家基金莫海波：看好光模块、部分消费、游戏行业", "content": "2026年一季报显示，万家品质生活的前十大重仓股分别为新易盛（300502）、中际旭创（300308）、兆易创新（603986）、贵州茅台（600519）、世纪华通（002602）、牧原股份（002714）、中国中免（601888）、海光信息（688041）、巨人网络（002558", "source": "澎湃新闻", "time": "2026-04-21 20:58:00", "url": "http://finance.eastmoney.com/a/202604213712926220.html"}, {"title": "创业板公司融资余额七连增 其间累计增加292.11亿元", "content": "300058 蓝色光标 44.28 5.56 300901 中胤时尚 1.35 -1.19 300548 长芯博创 28.13 5.49 300364 中文在线 12.92 -1.09 300757 罗博特科 36.06 5.31 300207 欣旺达 23.57 -0.99 300502", "source": "证券时报网", "time": "2026-04-22 09:23:00", "url": "http://finance.eastmoney.com/a/202604223713532188.html"}, {"title": "通信行业今日净流出资金44.27亿元，中际旭创等18股净流出资金超亿元", "content": "通信行业资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 300308 中际旭创 -0.12 2.47 -221469.40 603083 剑桥科技 4.82 22.85 -93578.83 002281 光迅科技 2.76 9.81 -82820.10 300502", "source": "证券时报网", "time": "2026-04-20 16:43:00", "url": "http://finance.eastmoney.com/a/202604203710654614.html"}]}, "300394": {"name": "天孚通信", "news": [{"title": "天孚通信300394.SZ)：2026年一季报净利润为4.92亿元、同比较去年同期上涨45.79%", "content": "2026年4月21日，天孚通信300394.SZ)发布2026年一季报。 公司营业总收入为13.30亿元，较去年同报告期营业总收入增加3.86亿元，实现5年连续上涨，同比较去年同期上涨40.82%。", "source": "界面新闻", "time": "2026-04-21 08:56:44", "url": "http://finance.eastmoney.com/a/202604213711672186.html"}, {"title": "强势6连板！002580 7分钟直线涨停！300394 主力资金逾32亿净流入！", "content": "Wind实时监测数据显示，截至午间收盘，AI算力板块获得逾151亿元主力资金净流入，其中天孚通信300394获得逾32亿元净流入，新易盛获得逾30亿元净流入，润泽科技、中际旭创也均获得超10亿元净流入。 随着多模态等新型AI应用的落地与演进，Token调用量急剧增长。", "source": "证券时报网", "time": "2026-04-16 12:42:00", "url": "http://finance.eastmoney.com/a/202604163707192859.html"}, {"title": "天孚通信：全资子公司拟出资70万新币设立合资公司", "content": "天孚通信300394.SZ)公告称，公司全资子公司TFCTECHNOLOGY(SG)PTE.LTD.", "source": "财联社", "time": "2026-04-21 20:33:32", "url": "http://finance.eastmoney.com/a/202604213712712262.html"}, {"title": "天孚通信一季度归母净利润同比提升45.79%", "content": "4月20日，天孚通信300394.SZ)发布公告显示，公司2026年第一季度营业收入达13.30亿元，较上年同期增长40.82%；归属于上市公司股东的净利润为4.92亿元，同比增幅45.79%。", "source": "央广财经", "time": "2026-04-20 22:21:49", "url": "http://finance.eastmoney.com/a/202604203711122438.html"}, {"title": "天孚通信：第一季度净利润同比增长45.79%", "content": "每经AI快讯，4月20日，天孚通信300394.SZ)公告称，2026年第一季度实现营业收入13.30亿元，同比增长40.82%；归属于上市公司股东的净利润为4.92亿元，同比增长45.79%。", "source": "每日经济新闻", "time": "2026-04-20 18:47:11", "url": "http://finance.eastmoney.com/a/202604203710835566.html"}, {"title": "天孚通信：一季度净利润4.92亿元 同比增长45.79%", "content": "人民财讯4月20日电，天孚通信3003944月20日披露一季报，公司2026年一季度实现营业收入13.3亿元，同比增长40.82%；归母净利润4.92亿元，同比增长45.79%。报告期内，受益于人工智能行业加速发展与全球数据中心建设，带动了高速光器件产品需求的持续稳定增长。", "source": "证券时报网", "time": "2026-04-20 18:45:00", "url": "http://finance.eastmoney.com/a/202604203710842273.html"}, {"title": "天孚通信：第一季度净利润同比增长45.79%", "content": "天孚通信300394.SZ)公告称，2026年第一季度实现营业收入13.30亿元，同比增长40.82%；归属于上市公司股东的净利润为4.92亿元，同比增长45.79%。业绩变动主要系受益于人工智能行业加速发展与全球数据中心建设，带动了高速光器件产品需求的持续稳定增长。", "source": "财联社", "time": "2026-04-20 18:40:27", "url": "http://finance.eastmoney.com/a/202604203710818596.html"}, {"title": "天孚通信一季度净利4.92亿元，同比增长45.79%", "content": "北京商报讯（记者马换换李佳雪）4月20日晚间，天孚通信（300394）发布2026年一季报显示，公司一季度实现归属净利润约为4.92亿元，同比增长45.79%。", "source": "北京商报", "time": "2026-04-20 19:58:33", "url": "http://finance.eastmoney.com/a/202604203710920752.html"}]}, "00700": {"name": "腾讯控股", "news": [{"title": "腾讯控股00700.HK)连续7日回购，累计斥资27.99亿港元", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，4月8日以每股501.000港元至510.000港元的价格回购197.90万股，回购金额达10.01亿港元。该股当日收盘价508.000港元，上涨3.84%，全天成交额166.14亿港元。 自3月26日以来公司已连续7日进行回购，", "source": "证券时报网", "time": "2026-04-08 23:02:00", "url": "http://finance.eastmoney.com/a/202604083698493634.html"}, {"title": "腾讯控股00700.HK)4月9日回购10.01亿港元，年内累计回购101.57亿港元", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，4月9日以每股503.000港元至514.500港元的价格回购196.40万股，回购金额达10.01亿港元。该股当日收盘价508.500港元，上涨0.10%，全天成交额105.54亿港元。 自3月26日以来公司已连续8日进行回购，", "source": "证券时报网", "time": "2026-04-09 21:15:00", "url": "http://finance.eastmoney.com/a/202604093699905173.html"}, {"title": "腾讯控股00700.HK)4月1日回购3.00亿港元，已连续5日回购", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，4月1日以每股493.200港元至504.000港元的价格回购60.30万股，回购金额达3.00亿港元。该股当日收盘价496.600港元，上涨2.60%，全天成交额105.96亿港元。 自3月26日以来公司已连续5日进行回购，合计回购", "source": "证券时报网", "time": "2026-04-01 22:15:00", "url": "http://finance.eastmoney.com/a/202604013692312623.html"}, {"title": "腾讯控股00700.HK)连续4日回购，累计回购244.50万股", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，3月31日以每股480.200港元至490.400港元的价格回购62.10万股，回购金额达3.01亿港元。该股当日收盘价484.000港元，上涨0.50%，全天成交额125.08亿港元。 自3月26日以来公司已连续4日进行回购，合计回购", "source": "证券时报网", "time": "2026-03-31 22:47:00", "url": "http://finance.eastmoney.com/a/202603313690840486.html"}, {"title": "腾讯控股00700.HK)连续3日回购，累计回购182.40万股", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，3月30日以每股476.400港元至485.000港元的价格回购62.40万股，回购金额达3.01亿港元。该股当日收盘价481.600港元，下跌2.39%，全天成交额136.70亿港元。 自3月26日以来公司已连续3日进行回购，合计回购", "source": "证券时报", "time": "2026-03-31 08:35:00", "url": "http://finance.eastmoney.com/a/202603313689625844.html"}, {"title": "腾讯控股00700.HK)3月27日回购61.00万股，耗资3.01亿港元", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，3月27日以每股488.000港元至498.000港元的价格回购61.00万股，回购金额达3.01亿港元。该股当日收盘价493.400港元，下跌0.44%，全天成交额100.20亿港元。 自3月26日以来公司已连续2日进行回购，合计回购", "source": "证券时报网", "time": "2026-03-27 21:09:00", "url": "http://finance.eastmoney.com/a/202603273687403325.html"}, {"title": "腾讯控股00700.HK)3月26日回购2.95亿港元，年内累计回购66.53亿港元", "content": "证券时报·数据宝统计，腾讯控股在港交所公告显示，3月26日以每股495.200港元至506.000港元的价格回购59.00万股，回购金额达2.95亿港元。该股当日收盘价495.600港元，下跌1.96%，全天成交额113.07亿港元。 今年以来该股累计进行11次回购，合计回购1079.50", "source": "证券时报网", "time": "2026-03-26 20:49:00", "url": "http://finance.eastmoney.com/a/202603263685878753.html"}, {"title": "港股云计算概念股普涨，五一视界涨15.42%", "content": "15.42%，报71.85港元；智谱(02015.HK)涨6.85%，报952港元；万国数据-SW(09698.HK)涨3.38%，报44.1港元；伟仕佳杰(00856.HK)涨2.69%，报9.55港元；MINIMAX-W(00100.HK)涨2.44%，报880港元；腾讯控股00700", "source": "每日经济新闻", "time": "2026-04-20 14:07:03", "url": "http://finance.eastmoney.com/a/202604203710499220.html"}]}, "09988": {"name": "阿里巴巴", "news": [{"title": "港股通净买入37.38亿港元", "content": "9311.42 0.50 00939 建设银行 港股通(沪) 113554.31 78942.52 0.90 02940 经纬天地 港股通(沪) 108037.43 16785.06 -27.25 01398 工商银行 港股通(沪) 104584.39 79883.75 0.97 09988", "source": "证券时报网", "time": "2026-04-21 21:58:00", "url": "http://finance.eastmoney.com/a/202604213712834356.html"}, {"title": "港股通（沪）净买入9.11亿港元", "content": "7264.84 2.43 00981 中芯国际 港股通(沪) 177628.10 2732.40 0.76 00883 中国海洋石油 港股通(深) 158307.00 -79046.89 -2.45 09992 泡泡玛特 港股通(沪) 155920.39 31404.86 1.13 09988", "source": "证券时报网", "time": "2026-04-20 20:31:00", "url": "http://finance.eastmoney.com/a/202604203710981198.html"}, {"title": "南向资金追踪｜净买入超37亿港元 加仓中移动及工行流出阿里巴巴", "content": "大幅净流出：阿里巴巴-W09988.HK)6.06亿港元；长飞光纤光缆(06869.HK)1.96亿港元；康方生物(09926.HK)1.80亿港元。 投资要点 中国移动今日涨2.32%，资金前5日加仓1125万股，短线持续加速流入。", "source": "财联社", "time": "2026-04-21 18:30:52", "url": "http://finance.eastmoney.com/a/202604213712478629.html"}, {"title": "港股通连续净买入股名单", "content": "证券简称 04.20净买入（亿港元） 连续净买入天数 当日收盘价（港元） 涨跌幅（%） 00883 中国海洋石油 3.55 7 26.320 -2.45 09992 泡泡玛特 4.09 5 160.900 1.13 06869 长飞光纤光缆 2.02 3 211.000 2.43 09988", "source": "证券时报网", "time": "2026-04-20 20:32:00", "url": "http://finance.eastmoney.com/a/202604203710984942.html"}, {"title": "2只股近一个月首次上榜港股通成交活跃榜", "content": "近一个月上榜次数 最新收盘价（港元） 日涨跌幅（%） 00700 腾讯控股 58.55 -0.51 18 522.500 2.35 00883 中国海洋石油 51.56 3.55 18 26.320 -2.45 06869 长飞光纤光缆 48.49 2.02 18 211.000 2.43 09988", "source": "证券时报网", "time": "2026-04-20 20:32:00", "url": "http://finance.eastmoney.com/a/202604203710986810.html"}, {"title": "港股科网股持续走高", "content": "成分股方面，截至发稿，百度集团-SW(09888.HK)涨7.6%，报123.6港元；阿里巴巴-W09988.HK)涨5.13%，报135.2港元；网易-S(09999.HK)涨4.73%，报186.1港元；腾讯控股(00700.HK)涨2.71%，报512.5港元。", "source": "每日经济新闻", "time": "2026-04-16 14:31:50", "url": "http://finance.eastmoney.com/a/202604163707296642.html"}, {"title": "阿里巴巴股价大涨5.6% 多款重磅大模型亮相", "content": "4月16日港股收盘，阿里巴巴（09988.HK）大涨5.6%，报收135.8港元/股，单日市值增加超1300亿港元。消息面上，阿里巴巴当天有多款重磅大模型亮相。", "source": "科创板日报", "time": "2026-04-16 18:09:52", "url": "http://finance.eastmoney.com/a/202604163707554033.html"}, {"title": "阿里巴巴股价大涨5.6% 多款重磅大模型亮相", "content": "本报讯 4月16日港股收盘，阿里巴巴（09988.HK）股价大涨5.6%，报收135.8港元/股，单日市值增加超1300亿港元。 消息面上，阿里巴巴当天有多款重磅大模型亮相。", "source": "证券日报", "time": "2026-04-16 20:20:00", "url": "http://finance.eastmoney.com/a/202604163707730739.html"}]}, "00981": {"name": "中芯国际H", "news": [{"title": "港股通净买入37.38亿港元", "content": "16785.06 -27.25 01398 工商银行 港股通(沪) 104584.39 79883.75 0.97 09988 阿里巴巴-W 港股通(深) 96879.00 -28437.10 -0.51 00941 中国移动 港股通(深) 68954.00 4348.16 2.32 00981", "source": "证券时报网", "time": "2026-04-21 21:58:00", "url": "http://finance.eastmoney.com/a/202604213712834356.html"}, {"title": "4只个股获南向资金连续净买入", "content": "南向资金今日净买入个股 证券代码 证券简称 04.21净买入（亿港元） 连续净买入天数 当日收盘价（港元） 涨跌幅（%） 00883 中国海洋石油 1.60 8 26.600 1.06 09992 泡泡玛特 1.85 6 164.400 2.18 00981 中芯国际 0.16 3", "source": "证券时报网", "time": "2026-04-21 22:02:00", "url": "http://finance.eastmoney.com/a/202604213712837741.html"}, {"title": "港股通（沪）净买入9.11亿港元", "content": "45313.73 2.35 09988 阿里巴巴-W 港股通(沪) 236517.84 -8160.42 0.44 02800 盈富基金 港股通(深) 207347.00 -207258.98 0.83 06869 长飞光纤光缆 港股通(深) 195153.00 -7264.84 2.43 00981", "source": "证券时报网", "time": "2026-04-20 20:31:00", "url": "http://finance.eastmoney.com/a/202604203710981198.html"}, {"title": "港股通连续净买入股名单", "content": "港元） 涨跌幅（%） 00883 中国海洋石油 3.55 7 26.320 -2.45 09992 泡泡玛特 4.09 5 160.900 1.13 06869 长飞光纤光缆 2.02 3 211.000 2.43 09988 阿里巴巴-W 0.17 3 137.000 0.44 00981", "source": "证券时报网", "time": "2026-04-20 20:32:00", "url": "http://finance.eastmoney.com/a/202604203710984942.html"}, {"title": "2只股近一个月首次上榜港股通成交活跃榜", "content": "3.55 18 26.320 -2.45 06869 长飞光纤光缆 48.49 2.02 18 211.000 2.43 09988 阿里巴巴-W 38.38 0.17 18 137.000 0.44 09992 泡泡玛特 22.19 4.09 17 160.900 1.13 00981", "source": "证券时报网", "time": "2026-04-20 20:32:00", "url": "http://finance.eastmoney.com/a/202604203710986810.html"}, {"title": "南向资金今日成交活跃股名单（4月21日）", "content": "06166 剑桥科技 204088.09 26854.72 10.55 09992 泡泡玛特 56354.75 18509.42 2.18 02940 经纬天地 108037.43 16785.06 -27.25 00883 中国海洋石油 273772.93 15966.21 1.06 00981", "source": "证券时报网", "time": "2026-04-21 22:01:00", "url": "http://finance.eastmoney.com/a/202604213712838322.html"}, {"title": "一季度增持多只科技股，银华基金李晓星：港股互联网大厂业绩和估值有望迎来双击", "content": "李晓星的另一只代表作基金——银华心怡前十大重仓股分别为：宁德时代（300750）、腾讯控股（00700.HK）、阿里巴巴-W（09988.HK）、海光信息、中芯国际（00981.HK）、金山云（03896.HK）、恒瑞医药（600276）、华虹半导体（01347.HK）、工业富联（", "source": "澎湃新闻", "time": "2026-04-21 20:36:00", "url": "http://finance.eastmoney.com/a/202604213712713420.html"}, {"title": "港股通（深）净买入45.98亿港元", "content": "76437.76 1.05 06869 长飞光纤光缆 港股通(深) 147406.00 51606.23 -5.50 00700 腾讯控股 港股通(沪) 146101.92 40913.61 -1.26 01810 小米集团-W 港股通(沪) 138182.93 26209.33 -0.19 00981", "source": "证券时报网", "time": "2026-04-17 23:26:00", "url": "http://finance.eastmoney.com/a/202604173709428649.html"}]}}, "industry_news": [{"keyword": "英伟达", "title": "谷歌挑战英伟达", "content": "业内人士认为，谷歌加速推进这一合作，部分原因在于英伟达的竞争压力。目前，英伟达的GPU仍主导AI芯片市场，而谷歌则一直致力于将其TPU定位为英伟达GPU的替代方案。", "source": "北京商报", "time": "2026-04-20 23:46:56", "url": "http://finance.eastmoney.com/a/202604203711187684.html"}, {"keyword": "英伟达", "title": "LG人工智能研究院与英伟达同意加强AI合作", "content": "LG当地时间4月21日宣布，LG人工智能研究院和英伟达已同意加强技术联盟，以扩展Exaone人工智能生态系统。双方将结合LG的Exaone模型和英伟达的Nemotron生态系统，共同开发人工智能模型。", "source": "界面新闻", "time": "2026-04-22 09:23:46", "url": "http://finance.eastmoney.com/a/202604223713562190.html"}, {"keyword": "英伟达", "title": "七彩化学：公司目前与英伟达没有合作", "content": "每经AI快讯，有投资者在投资者互动平台提问：公司与英伟达有无合作？ 七彩化学（300758.SZ）4月20日在投资者互动平台表示，公司目前与英伟达没有合作。", "source": "每日经济新闻", "time": "2026-04-20 22:40:28", "url": "http://finance.eastmoney.com/a/202604203711136468.html"}, {"keyword": "NVIDIA", "title": "C大普微：已实现对海外客户Google等客户的产品销售 已通过Nvidia、xAI两家全球AI头部公司测试导入", "content": "C大普微在互动平台表示，截止报告期，公司已实现对海外客户Google等客户的产品销售，2025年已通过Nvidia、xAI两家全球AI头部公司测试导入，后续有望逐步放量。", "source": "科创板日报", "time": "2026-04-21 21:19:24", "url": "http://finance.eastmoney.com/a/202604213712774930.html"}, {"keyword": "NVIDIA", "title": "C大普微：已实现对海外客户Google等客户的产品销售 已通过Nvidia、xAI两家全球AI头部公司测试导入", "content": "4月21日，C大普微在互动平台表示，截至报告期，公司已实现对海外客户Google等客户的产品销售，2025年已通过Nvidia、xAI两家全球AI头部公司测试导入，后续有望逐步放量。", "source": "每日经济新闻", "time": "2026-04-21 21:17:49", "url": "http://finance.eastmoney.com/a/202604213712772345.html"}, {"keyword": "NVIDIA", "title": "诺基亚与Orange携手NVIDIA 共同推进人工智能创新", "content": "诺基亚与Orange携手NVIDIA，共同推进人工智能创新。", "source": "财联社", "time": "2026-04-15 17:08:15", "url": "http://finance.eastmoney.com/a/202604153705997371.html"}, {"keyword": "AI算力", "title": "华西证券：持续推荐商业航天、AI算力两大主线", "content": "一方面，当前供需失衡局面体现上游芯片和算力租赁行业相关需求景气度向好，相关议价能力提升推动价格上涨，利好国产AI芯片和算力租赁相关厂商；另一方面，AI服务成本上升将传导至下游应用开发，可能加速下游行业整合，加速对于算力使用效率的提升。", "source": "第一财经", "time": "2026-04-22 07:59:59", "url": "http://finance.eastmoney.com/a/202604223713239790.html"}, {"keyword": "AI算力", "title": "从算力国产替代到AI应用爆发，中国AI后续主线往哪走？", "content": "在会议主旨演讲中，申万宏源研究所计算机行业首席分析师黄忠煌分析了2026年中国AI发展在算力层面、模型层面和AI应用层面的趋势。 黄忠煌指出，在算力层面，互联网大厂为降本增效，正加速自研ASIC，国产替代与超节点技术正在重塑基础设施。 在模型层面，中美模型能力差距缩小。", "source": "21世纪经济报道", "time": "2026-04-21 14:21:16", "url": "http://finance.eastmoney.com/a/202604213712166630.html"}, {"keyword": "AI算力", "title": "多家AI算力产业链上市公司一季度业绩高增", "content": "近期，多家AI算力产业链上市公司披露一季报。整体来看，AI算力需求的爆发，正成为推动相关上市公司业绩增长的核心引擎，侧面印证了算力赛道的高景气度仍在延续。", "source": "证券日报", "time": "2026-04-22 01:40:39", "url": "http://finance.eastmoney.com/a/202604213712948255.html"}, {"keyword": "光模块", "title": "华泰证券：关注光模块上游核心材料发展机遇", "content": "华泰证券研报认为，随着近年800G、1.6T光模块需求量的快速提升，以及未来3.2T时代的渐行渐近，看好光模块上游核心材料的发展机遇。", "source": "中国证券报·中证金牛座", "time": "2026-04-22 08:50:37", "url": "http://finance.eastmoney.com/a/202604223713757070.html"}, {"keyword": "光模块", "title": "加仓光模块龙头，外资调仓路线曝光", "content": "外资在一季度大举加仓的这两家公司，作为AI算力链中光模块环节的核心标的，2025年以来业绩持续大增，盈利预测不断上修。", "source": "中国证券报", "time": "2026-04-21 23:04:00", "url": "http://finance.eastmoney.com/a/202604213712893650.html"}, {"keyword": "光模块", "title": "华泰证券：关注光模块上游核心材料发展机遇", "content": "华泰证券研报认为，随着近年800G、1.6T光模块需求量的快速提升，以及未来3.2T时代的渐行渐近，看好光模块上游核心材料的发展机遇。", "source": "财联社", "time": "2026-04-22 07:44:55", "url": "http://finance.eastmoney.com/a/202604223713241319.html"}, {"keyword": "AI服务器", "title": "慧谷新材：公司的换热器涂层产品暂未应用于AI液冷服务器", "content": "每经AI快讯，有投资者在投资者互动平台提问：请问公司的换热器涂层产品，能否应用于AI液冷服务器？ 慧谷新材（301683.SZ）4月21日在投资者互动平台表示，我司的换热器涂层产品暂未应用于AI液冷服务器。", "source": "每日经济新闻", "time": "2026-04-21 21:24:08", "url": "http://finance.eastmoney.com/a/202604213712780098.html"}, {"keyword": "AI服务器", "title": "国瓷材料：2026年AI服务器及车规用MLCC介质粉体销售有望快速增长", "content": "公司积极推进AI服务器及车规用MLCC介质粉体扩产，目前部分扩产已完成，2026年AI服务器及车规用MLCC介质粉体的销售有望快速增长。", "source": "南方财经网", "time": "2026-04-21 09:03:00", "url": "http://finance.eastmoney.com/a/202604213711720150.html"}, {"keyword": "AI服务器", "title": "国瓷材料：2026年AI服务器及车规用MLCC介质粉体销售有望快速增长", "content": "公司积极推进AI服务器及车规用MLCC介质粉体扩产，目前部分扩产已完成，2026年AI服务器及车规用MLCC介质粉体的销售有望快速增长。", "source": "人民财讯", "time": "2026-04-21 09:02:49", "url": "http://finance.eastmoney.com/a/202604213711626668.html"}], "financials": {"601138": {"name": "工业富联", "data": {"报告期": "2025-12-31", "净利润": "352.86亿", "净利润同比增长率": "51.99%", "扣非净利润": "341.88亿", "扣非净利润同比增长率": "46.02%", "营业总收入": "9028.87亿", "营业总收入同比增长率": "48.22%", "基本每股收益": "1.7800", "每股净资产": "8.40", "每股资本公积金": "1.47", "每股未分配利润": "5.60", "每股经营现金流": "0.26", "销售净利率": "3.91%", "销售毛利率": "6.98%", "净资产收益率": "21.65%", "净资产收益率-摊薄": "21.16%", "营业周期": "91.53", "存货周转率": "7.11", "存货周转天数": "50.62", "应收账款周转天数": "40.92", "流动比率": "1.44", "速动比率": "0.88", "保守速动比率": "0.79", "产权比率": "1.73", "资产负债率": "63.37%"}}, "000977": {"name": "浪潮信息", "data": {"报告期": "2025-12-31", "净利润": "24.13亿", "净利润同比增长率": "5.20%", "扣非净利润": "20.81亿", "扣非净利润同比增长率": "11.03%", "营业总收入": "1647.82亿", "营业总收入同比增长率": "43.25%", "基本每股收益": "1.6390", "每股净资产": "14.82", "每股资本公积金": "4.53", "每股未分配利润": "8.76", "每股经营现金流": "3.71", "销售净利率": "1.46%", "销售毛利率": "4.88%", "净资产收益率": "11.55%", "净资产收益率-摊薄": "11.09%", "营业周期": "127.03", "存货周转率": "3.60", "存货周转天数": "100.08", "应收账款周转天数": "26.95", "流动比率": "1.44", "速动比率": "0.43", "保守速动比率": "0.43", "产权比率": "2.84", "资产负债率": "73.64%"}}, "603019": {"name": "中科曙光", "data": {"报告期": "2025-12-31", "净利润": "21.76亿", "净利润同比增长率": "13.87%", "扣非净利润": "18.38亿", "扣非净利润同比增长率": "33.97%", "营业总收入": "149.64亿", "营业总收入同比增长率": "13.81%", "基本每股收益": "1.4900", "每股净资产": "15.20", "每股资本公积金": "7.73", "每股未分配利润": "5.98", "每股经营现金流": "0.90", "销售净利率": "14.42%", "销售毛利率": "30.58%", "净资产收益率": "10.25%", "净资产收益率-摊薄": "9.79%", "营业周期": "188.52", "存货周转率": "2.81", "存货周转天数": "128.09", "应收账款周转天数": "60.43", "流动比率": "1.83", "速动比率": "1.11", "保守速动比率": "1.11", "产权比率": "0.80", "资产负债率": "43.67%"}}, "688256": {"name": "寒武纪", "data": {"报告期": "2025-12-31", "净利润": "20.59亿", "净利润同比增长率": "555.24%", "扣非净利润": "17.70亿", "扣非净利润同比增长率": "304.63%", "营业总收入": "64.97亿", "营业总收入同比增长率": "453.21%", "基本每股收益": "4.9300", "每股净资产": "28.07", "每股资本公积金": "26.73", "每股未分配利润": "-0.03", "每股经营现金流": "-1.18", "销售净利率": "31.68%", "销售毛利率": "55.15%", "净资产收益率": "26.96%", "净资产收益率-摊薄": "17.40%", "营业周期": "442.00", "存货周转率": "0.87", "存货周转天数": "414.99", "应收账款周转天数": "27.02", "流动比率": "9.06", "速动比率": "4.70", "保守速动比率": "4.70", "产权比率": "0.13", "资产负债率": "11.87%"}}, "688981": {"name": "中芯国际", "data": {"报告期": "2025-12-31", "净利润": "50.41亿", "净利润同比增长率": "36.29%", "扣非净利润": "41.24亿", "扣非净利润同比增长率": "55.90%", "营业总收入": "673.23亿", "营业总收入同比增长率": "16.49%", "基本每股收益": "0.6300", "每股净资产": "18.85", "每股资本公积金": "12.83", "每股未分配利润": "5.56", "每股经营现金流": "2.51", "销售净利率": "10.71%", "销售毛利率": "21.62%", "净资产收益率": "3.40%", "净资产收益率-摊薄": "3.34%", "营业周期": "183.96", "存货周转率": "2.25", "存货周转天数": "159.66", "应收账款周转天数": "24.30", "流动比率": "2.36", "速动比率": "1.11", "保守速动比率": "1.09", "产权比率": "0.80", "资产负债率": "33.00%"}}, "300308": {"name": "中际旭创", "data": {"报告期": "2026-03-31", "净利润": "57.35亿", "净利润同比增长率": "262.28%", "扣非净利润": "57.18亿", "扣非净利润同比增长率": "264.56%", "营业总收入": "194.96亿", "营业总收入同比增长率": "192.12%", "基本每股收益": "5.1800", "每股净资产": "32.03", "每股资本公积金": "7.55", "每股未分配利润": "23.38", "每股经营现金流": "3.03", "销售净利率": "32.40%", "销售毛利率": "46.06%", "净资产收益率": "17.54%", "净资产收益率-摊薄": "16.11%", "营业周期": "157.82", "存货周转率": "0.74", "存货周转天数": "121.33", "应收账款周转天数": "36.50", "流动比率": "2.46", "速动比率": "1.36", "保守速动比率": "1.35", "产权比率": "0.52", "资产负债率": "32.64%"}}, "300502": {"name": "新易盛", "data": {"报告期": "2025-09-30", "净利润": "63.27亿", "净利润同比增长率": "284.37%", "扣非净利润": "63.01亿", "扣非净利润同比增长率": "283.27%", "营业总收入": "165.05亿", "营业总收入同比增长率": "221.70%", "基本每股收益": "6.3700", "每股净资产": "14.61", "每股资本公积金": "1.43", "每股未分配利润": "11.48", "每股经营现金流": "4.67", "销售净利率": "38.33%", "销售毛利率": "47.25%", "净资产收益率": "55.20%", "净资产收益率-摊薄": "43.56%", "营业周期": "219.87", "存货周转率": "1.62", "存货周转天数": "166.44", "应收账款周转天数": "53.43", "流动比率": "2.46", "速动比率": "1.41", "保守速动比率": "1.41", "产权比率": "0.47", "资产负债率": "31.99%"}}, "300394": {"name": "天孚通信", "data": {"报告期": "2026-03-31", "净利润": "4.92亿", "净利润同比增长率": "45.79%", "扣非净利润": "4.93亿", "扣非净利润同比增长率": "48.44%", "营业总收入": "13.30亿", "营业总收入同比增长率": "40.82%", "基本每股收益": "0.6331", "每股净资产": "7.69", "每股资本公积金": "1.23", "每股未分配利润": "4.84", "每股经营现金流": "0.23", "销售净利率": "37.01%", "销售毛利率": "56.60%", "净资产收益率": "8.57%", "净资产收益率-摊薄": "8.23%", "营业周期": "157.57", "存货周转率": "1.16", "存货周转天数": "77.62", "应收账款周转天数": "79.95", "流动比率": "5.45", "速动比率": "4.77", "保守速动比率": "4.63", "产权比率": "0.17", "资产负债率": "14.25%"}}}};
+const analysisData = {"report_date": "2026-04-22", "market_summary": "今日英伟达产业链整体呈现分化震荡格局。上游设备与代工环节出现微幅调整（ASML -1.19%, 中芯国际 -2.16%），而中游GPU龙头英伟达小幅回调（NVDA -1.08%）。与之形成鲜明对比的是下游AI服务器与光模块环节表现强劲，Dell (+4.30%)、浪潮信息 (+5.06%)、天孚通信 (+4.90%) 领涨，显示出AI基础设施需求端（数据中心Capex）依然保持高景气度，市场资金有向确定性较高、业绩兑现更快的服务器和光器件环节流入的趋势。", "analyses": [{"name": "英伟达", "code": "US.NVDA", "signal": "buy", "price_info": "$199.88 (-1.08%)", "reason": "短期股价横盘震荡，但作为AI算力绝对龙头，基本面依然强劲。下游服务器与光模块的上涨印证了数据中心需求的旺盛，Hopper至Blackwell的架构转换红利期仍在继续。PEG处于合理区间，逢低吸纳为主。", "key_factors": "1) 垄断近90%的AI训练/推理GPU市场份额 2) 下游云厂Capex持续超预期 3) 软硬一体的CUDA生态护城河极深", "sources": [{"title": "下游AI服务器ODM和光通信环节领涨印证算力需求强劲", "url": "#"}]}, {"name": "台积电", "code": "US.TSM", "signal": "buy", "price_info": "$368.08 (+0.50%)", "reason": "英伟达GPU的独家代工厂商，握有CoWoS先进封装核心产能。AI芯片的火热直接转化为对其先进制程订单的争夺，护城河极深，业绩增长确定性高。", "key_factors": "1) CoWoS产能决定全球AI算力出货上限 2) 3nm先进制程良率与产能全球第一", "sources": [{"title": "台积电掌握先进制程定价权，业绩增长确定性强", "url": "#"}]}, {"name": "工业富联", "code": "SH.601138", "signal": "hold", "price_info": "¥63.80 (+3.89%)", "reason": "作为英伟达核心的AI服务器ODM伙伴，近期资金大幅流入，股价创下新高。公司披露的年报数据亮眼，拟大额分红，但短期涨幅较大，建议持有观望，不建议追高。", "key_factors": "1) 年报业绩大增超51% 2) 拟分红超194亿元 3) 主力资金超20亿元净流入", "sources": [{"title": "002229，垂直涨停！利好，大爆发！601138，巨资抢筹", "url": "http://finance.eastmoney.com/a/202604143704205989.html"}, {"title": "3月10日晚间重要公告 | 601138 拟分红超194亿元", "url": "http://finance.eastmoney.com/a/202603103667847591.html"}]}, {"name": "天孚通信", "code": "SZ.300394", "signal": "buy", "price_info": "¥370.29 (+4.90%)", "reason": "作为光模块核心的光器件供应商，受益于1.6T光模块的快速放量。今日领涨光通信板块，展现出市场对中国高速光模块产业链在全球AI网络中核心地位的认可。PEG依然具有吸引力。", "key_factors": "1) 深度绑定英伟达网络生态 2) 1.6T高速光器件产能释放兑现业绩 3) 强劲的海外需求", "sources": [{"title": "算力板块获主力资金超74亿净流入，中际旭创、天孚通信等光模块个股表现活跃", "url": "http://finance.eastmoney.com/a/202604143704205989.html"}]}, {"name": "中芯国际", "code": "HK.00981", "signal": "watch", "price_info": "HK$58.80 (-2.16%)", "reason": "大陆代工龙头，目前受制于外部环境，且在先进制程上与台积电存在代际差距，未直接吃满英伟达AI芯片代工红利。尽管具有国产替代的长线逻辑，但短期受设备限制及良率爬坡影响，建议观望。", "key_factors": "1) 国产替代核心标的 2) 先进制程及设备受限风险 3) 短期未直接受益于NVIDIA红利", "sources": [{"title": "半导体设备出口限制持续发酵", "url": "#"}]}]};
+
+// ============= CATEGORY LABELS =============
+const catLabels = {
+  core: '核心',
+  upstream_foundry: '晶圆代工', upstream_memory: 'HBM/存储',
+  upstream_equipment: '半导体设备', upstream_ip_eda: 'IP/EDA',
+  peer_competitor: '同业竞争',
+  downstream_cloud: '海外云厂', downstream_server: 'AI服务器',
+  downstream_cn_ai: '国内AI算力', downstream_optical: '光模块'
+};
+const catTagClass = {
+  core: 'tag-core',
+  upstream_foundry: 'tag-upstream', upstream_memory: 'tag-upstream',
+  upstream_equipment: 'tag-upstream', upstream_ip_eda: 'tag-upstream',
+  peer_competitor: 'tag-core',
+  downstream_cloud: 'tag-downstream', downstream_server: 'tag-downstream',
+  downstream_cn_ai: 'tag-downstream', downstream_optical: 'tag-downstream'
+};
+
+// ============= RENDER SUMMARY =============
+function renderSummary() {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  let upCount = 0, downCount = 0, flatCount = 0;
+  let maxUp = {name:'', pct: -999}, maxDown = {name:'', pct: 999};
+  
+  companies.forEach(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) return;
+    const pct = q.change_pct || 0;
+    if (pct > 0) upCount++;
+    else if (pct < 0) downCount++;
+    else flatCount++;
+    if (pct > maxUp.pct) maxUp = {name: c.name, pct};
+    if (pct < maxDown.pct) maxDown = {name: c.name, pct};
+  });
+
+  document.getElementById('summary-grid').innerHTML = `
+    <div class="summary-card up"><div class="value">${upCount}</div><div class="label">上涨</div></div>
+    <div class="summary-card down"><div class="value">${downCount}</div><div class="label">下跌</div></div>
+    <div class="summary-card flat"><div class="value">${flatCount}</div><div class="label">持平/停牌</div></div>
+    <div class="summary-card up"><div class="value">${maxUp.pct > -999 ? maxUp.pct.toFixed(2)+'%' : '-'}</div><div class="label">🔥 ${maxUp.name || '-'}</div></div>
+    <div class="summary-card down"><div class="value">${maxDown.pct < 999 ? maxDown.pct.toFixed(2)+'%' : '-'}</div><div class="label">📉 ${maxDown.name || '-'}</div></div>
+    <div class="summary-card"><div class="value">${companies.length}</div><div class="label">追踪标的</div></div>
+  `;
+}
+
+// ============= RENDER TABLE =============
+function renderTable(catFilter) {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  const tbody = document.getElementById('stock-tbody');
+  
+  const filtered = catFilter === 'all' ? companies : companies.filter(c => c.category === catFilter);
+  
+  tbody.innerHTML = filtered.map(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) {
+      return `<tr><td>${c.name}</td><td>${c.code}</td><td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || c.category}</span></td><td colspan="8" style="color:var(--text2)">暂无数据</td></tr>`;
+    }
+    const pctClass = q.change_pct > 0 ? 'up' : q.change_pct < 0 ? 'down' : '';
+    const sign = q.change_pct > 0 ? '+' : '';
+    const mktUnit = c.market === 'US' ? '$' : c.market === 'HK' ? 'HK$' : '¥';
+    const fmtVol = q.volume > 1e8 ? (q.volume/1e8).toFixed(2)+'亿' : q.volume > 1e4 ? (q.volume/1e4).toFixed(0)+'万' : q.volume.toFixed(0);
+    const fmtAmt = q.amount > 1e8 ? (q.amount/1e8).toFixed(2)+'亿' : q.amount > 1e4 ? (q.amount/1e4).toFixed(0)+'万' : q.amount.toFixed(0);
+    
+    // 计算 PEG
+    let pegStr = '-';
+    let pegColor = '';
+    if (q.pe && newsData && newsData.financials && newsData.financials[c.code]) {
+      const fin = newsData.financials[c.code].data || {};
+      const growthStr = fin['净利润同比增长率'] || '';
+      const growth = parseFloat(growthStr);
+      if (!isNaN(growth) && growth > 0) {
+        const peg = q.pe / growth;
+        pegStr = peg.toFixed(2);
+        if (peg < 1) pegColor = 'var(--green)'; // 低估
+        else if (peg > 1.5) pegColor = 'var(--red)'; // 明显高估
+      } else if (growth <= 0) {
+        pegStr = 'N/A'; // 负增长或零增长无法计算有效 PEG
+      }
+    }
+    
+    return `<tr>
+      <td><strong>${c.name}</strong><br><small style="color:var(--text2)">${c.name_en}</small></td>
+      <td>${c.market}.${c.code}</td>
+      <td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || ''}</span></td>
+      <td class="price ${pctClass}">${mktUnit}${q.price.toFixed(2)}</td>
+      <td>${mktUnit}${q.prev_close.toFixed(2)}</td>
+      <td class="${pctClass}" style="font-weight:600">${sign}${q.change_pct.toFixed(2)}%</td>
+      <td class="${pctClass}">${sign}${q.change_amt.toFixed(2)}</td>
+      <td>${fmtVol}</td>
+      <td>${fmtAmt}</td>
+      <td>${q.turnover ? q.turnover.toFixed(2)+'%' : '-'}</td>
+      <td>${q.pe ? q.pe.toFixed(1) : '-'}</td>
+      <td style="color:${pegColor}; font-weight:600;">${pegStr}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============= RENDER ANALYSIS =============
+function renderAnalysis() {
+  const grid = document.getElementById('analysis-grid');
+  const items = analysisData.analyses || [];
+  
+  if (items.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text2);padding:20px;">暂无分析数据</p>';
+    return;
+  }
+  
+  const signalClass = {buy:'signal-buy', sell:'signal-sell', hold:'signal-hold', watch:'signal-watch'};
+  const signalText = {buy:'📈 建议买入', sell:'📉 建议卖出', hold:'✋ 建议持有', watch:'👀 观望'};
+  
+  grid.innerHTML = items.map(a => `
+    <div class="analysis-card">
+      <h3>
+        <span>${a.name || ''}</span>
+        <span class="signal ${signalClass[a.signal] || 'signal-watch'}">${signalText[a.signal] || a.signal || ''}</span>
+      </h3>
+      <div style="font-size:13px;color:var(--text2);">${a.code || ''} · ${a.price_info || ''}</div>
+      <div class="reason">${a.reason || ''}</div>
+      ${a.key_factors ? `<div style="margin:8px 0;font-size:13px;"><strong>关键因素：</strong>${a.key_factors}</div>` : ''}
+      ${a.sources && a.sources.length ? `
+        <div class="sources">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:4px;">📎 参考来源：</div>
+          ${a.sources.map(s => `<a href="${s.url || '#'}" target="_blank">${s.title || s.url || ''}</a>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+// ============= RENDER NEWS =============
+function renderNews() {
+  // Industry
+  const iNews = newsData.industry_news || [];
+  document.getElementById('industry-news').innerHTML = iNews.length ? iNews.map(n => `
+    <div class="news-item">
+      <h4>${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无行业新闻</p>';
+
+  // Company
+  const cNews = newsData.company_news || {};
+  const allCompanyNews = [];
+  Object.entries(cNews).forEach(([code, data]) => {
+    (data.news || []).forEach(n => allCompanyNews.push({...n, company: data.name}));
+  });
+  allCompanyNews.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  
+  document.getElementById('company-news').innerHTML = allCompanyNews.length ? allCompanyNews.slice(0, 30).map(n => `
+    <div class="news-item">
+      <h4><span class="tag tag-core" style="font-size:11px;margin-right:4px;">${n.company}</span> ${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无个股新闻</p>';
+}
+
+// ============= TAB SWITCHING =============
+document.getElementById('main-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#main-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const name = tab.dataset.tab;
+  ['quotes','analysis','news','ecosystem'].forEach(p => {
+    document.getElementById('panel-'+p).style.display = p === name ? '' : 'none';
+  });
+});
+
+document.getElementById('cat-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#cat-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderTable(tab.dataset.cat);
+});
+
+// ============= INIT =============
+renderSummary();
+renderTable('all');
+renderAnalysis();
+renderNews();
+</script>
+</body>
+</html>
