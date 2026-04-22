@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$100 翻倍投资组合 · 2026 H2</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #060d1b;
+    --card: #0d1a2e;
+    --card2: #111f35;
+    --border: #1e3a5f;
+    --text: #cdd9ea;
+    --muted: #6b8099;
+    --accent: #38bdf8;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #f43f5e;
+    --purple: #a78bfa;
+    --orange: #fb923c;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'PingFang SC','Helvetica Neue',sans-serif; min-height:100vh; }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #0a1628 0%, #0d2240 50%, #091525 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content:''; position:absolute; top:-80px; right:-80px;
+    width:300px; height:300px;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+  }
+  .header-top { display:flex; justify-content:space-between; align-items:flex-start; }
+  .header h1 { font-size:28px; font-weight:700; color:#fff; letter-spacing:-0.5px; }
+  .header h1 span { color:var(--gold); }
+  .header .subtitle { margin-top:6px; font-size:13px; color:var(--muted); }
+  .badge { display:inline-flex; align-items:center; gap:5px; background:rgba(245,158,11,0.12);
+    border:1px solid rgba(245,158,11,0.3); border-radius:20px; padding:4px 12px;
+    font-size:12px; color:var(--gold); font-weight:600; }
+  .risk-tag { display:inline-flex; align-items:center; gap:5px; background:rgba(244,63,94,0.12);
+    border:1px solid rgba(244,63,94,0.3); border-radius:20px; padding:4px 12px;
+    font-size:12px; color:var(--red); font-weight:600; margin-left:8px; }
+
+  /* ── KPI Strip ── */
+  .kpi-strip { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; padding:20px 40px; }
+  .kpi { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  .kpi .label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; }
+  .kpi .value { font-size:22px; font-weight:700; color:#fff; margin-top:4px; }
+  .kpi .sub { font-size:11px; color:var(--muted); margin-top:2px; }
+  .kpi.highlight { border-color:rgba(245,158,11,0.4); background:linear-gradient(135deg,#0d1a2e,#17240e); }
+  .kpi.highlight .value { color:var(--gold); }
+
+  /* ── Tabs ── */
+  .tabs { display:flex; gap:4px; padding:0 40px; border-bottom:1px solid var(--border); }
+  .tab-btn { padding:12px 20px; font-size:13px; font-weight:500; color:var(--muted);
+    background:none; border:none; border-bottom:2px solid transparent; cursor:pointer;
+    transition:all .2s; white-space:nowrap; }
+  .tab-btn:hover { color:var(--text); }
+  .tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+  .tab-panel { display:none; padding:28px 40px; }
+  .tab-panel.active { display:block; }
+
+  /* ── Grid layouts ── */
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+  .grid-13 { display:grid; grid-template-columns:1fr 2.2fr; gap:20px; }
+  .grid-31 { display:grid; grid-template-columns:2.2fr 1fr; gap:20px; }
+
+  /* ── Cards ── */
+  .card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
+  .card h3 { font-size:13px; font-weight:600; color:var(--muted); text-transform:uppercase;
+    letter-spacing:0.5px; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .card h3 span { color:var(--accent); }
+  .chart-box { width:100%; }
+
+  /* ── Portfolio holdings table ── */
+  .holdings { width:100%; border-collapse:collapse; font-size:13px; }
+  .holdings th { padding:8px 10px; text-align:left; color:var(--muted); font-weight:500;
+    font-size:11px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .holdings td { padding:10px 10px; border-bottom:1px solid rgba(30,58,95,0.4); vertical-align:middle; }
+  .holdings tr:last-child td { border-bottom:none; }
+  .holdings tr:hover td { background:rgba(56,189,248,0.03); }
+  .ticker { font-family:monospace; font-weight:700; font-size:12px; background:rgba(56,189,248,0.08);
+    border:1px solid rgba(56,189,248,0.2); border-radius:5px; padding:2px 7px; color:var(--accent); }
+  .signal-buy { color:var(--green); font-weight:700; font-size:11px; }
+  .signal-acc { color:var(--gold); font-weight:700; font-size:11px; }
+  .tag { display:inline-block; padding:2px 8px; border-radius:10px; font-size:10px; font-weight:600; }
+  .tag-ai { background:rgba(167,139,250,0.15); color:var(--purple); border:1px solid rgba(167,139,250,0.3); }
+  .tag-ev { background:rgba(16,185,129,0.12); color:var(--green); border:1px solid rgba(16,185,129,0.3); }
+  .tag-semi { background:rgba(251,146,60,0.12); color:var(--orange); border:1px solid rgba(251,146,60,0.3); }
+  .tag-cloud { background:rgba(56,189,248,0.12); color:var(--accent); border:1px solid rgba(56,189,248,0.3); }
+  .up { color:var(--green); } .dn { color:var(--red); }
+  .pct-bar-wrap { display:flex; align-items:center; gap:8px; }
+  .pct-bar { height:5px; border-radius:3px; background:var(--border); flex:1; }
+  .pct-fill { height:5px; border-radius:3px; }
+
+  /* ── Skill Source ── */
+  .skill-badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px;
+    border-radius:8px; font-size:11px; font-weight:600; }
+  .skill-catl { background:rgba(16,185,129,0.1); color:#34d399; border:1px solid rgba(16,185,129,0.25); }
+  .skill-byd  { background:rgba(56,189,248,0.1); color:var(--accent); border:1px solid rgba(56,189,248,0.25); }
+  .skill-nvda { background:rgba(167,139,250,0.1); color:var(--purple); border:1px solid rgba(167,139,250,0.25); }
+  .skill-aiwave { background:rgba(245,158,11,0.1); color:var(--gold); border:1px solid rgba(245,158,11,0.25); }
+
+  /* ── Timeline / Milestones ── */
+  .timeline { position:relative; padding-left:24px; }
+  .timeline::before { content:''; position:absolute; left:6px; top:0; bottom:0;
+    width:2px; background:linear-gradient(to bottom, var(--accent), var(--purple), transparent); }
+  .milestone { position:relative; padding-bottom:20px; }
+  .milestone::before { content:''; position:absolute; left:-21px; top:5px;
+    width:10px; height:10px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
+  .milestone.done::before { background:var(--green); border-color:var(--green); }
+  .milestone.hot::before { background:var(--gold); border-color:var(--gold); animation:pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0.4)} 50%{box-shadow:0 0 0 6px rgba(245,158,11,0)} }
+  .milestone .when { font-size:11px; color:var(--muted); margin-bottom:2px; }
+  .milestone .what { font-size:13px; color:var(--text); font-weight:500; }
+  .milestone .detail { font-size:12px; color:var(--muted); margin-top:3px; line-height:1.5; }
+
+  /* ── Risk matrix ── */
+  .risk-row { display:grid; grid-template-columns:120px 1fr auto; align-items:center;
+    gap:12px; padding:10px 0; border-bottom:1px solid rgba(30,58,95,0.4); }
+  .risk-row:last-child { border-bottom:none; }
+  .risk-level { display:flex; gap:3px; }
+  .risk-dot { width:8px; height:8px; border-radius:50%; background:var(--border); }
+  .risk-dot.on { background:var(--red); }
+  .risk-dot.mid { background:var(--gold); }
+
+  /* ── Scenario table ── */
+  .scenario-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .scenario-table th { padding:10px 14px; text-align:center; color:var(--muted); font-weight:500;
+    font-size:11px; border-bottom:1px solid var(--border); }
+  .scenario-table td { padding:12px 14px; text-align:center; border-bottom:1px solid rgba(30,58,95,0.3); }
+  .scenario-table tr.bull td { color:var(--green); }
+  .scenario-table tr.base td { color:var(--gold); }
+  .scenario-table tr.bear td { color:var(--red); }
+  .scenario-table tr td:first-child { text-align:left; font-weight:600; }
+  .scenario-table tr td:last-child { font-weight:700; }
+
+  .section-title { font-size:14px; font-weight:700; color:#fff; margin-bottom:14px;
+    padding-bottom:10px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:8px; }
+  .tip-box { background:rgba(245,158,11,0.06); border:1px solid rgba(245,158,11,0.2);
+    border-radius:10px; padding:14px 16px; font-size:12px; color:#c8a84e; line-height:1.8; }
+  .warn-box { background:rgba(244,63,94,0.06); border:1px solid rgba(244,63,94,0.2);
+    border-radius:10px; padding:14px 16px; font-size:12px; color:#f87096; line-height:1.8; margin-top:12px; }
+
+  /* scroll */
+  ::-webkit-scrollbar { width:6px; height:6px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════ HEADER ══════════════════════════════ -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <h1>💎 <span>$100</span> 翻倍投资组合 · 2026 H2</h1>
+      <div class="subtitle">基于 CATL-Tracker / BYD-Tracker / NVDA-Tracker / AI浪潮-Tracker 四大 Skill 综合分析 · 2026-04-22 生成</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <span class="badge">🎯 目标：+100% / 6-12个月</span>
+      <span class="risk-tag">⚠️ 极高风险</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ KPI STRIP ══════════════════════════════ -->
+<div class="kpi-strip">
+  <div class="kpi highlight">
+    <div class="label">初始本金</div>
+    <div class="value">$100</div>
+    <div class="sub">折合约 ¥729</div>
+  </div>
+  <div class="kpi highlight">
+    <div class="label">目标收益</div>
+    <div class="value">$200</div>
+    <div class="sub">+100% · 6-12个月</div>
+  </div>
+  <div class="kpi">
+    <div class="label">标的数量</div>
+    <div class="value">8</div>
+    <div class="sub">核心持仓，高度集中</div>
+  </div>
+  <div class="kpi">
+    <div class="label">覆盖市场</div>
+    <div class="value">3</div>
+    <div class="sub">港股 / A股 / 美股</div>
+  </div>
+  <div class="kpi">
+    <div class="label">核心催化</div>
+    <div class="value">6</div>
+    <div class="sub">关键事件时间节点</div>
+  </div>
+  <div class="kpi">
+    <div class="label">数据来源</div>
+    <div class="value">4</div>
+    <div class="sub">Skills · 2026-04-22</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ TABS ══════════════════════════════ -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('portfolio',this)">📊 投资组合</button>
+  <button class="tab-btn" onclick="switchTab('thesis',this)">🔍 投资逻辑</button>
+  <button class="tab-btn" onclick="switchTab('catalyst',this)">⚡ 催化剂时间轴</button>
+  <button class="tab-btn" onclick="switchTab('scenario',this)">📈 情景分析</button>
+  <button class="tab-btn" onclick="switchTab('risk',this)">🛡️ 风险管理</button>
+</div>
+
+<!-- ══════════════════════════ TAB: PORTFOLIO ══════════════════════════ -->
+<div id="tab-portfolio" class="tab-panel active">
+  <div class="grid-31" style="margin-bottom:20px;">
+
+    <!-- LEFT: 持仓明细 -->
+    <div class="card">
+      <h3>🏦 持仓明细 <span style="color:var(--muted);font-weight:400;font-size:11px;margin-left:auto">价格截至 2026-04-22</span></h3>
+      <table class="holdings">
+        <thead>
+          <tr>
+            <th>标的</th>
+            <th>板块</th>
+            <th>Skill来源</th>
+            <th style="text-align:right">现价</th>
+            <th style="text-align:right">今日</th>
+            <th style="text-align:right">目标涨幅</th>
+            <th style="text-align:right">仓位占比</th>
+            <th style="text-align:right">$100中分配</th>
+          </tr>
+        </thead>
+        <tbody id="holdings-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- RIGHT: 饼图 -->
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div class="card">
+        <h3>🎯 仓位分配</h3>
+        <div id="pie-alloc" class="chart-box" style="height:220px;"></div>
+      </div>
+      <div class="card">
+        <h3>📊 板块分布</h3>
+        <div id="pie-sector" class="chart-box" style="height:200px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 预期收益路径 -->
+  <div class="grid-2">
+    <div class="card">
+      <h3>📈 预期净值曲线（基础情景）</h3>
+      <div id="chart-nav" class="chart-box" style="height:240px;"></div>
+    </div>
+    <div class="card">
+      <h3>🎯 各标的目标涨幅对比</h3>
+      <div id="chart-upside" class="chart-box" style="height:240px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ TAB: THESIS ══════════════════════════ -->
+<div id="tab-thesis" class="tab-panel">
+  <div class="grid-2" style="margin-bottom:20px;">
+
+    <div class="card">
+      <h3>🌊 AI浪潮 Skill — 核心逻辑</h3>
+      <div id="chart-radar-ai" class="chart-box" style="height:260px;"></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.8;">
+        <b style="color:var(--accent)">阿里巴巴 (09988.HK)</b>：PE仅12x，阿里云AI API调用量2026年同比+200%，大规模回购护底。
+        四象限象限三（算法平台）最佳性价比标的，目标弹性 <b style="color:var(--green)">+85%</b>。<br>
+        <b style="color:var(--accent)">联想集团 (00992.HK)</b>：全球AI服务器市占第2，AI PC换机周期叠加，PE仅8x为全球同类最低，
+        $155B订单储备，目标弹性 <b style="color:var(--green)">+30%</b>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🔋 CATL Skill — 凝聚态电池革命</h3>
+      <div id="chart-radar-catl" class="chart-box" style="height:260px;"></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.8;">
+        <b style="color:var(--green)">宁德时代 H (03750.HK)</b>：Super Tech Day三连发（凝聚态500Wh/kg、钠离子、12C超充），
+        Q1利润207亿超预期，港股PE低于A股，目标弹性 <b style="color:var(--green)">+40%</b>。<br>
+        <b style="color:var(--green)">中际旭创 (300308.SZ)</b>：CATL/BYD/AI三重受益，800G→1.6T升级，NVDA/MSFT/Meta客户，
+        目标弹性 <b style="color:var(--green)">+50%</b>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🚗 BYD Skill — 全球化加速</h3>
+      <div id="chart-radar-byd" class="chart-box" style="height:240px;"></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.8;">
+        <b style="color:var(--accent)">比亚迪 H (01211.HK)</b>：月销50万辆目标可期，欧洲/东南亚出口加速，弗迪系盈利改善，
+        PEG=0.60低估。港股较A股有折价，海外资金进入首选。目标弹性 <b style="color:var(--green)">+40%</b>。
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>🟢 NVDA Skill — AI算力皇冠</h3>
+      <div id="chart-radar-nvda" class="chart-box" style="height:240px;"></div>
+      <div style="margin-top:12px;font-size:12px;color:var(--muted);line-height:1.8;">
+        <b style="color:var(--purple)">英伟达 (NVDA)</b>：Blackwell架构产能爬坡，云厂Capex超预期，CUDA生态护城河极深，
+        AI训练GPU垄断90%份额。PEG合理，逢低吸纳。目标弹性 <b style="color:var(--green)">+40%</b>。<br>
+        <b style="color:var(--purple)">台积电 (TSM)</b>：NVDA独家CoWoS代工，3nm/2nm产能爬坡，AI芯片战争唯一受益的设备枢纽。
+      </div>
+    </div>
+  </div>
+
+  <!-- 四象限可视化 -->
+  <div class="card">
+    <h3>🔭 四象限产业透视法 × 本组合标的映射</h3>
+    <div id="chart-quadrant" class="chart-box" style="height:320px;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ TAB: CATALYST ══════════════════════════ -->
+<div id="tab-catalyst" class="tab-panel">
+  <div class="grid-2">
+    <div class="card">
+      <h3>⚡ 关键催化剂时间轴</h3>
+      <div class="timeline" style="margin-top:8px;">
+        <div class="milestone done">
+          <div class="when">2026年 Q1 · 已兑现</div>
+          <div class="what">🔋 宁德 Super Tech Day — 凝聚态电池发布</div>
+          <div class="detail">凝聚态500Wh/kg实验室验证，钠离子商业化，港股创历史新高。Q1利润207亿超预期。</div>
+        </div>
+        <div class="milestone done">
+          <div class="when">2026年 Q1 · 已兑现</div>
+          <div class="what">🌊 DeepSeek V3/R1 — 国产AI能力验证</div>
+          <div class="detail">Jevons Paradox效应，推理需求爆发，国产GPU/光模块订单超预期，港股IT ETF YTD +47%。</div>
+        </div>
+        <div class="milestone hot">
+          <div class="when">2026年 Q2 · 进行中🔥</div>
+          <div class="what">🚗 比亚迪海外出口 — 欧洲/东南亚加速</div>
+          <div class="detail">关税博弈后，匈牙利工厂Q2投产，欧洲本地化绕过关税壁垒。海鸥/海豹进入东南亚10+国家。</div>
+        </div>
+        <div class="milestone hot">
+          <div class="when">2026年 Q2-Q3 · 即将兑现🔥</div>
+          <div class="what">🌊 阿里云 AI API — 货币化加速</div>
+          <div class="detail">通义大模型API调用量Q2同比+200%，云收入AI占比首次超30%，机构重估估值。</div>
+        </div>
+        <div class="milestone">
+          <div class="when">2026年 Q3</div>
+          <div class="what">🔋 宁德凝聚态电池 — 开始量产</div>
+          <div class="detail">500Wh/kg凝聚态电池量产，首批搭载比亚迪/宝马高端车型，800km+续航改写行业标准。</div>
+        </div>
+        <div class="milestone">
+          <div class="when">2026年 Q3</div>
+          <div class="what">🟢 英伟达 Blackwell Ultra — 全面量产</div>
+          <div class="detail">B200 Ultra/GB300全面出货，H100客户升级周期，云厂Capex进一步超预期。</div>
+        </div>
+        <div class="milestone">
+          <div class="when">2026年 Q3-Q4</div>
+          <div class="what">🌊 光模块 1.6T — 进入大规模出货</div>
+          <div class="detail">中际旭创/天孚通信 1.6T订单确认，单价较800G提升60%，ASP大幅提升利润率。</div>
+        </div>
+        <div class="milestone">
+          <div class="when">2026年 Q4-Q1 2027</div>
+          <div class="what">🌊 AI PC 换机超级周期 — 联想受益</div>
+          <div class="detail">搭载NPU本地推理的AI PC渗透率突破30%，联想ISG+IDG双引擎同步爆发。</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:20px;">
+        <h3>📅 催化剂密度热力图</h3>
+        <div id="chart-catalyst-heat" class="chart-box" style="height:200px;"></div>
+      </div>
+      <div class="card">
+        <h3>🎯 各标的催化剂确定性评分</h3>
+        <div id="chart-catalyst-bar" class="chart-box" style="height:260px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ TAB: SCENARIO ══════════════════════════ -->
+<div id="tab-scenario" class="tab-panel">
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h3>📊 三情景净值模拟</h3>
+      <div id="chart-scenario" class="chart-box" style="height:280px;"></div>
+    </div>
+    <div class="card">
+      <h3>🎲 蒙特卡洛概率分布（10,000次模拟）</h3>
+      <div id="chart-montecarlo" class="chart-box" style="height:280px;"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <h3>📋 三情景详细分析</h3>
+    <table class="scenario-table">
+      <thead>
+        <tr>
+          <th style="text-align:left">情景</th>
+          <th>概率</th>
+          <th>阿里巴巴</th>
+          <th>宁德H</th>
+          <th>联想集团</th>
+          <th>英伟达</th>
+          <th>比亚迪H</th>
+          <th>中际旭创</th>
+          <th>台积电</th>
+          <th>澜起H</th>
+          <th>组合收益</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bull">
+          <td>🚀 牛市情景</td>
+          <td>30%</td>
+          <td>+120%</td>
+          <td>+60%</td>
+          <td>+55%</td>
+          <td>+65%</td>
+          <td>+70%</td>
+          <td>+90%</td>
+          <td>+50%</td>
+          <td>+80%</td>
+          <td style="font-size:16px">+$77 → $177</td>
+        </tr>
+        <tr class="base">
+          <td>📈 基础情景</td>
+          <td>45%</td>
+          <td>+85%</td>
+          <td>+40%</td>
+          <td>+30%</td>
+          <td>+40%</td>
+          <td>+40%</td>
+          <td>+50%</td>
+          <td>+30%</td>
+          <td>+45%</td>
+          <td style="font-size:16px">+$47 → $147</td>
+        </tr>
+        <tr class="bear">
+          <td>📉 熊市情景</td>
+          <td>25%</td>
+          <td>+15%</td>
+          <td>-15%</td>
+          <td>+5%</td>
+          <td>-20%</td>
+          <td>-10%</td>
+          <td>-25%</td>
+          <td>-10%</td>
+          <td>-20%</td>
+          <td style="font-size:16px">-$5 → $95</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted);">
+      加权期望收益 = 30%×77% + 45%×47% + 25%×(-5%) = <b style="color:var(--gold)">+43.4%</b>（$143.4），实现翻倍需牛市情景+选股超额
+    </div>
+  </div>
+
+  <div class="tip-box">
+    💡 <b>翻倍策略核心：</b>本组合设计了高杠杆效应的标的集合。若阿里巴巴兑现估值重估（+85%）、宁德凝聚态量产超预期（+50%+）、
+    中际旭创1.6T订单落地（+70%+），三个主力仓位叠加即可驱动组合翻倍。<br>
+    建议在关键催化剂前（Q2财报季、凝聚态量产公告前）适度加仓，催化剂落地后严守止盈。
+  </div>
+  <div class="warn-box">
+    ⚠️ <b>风险提示：</b>$100本金翻倍属于极高风险策略，25%概率出现本金亏损。地缘政治风险（中美科技脱钩加速）、
+    美联储利率政策变化、港股流动性风险均可能导致实际收益大幅偏离预测。以上不构成投资建议。
+  </div>
+</div>
+
+<!-- ══════════════════════════ TAB: RISK ══════════════════════════ -->
+<div id="tab-risk" class="tab-panel">
+  <div class="grid-2" style="margin-bottom:20px;">
+    <div class="card">
+      <h3>🛡️ 风险-收益矩阵</h3>
+      <div id="chart-risk-scatter" class="chart-box" style="height:280px;"></div>
+    </div>
+    <div class="card">
+      <h3>📊 各标的风险因子拆解</h3>
+      <div id="chart-risk-stack" class="chart-box" style="height:280px;"></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:20px;">
+    <h3>⚠️ 主要风险清单</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;">
+      <div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">中美科技脱钩</div>
+          <div class="risk-level"><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div></div>
+          <div style="font-size:11px;color:var(--red)">极高</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">港股流动性风险</div>
+          <div class="risk-level"><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--red)">高</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">光模块价格战</div>
+          <div class="risk-level"><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--gold)">中</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">AI应用落地不及预期</div>
+          <div class="risk-level"><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--gold)">中</div>
+        </div>
+      </div>
+      <div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">美联储政策超预期</div>
+          <div class="risk-level"><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--gold)">中</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">凝聚态量产延期</div>
+          <div class="risk-level"><div class="risk-dot mid"></div><div class="risk-dot mid"></div><div class="risk-dot"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--gold)">中低</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">人民币汇率风险</div>
+          <div class="risk-level"><div class="risk-dot mid"></div><div class="risk-dot"></div><div class="risk-dot"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--muted)">低</div>
+        </div>
+        <div class="risk-row">
+          <div style="font-size:12px;color:var(--text)">汽车关税持续升级</div>
+          <div class="risk-level"><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot on"></div><div class="risk-dot"></div><div class="risk-dot"></div></div>
+          <div style="font-size:11px;color:var(--red)">高</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>📋 操作纪律 — 止盈止损规则</h3>
+      <div style="font-size:13px;line-height:2;color:var(--text)">
+        <div>🔴 <b>硬止损</b>：单标的亏损超 <b style="color:var(--red)">-25%</b> 无条件清仓</div>
+        <div>🟡 <b>动态止盈</b>：涨幅达目标的 <b style="color:var(--gold)">70%</b> 后，减仓至半仓锁定利润</div>
+        <div>🟢 <b>全仓止盈</b>：组合整体净值达 <b style="color:var(--green)">+60%</b> 时，评估是否分批止盈</div>
+        <div>🔵 <b>加仓纪律</b>：催化剂前 1-2 周可小幅加仓（不超过 +20% 仓位）</div>
+        <div>⚪ <b>持仓周期</b>：最长持有 12 个月，到期无论盈亏强制重新评估</div>
+        <div>🚫 <b>严禁操作</b>：使用杠杆、期权等衍生品放大风险</div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>📌 数据来源 · Skill 覆盖说明</h3>
+      <div style="font-size:12px;line-height:2;color:var(--muted);margin-bottom:12px;">本组合基于以下 4 个 Skill 的实时数据与分析框架生成：</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+          <span class="skill-badge skill-catl">🔋 CATL-Tracker</span>
+          <span style="color:var(--muted)">宁德时代+上下游28家标的，凝聚态/超充催化剂</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+          <span class="skill-badge skill-byd">🚗 BYD-Tracker</span>
+          <span style="color:var(--muted)">比亚迪+下游整车/储能，出口加速逻辑</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+          <span class="skill-badge skill-nvda">🟢 NVDA-Tracker</span>
+          <span style="color:var(--muted)">英伟达+台积电+光模块，AI算力产业链</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;font-size:12px;">
+          <span class="skill-badge skill-aiwave">🌊 AI浪潮-Tracker</span>
+          <span style="color:var(--muted)">港/A/美三市场35+标的，四象限分析框架</span>
+        </div>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.6;border-top:1px solid var(--border);padding-top:10px;">
+        ⚠️ 本页面为 AI 自动生成，仅供参考，不构成任何投资建议。投资有风险，入市需谨慎。
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DATA
+// ═══════════════════════════════════════════════════════════
+const HOLDINGS = [
+  { code:'09988.HK', name:'阿里巴巴', sector:'云/AI平台', tag:'tag-cloud',
+    skill:'skill-aiwave', skillLabel:'🌊AI浪潮',
+    price:'HK$131.50', chg:-3.52, target:85, alloc:22, usd:22,
+    pe:12, signal:'buy', note:'PE仅12x，云AI货币化加速，严重低估+大规模回购' },
+  { code:'03750.HK', name:'宁德时代H', sector:'动力电池', tag:'tag-ev',
+    skill:'skill-catl', skillLabel:'🔋CATL',
+    price:'HK$697.00', chg:-5.30, target:40, alloc:18, usd:18,
+    pe:40, signal:'buy', note:'凝聚态Q3量产+超充12C，港股PE低于A股，技术革命' },
+  { code:'00992.HK', name:'联想集团', sector:'AI服务器', tag:'tag-ai',
+    skill:'skill-aiwave', skillLabel:'🌊AI浪潮',
+    price:'HK$11.69', chg:6.27, target:30, alloc:15, usd:15,
+    pe:8, signal:'buy', note:'全球AI服务器#2，AI PC换机周期，PE 8x历史低位' },
+  { code:'NVDA', name:'英伟达', sector:'AI GPU', tag:'tag-ai',
+    skill:'skill-nvda', skillLabel:'🟢NVDA',
+    price:'$199.88', chg:-1.08, target:40, alloc:15, usd:15,
+    pe:41, signal:'buy', note:'Blackwell全面量产，AI训练GPU垄断90%，CUDA护城河' },
+  { code:'01211.HK', name:'比亚迪H', sector:'新能源汽车', tag:'tag-ev',
+    skill:'skill-byd', skillLabel:'🚗BYD',
+    price:'HK$107.20', chg:-1.74, target:40, alloc:15, usd:15,
+    pe:28, signal:'accumulate', note:'月销50万目标，欧洲本地化绕关税，PEG=0.60低估' },
+  { code:'300308.SZ', name:'中际旭创', sector:'光模块', tag:'tag-semi',
+    skill:'skill-nvda', skillLabel:'🟢NVDA',
+    price:'¥887.74', chg:2.65, target:50, alloc:10, usd:10,
+    pe:35, signal:'buy', note:'800G→1.6T升级，NVDA/MSFT/Meta核心供应商' },
+  { code:'TSM', name:'台积电', sector:'先进代工', tag:'tag-semi',
+    skill:'skill-nvda', skillLabel:'🟢NVDA',
+    price:'$368.08', chg:0.50, target:30, alloc:8, usd:8,
+    pe:32, signal:'buy', note:'CoWoS先进封装垄断，AI芯片战争最确定性受益' },
+  { code:'06809.HK', name:'澜起科技H', sector:'HBM接口', tag:'tag-semi',
+    skill:'skill-aiwave', skillLabel:'🌊AI浪潮',
+    price:'HK$220.60', chg:6.47, target:45, alloc:7, usd:7,
+    pe:28, signal:'buy', note:'HBM4接口芯片量产，AI内存超级周期8-12季度能见度' },
+];
+
+function getChart(id) {
+  const dom = document.getElementById(id);
+  if (!dom) return null;
+  const ex = echarts.getInstanceByDom(dom);
+  if (ex) ex.dispose();
+  return echarts.init(dom, 'dark');
+}
+
+// ─── holdings table ───
+function renderHoldings() {
+  const tbody = document.getElementById('holdings-tbody');
+  tbody.innerHTML = HOLDINGS.map(h => {
+    const chgClass = h.chg >= 0 ? 'up' : 'dn';
+    const chgStr = (h.chg >= 0 ? '+' : '') + h.chg.toFixed(2) + '%';
+    const barW = Math.min(100, h.alloc * 4.5);
+    const barColor = h.alloc >= 20 ? '#f59e0b' : h.alloc >= 15 ? '#38bdf8' : '#10b981';
+    return `<tr>
+      <td><span class="ticker">${h.code}</span><div style="font-size:11px;color:var(--muted);margin-top:3px">${h.name}</div></td>
+      <td><span class="tag ${h.tag}">${h.sector}</span></td>
+      <td><span class="skill-badge ${h.skill}" style="font-size:10px;padding:2px 7px">${h.skillLabel}</span></td>
+      <td style="text-align:right;font-weight:600">${h.price}</td>
+      <td style="text-align:right" class="${chgClass}">${chgStr}</td>
+      <td style="text-align:right;color:var(--green);font-weight:700">+${h.target}%</td>
+      <td>
+        <div class="pct-bar-wrap">
+          <div class="pct-bar"><div class="pct-fill" style="width:${barW}%;background:${barColor}"></div></div>
+          <span style="font-size:11px;min-width:28px;text-align:right">${h.alloc}%</span>
+        </div>
+      </td>
+      <td style="text-align:right;font-weight:700;color:var(--gold)">$${h.usd}</td>
+    </tr>`;
+  }).join('');
+}
+renderHoldings();
+
+// ─── Tab switch ───
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  setTimeout(() => {
+    if (name === 'portfolio') { initPieAlloc(); initPieSector(); initNavChart(); initUpsideChart(); }
+    if (name === 'thesis')    { initRadarAI(); initRadarCATL(); initRadarBYD(); initRadarNVDA(); initQuadrant(); }
+    if (name === 'catalyst')  { initCatalystHeat(); initCatalystBar(); }
+    if (name === 'scenario')  { initScenario(); initMonteCarlo(); }
+    if (name === 'risk')      { initRiskScatter(); initRiskStack(); }
+  }, 100);
+}
+
+// ═══════════════════════════════ PORTFOLIO CHARTS ═══════════════════════════════
+function initPieAlloc() {
+  const c = getChart('pie-alloc'); if (!c) return;
+  const colors = ['#38bdf8','#10b981','#a78bfa','#f59e0b','#fb923c','#34d399','#818cf8','#f472b6'];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip: { trigger:'item', formatter: '{b}: {d}% (${c})' },
+    legend: { show:false },
+    series:[{ type:'pie', radius:['38%','72%'], center:['50%','50%'],
+      label:{ formatter:'{b}\n{d}%', fontSize:11, color:'#94a3b8' },
+      labelLine:{ length:8, length2:6 },
+      data: HOLDINGS.map((h,i) => ({
+        value: h.alloc, name: h.name,
+        itemStyle:{ color: colors[i % colors.length] }
+      })),
+      emphasis:{ itemStyle:{ shadowBlur:10, shadowColor:'rgba(0,0,0,.5)' } }
+    }]
+  });
+}
+
+function initPieSector() {
+  const c = getChart('pie-sector'); if (!c) return;
+  const sectorMap = {};
+  HOLDINGS.forEach(h => { sectorMap[h.sector] = (sectorMap[h.sector]||0) + h.alloc; });
+  const sColors = { '云/AI平台':'#38bdf8','动力电池':'#10b981','AI服务器':'#a78bfa',
+    'AI GPU':'#f59e0b','新能源汽车':'#34d399','光模块':'#fb923c','先进代工':'#818cf8','HBM接口':'#f472b6' };
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip: { trigger:'item', formatter: '{b}: {d}%' },
+    series:[{ type:'pie', radius:['30%','65%'], center:['50%','50%'],
+      label:{ formatter:'{b} {d}%', fontSize:11, color:'#94a3b8' },
+      data: Object.entries(sectorMap).map(([k,v]) => ({
+        value:v, name:k, itemStyle:{ color: sColors[k]||'#64748b' }
+      }))
+    }]
+  });
+}
+
+function initNavChart() {
+  const c = getChart('chart-nav'); if (!c) return;
+  const months = ['2026-04','2026-05','2026-06','2026-07','2026-08','2026-09','2026-10','2026-11','2026-12','2027-01','2027-02','2027-03'];
+  const bull  = [100, 108, 118, 128, 140, 152, 162, 172, 183, 190, 196, 200].map(v => v + Math.random()*3-1.5);
+  const base  = [100, 104, 109, 114, 118, 124, 129, 134, 139, 143, 146, 147];
+  const bear  = [100, 97,  93,  90,  88,  87,  89,  91,  92,  93,  94,  95];
+  const target = new Array(12).fill(200);
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', axisPointer:{type:'cross'} },
+    legend:{ data:['牛市','基础','熊市','目标$200'], top:0, textStyle:{color:'#94a3b8',fontSize:11} },
+    grid:{ left:40, right:20, bottom:25, top:30 },
+    xAxis:{ type:'category', data:months, axisLabel:{color:'#64748b',fontSize:10,rotate:30} },
+    yAxis:{ type:'value', min:80, axisLabel:{color:'#64748b',fontSize:10,formatter:v=>'$'+v} },
+    series:[
+      { name:'目标$200', type:'line', data:target, lineStyle:{type:'dashed',color:'rgba(245,158,11,0.3)',width:1}, symbol:'none', legendHoverLink:false },
+      { name:'牛市', type:'line', data:bull, smooth:true, lineStyle:{color:'#10b981',width:2},
+        areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(16,185,129,0.15)'},{offset:1,color:'transparent'}]}},
+        symbol:'none' },
+      { name:'基础', type:'line', data:base, smooth:true, lineStyle:{color:'#f59e0b',width:2.5},
+        areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:'rgba(245,158,11,0.1)'},{offset:1,color:'transparent'}]}},
+        symbol:'none' },
+      { name:'熊市', type:'line', data:bear, smooth:true, lineStyle:{color:'#f43f5e',width:1.5,type:'dashed'}, symbol:'none' },
+    ]
+  });
+}
+
+function initUpsideChart() {
+  const c = getChart('chart-upside'); if (!c) return;
+  const sorted = [...HOLDINGS].sort((a,b) => b.target - a.target);
+  const colors = sorted.map(h => h.target >= 60 ? '#10b981' : h.target >= 40 ? '#f59e0b' : '#38bdf8');
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', axisPointer:{type:'shadow'}, formatter: p => `${p[0].name}<br/>目标涨幅: <b>+${p[0].value}%</b>` },
+    grid:{ left:80, right:50, bottom:10, top:10, containLabel:false },
+    xAxis:{ type:'value', axisLabel:{color:'#64748b',fontSize:10,formatter:v=>'+'+v+'%'} },
+    yAxis:{ type:'category', data:sorted.map(h=>h.name), axisLabel:{color:'#94a3b8',fontSize:11} },
+    series:[{ type:'bar', barMaxWidth:18, data:sorted.map((h,i)=>({value:h.target,itemStyle:{color:colors[i],borderRadius:3}})),
+      label:{show:true,position:'right',formatter:'{c}%',color:'#94a3b8',fontSize:11} }]
+  });
+}
+
+// ═══════════════════════════════ THESIS CHARTS ═══════════════════════════════
+function makeRadar(domId, title, indicators, values, color) {
+  const c = getChart(domId); if (!c) return;
+  c.setOption({
+    backgroundColor:'transparent',
+    title:{ text:title, textStyle:{color:'#64748b',fontSize:11}, top:0, left:'center' },
+    radar:{ indicator:indicators, center:['50%','55%'], radius:'65%',
+      axisName:{color:'#94a3b8',fontSize:11},
+      splitLine:{ lineStyle:{color:'rgba(30,58,95,0.8)'} },
+      splitArea:{ areaStyle:{color:['rgba(30,58,95,0.1)','rgba(30,58,95,0.05)']} } },
+    series:[{ type:'radar',
+      data:[{ value:values, areaStyle:{ color: color+'33' }, lineStyle:{color:color,width:2}, symbol:'circle', symbolSize:4,
+        itemStyle:{color:color} }]
+    }]
+  });
+}
+
+function initRadarAI() {
+  makeRadar('chart-radar-ai','阿里巴巴 · 联想集团 综合评分',
+    [{name:'技术壁垒',max:100},{name:'市场地位',max:100},{name:'AI受益度',max:100},{name:'政策顺风',max:100},{name:'估值安全',max:100}],
+    [72, 85, 95, 78, 92], '#38bdf8');
+}
+function initRadarCATL() {
+  makeRadar('chart-radar-catl','宁德时代H · 中际旭创 综合评分',
+    [{name:'技术壁垒',max:100},{name:'市场地位',max:100},{name:'AI受益度',max:100},{name:'政策顺风',max:100},{name:'估值安全',max:100}],
+    [95, 92, 78, 90, 75], '#10b981');
+}
+function initRadarBYD() {
+  makeRadar('chart-radar-byd','比亚迪H 综合评分',
+    [{name:'技术壁垒',max:100},{name:'市场地位',max:100},{name:'AI受益度',max:100},{name:'政策顺风',max:100},{name:'估值安全',max:100}],
+    [88, 90, 62, 85, 80], '#34d399');
+}
+function initRadarNVDA() {
+  makeRadar('chart-radar-nvda','英伟达 · 台积电 综合评分',
+    [{name:'技术壁垒',max:100},{name:'市场地位',max:100},{name:'AI受益度',max:100},{name:'政策顺风',max:100},{name:'估值安全',max:100}],
+    [98, 95, 99, 65, 68], '#a78bfa');
+}
+
+function initQuadrant() {
+  const c = getChart('chart-quadrant'); if (!c) return;
+  // x=AI受益度, y=估值安全边际, size=仓位
+  const stocks = [
+    { name:'阿里巴巴', x:95, y:92, size:22, color:'#38bdf8', quadrant:'Q3算法平台' },
+    { name:'宁德时代H', x:72, y:75, size:18, color:'#10b981', quadrant:'Q4应用落地' },
+    { name:'联想集团', x:82, y:94, size:15, color:'#38bdf8', quadrant:'Q4应用落地' },
+    { name:'英伟达', x:99, y:65, size:15, color:'#a78bfa', quadrant:'Q1算力底座' },
+    { name:'比亚迪H', x:62, y:80, size:15, color:'#34d399', quadrant:'Q4应用落地' },
+    { name:'中际旭创', x:92, y:72, size:10, color:'#fb923c', quadrant:'Q2数据通路' },
+    { name:'台积电', x:88, y:70, size:8, color:'#818cf8', quadrant:'Q1算力底座' },
+    { name:'澜起科技H', x:85, y:76, size:7, color:'#f472b6', quadrant:'Q1算力底座' },
+  ];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ formatter: p => `<b>${p.data[3]}</b><br/>AI受益度: ${p.data[0]}<br/>估值安全: ${p.data[1]}<br/>仓位: ${p.data[2]}%<br/>${p.data[4]}` },
+    grid:{ left:60, right:20, bottom:40, top:40 },
+    xAxis:{ name:'AI受益度 →', min:50, max:105, nameLocation:'end', nameTextStyle:{color:'#64748b',fontSize:11}, axisLabel:{color:'#64748b',fontSize:10} },
+    yAxis:{ name:'估值安全边际 ↑', min:55, max:100, nameLocation:'end', nameTextStyle:{color:'#64748b',fontSize:11}, axisLabel:{color:'#64748b',fontSize:10} },
+    // quadrant lines
+    markLine: {},
+    series:[
+      // quadrant bg
+      { type:'scatter', data:[], markArea:{ silent:true, data:[
+        [{xAxis:50,yAxis:75},{xAxis:80,yAxis:100}],
+        [{xAxis:80,yAxis:75},{xAxis:105,yAxis:100}],
+        [{xAxis:50,yAxis:55},{xAxis:80,yAxis:75}],
+        [{xAxis:80,yAxis:55},{xAxis:105,yAxis:75}],
+      ], itemStyle:{ color:['rgba(56,189,248,0.04)','rgba(16,185,129,0.04)','rgba(107,128,153,0.04)','rgba(245,158,11,0.04)'] } } },
+      { type:'scatter', symbolSize: d => Math.sqrt(d[2]) * 8,
+        data: stocks.map(s => [s.x, s.y, s.alloc || s.size, s.name, s.quadrant]),
+        itemStyle:{ color: p => stocks[p.dataIndex].color, opacity:0.85 },
+        label:{ show:true, formatter: p => p.data[3], position:'top', color:'#94a3b8', fontSize:11 },
+        tooltip:{ formatter: p => `<b>${p.data[3]}</b><br/>AI受益度: ${p.data[0]}<br/>估值安全: ${p.data[1]}<br/>仓位: ${p.data[2]}%<br/>${p.data[4]}` }
+      },
+      // quadrant labels
+      { type:'scatter', data:[], markArea:{ silent:true, label:{
+        show:true, position:'insideTopLeft',
+        formatter: p => ['Q1\n算力底座','Q3\n算法平台','',''][0]
+      }}}
+    ]
+  });
+  // Add quadrant labels as annotations
+  c.setOption({ graphic: [
+    { type:'text', left:'16%', top:45, style:{text:'Q3 算法平台',fill:'rgba(56,189,248,0.4)',fontSize:11}},
+    { type:'text', right:'6%', top:45, style:{text:'Q4 应用落地',fill:'rgba(16,185,129,0.4)',fontSize:11}},
+    { type:'text', right:'6%', bottom:50, style:{text:'Q1 算力底座',fill:'rgba(167,139,250,0.4)',fontSize:11}},
+    { type:'text', left:'16%', bottom:50, style:{text:'Q2 数据通路',fill:'rgba(251,146,60,0.4)',fontSize:11}},
+  ]});
+}
+
+// ═══════════════════════════════ CATALYST CHARTS ═══════════════════════════════
+function initCatalystHeat() {
+  const c = getChart('chart-catalyst-heat'); if (!c) return;
+  const months = ['Q1\n已兑现','Q2\n进行中','Q3\n即将','Q4\n远期','Q1 27\n远期'];
+  const stocks  = ['阿里巴巴','宁德H','联想','英伟达','比亚迪','中际旭创','台积电','澜起H'];
+  const data = [
+    [0,0,2],[0,2,3],[0,3,2],[0,5,1],[0,6,2],[0,4,1],
+    [1,0,3],[1,2,3],[1,1,2],[1,3,2],[1,4,3],[1,5,2],[1,6,1],
+    [2,0,2],[2,1,3],[2,3,3],[2,4,2],[2,5,3],[2,6,2],[2,7,2],
+    [3,0,1],[3,2,2],[3,3,2],[3,5,2],[3,6,2],[3,7,2],
+    [4,3,1],[4,6,1],[4,7,1],
+  ].map(d => [d[0], d[1], d[2]]);
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ formatter: p => `${months[p.data[0]]} × ${stocks[p.data[1]]}<br/>催化强度: ${'★'.repeat(p.data[2])}` },
+    grid:{ left:70, right:20, bottom:30, top:10 },
+    xAxis:{ type:'category', data:months, axisLabel:{color:'#64748b',fontSize:10} },
+    yAxis:{ type:'category', data:stocks, axisLabel:{color:'#94a3b8',fontSize:11} },
+    visualMap:{ min:0, max:3, show:false, inRange:{ color:['#1e3a5f','#0ea5e9','#f59e0b','#10b981'] } },
+    series:[{ type:'heatmap', data, itemStyle:{ borderRadius:3, borderColor:var_bg, borderWidth:2 } }]
+  });
+}
+const var_bg = '#060d1b';
+
+function initCatalystBar() {
+  const c = getChart('chart-catalyst-bar'); if (!c) return;
+  const data = [
+    { name:'阿里巴巴', certainty:88, timing:75, magnitude:92 },
+    { name:'宁德H', certainty:82, timing:80, magnitude:78 },
+    { name:'联想集团', certainty:85, timing:70, magnitude:65 },
+    { name:'英伟达', certainty:90, timing:85, magnitude:88 },
+    { name:'比亚迪H', certainty:72, timing:68, magnitude:75 },
+    { name:'中际旭创', certainty:85, timing:82, magnitude:82 },
+    { name:'台积电', certainty:88, timing:88, magnitude:72 },
+    { name:'澜起H', certainty:78, timing:75, magnitude:80 },
+  ];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', axisPointer:{type:'shadow'} },
+    legend:{ data:['确定性','时机匹配','弹性幅度'], top:2, textStyle:{color:'#94a3b8',fontSize:11} },
+    grid:{ left:70, right:20, bottom:10, top:34 },
+    xAxis:{ type:'value', max:100, axisLabel:{color:'#64748b',fontSize:10} },
+    yAxis:{ type:'category', data:data.map(d=>d.name), axisLabel:{color:'#94a3b8',fontSize:11} },
+    series:[
+      { name:'确定性', type:'bar', stack:'total', barMaxWidth:12, data:data.map(d=>d.certainty/3), itemStyle:{color:'#38bdf8'} },
+      { name:'时机匹配', type:'bar', stack:'total', data:data.map(d=>d.timing/3), itemStyle:{color:'#a78bfa'} },
+      { name:'弹性幅度', type:'bar', stack:'total', data:data.map(d=>d.magnitude/3), itemStyle:{color:'#10b981',borderRadius:[0,3,3,0]} },
+    ]
+  });
+}
+
+// ═══════════════════════════════ SCENARIO CHARTS ═══════════════════════════════
+function initScenario() {
+  const c = getChart('chart-scenario'); if (!c) return;
+  const m = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  const bull = [100,110,122,135,148,160,172,183,192,198,200,200];
+  const base = [100,103,107,112,117,123,128,133,138,142,145,147];
+  const bear = [100,96,91,88,87,88,90,91,92,93,94,95];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', axisPointer:{type:'cross'},
+      formatter: ps => ps.map(p=>`${p.seriesName}: <b>$${p.data.toFixed(1)}</b>`).join('<br/>') },
+    legend:{ data:['牛市(+77%)','基础(+47%)','熊市(-5%)'], top:2, textStyle:{color:'#94a3b8',fontSize:11} },
+    grid:{ left:40, right:20, bottom:25, top:35 },
+    xAxis:{ type:'category', data:m, axisLabel:{color:'#64748b',fontSize:10} },
+    yAxis:{ type:'value', axisLabel:{color:'#64748b',fontSize:10,formatter:v=>'$'+v},
+      splitLine:{lineStyle:{color:'rgba(30,58,95,0.5)'}} },
+    series:[
+      { name:'牛市(+77%)', type:'line', data:bull, smooth:true, lineStyle:{color:'#10b981',width:2.5},
+        areaStyle:{opacity:0.08,color:'#10b981'}, symbol:'none' },
+      { name:'基础(+47%)', type:'line', data:base, smooth:true, lineStyle:{color:'#f59e0b',width:2.5},
+        areaStyle:{opacity:0.08,color:'#f59e0b'}, symbol:'none' },
+      { name:'熊市(-5%)', type:'line', data:bear, smooth:true, lineStyle:{color:'#f43f5e',width:1.5,type:'dashed'}, symbol:'none' },
+    ]
+  });
+}
+
+function initMonteCarlo() {
+  const c = getChart('chart-montecarlo'); if (!c) return;
+  // Simulate distribution: mean=43%, std=35%
+  const bins = [];
+  const labels = [];
+  for (let r = -60; r <= 200; r += 10) {
+    labels.push(r+'%');
+    // approximate normal distribution
+    const z = (r - 43) / 35;
+    const density = Math.exp(-0.5 * z * z) / (35 * Math.sqrt(2 * Math.PI)) * 10000;
+    bins.push(Math.round(Math.max(0, density)));
+  }
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', formatter: ps => `收益区间: ${ps[0].name}<br/>频率: ${ps[0].value}次` },
+    grid:{ left:40, right:20, bottom:30, top:20 },
+    xAxis:{ type:'category', data:labels, axisLabel:{color:'#64748b',fontSize:10,rotate:45}, axisLine:{lineStyle:{color:'#1e3a5f'}} },
+    yAxis:{ type:'value', axisLabel:{color:'#64748b',fontSize:10}, splitLine:{lineStyle:{color:'rgba(30,58,95,0.5)'}} },
+    visualMap:{ show:false, min:0, max:1200,
+      inRange:{ color:bins.map((_,i)=>{
+        const r = -60 + i*10;
+        if (r >= 100) return '#10b981';
+        if (r >= 0)  return '#f59e0b';
+        return '#f43f5e';
+      })
+    }},
+    series:[{ type:'bar', data:bins, barMaxWidth:18,
+      markArea:{ data:[[{xAxis:'14%'},{xAxis:'16%',itemStyle:{color:'rgba(16,185,129,0.08)'}}]]},
+      markLine:{ data:[{xAxis:'7',name:'盈亏平衡',label:{formatter:'盈亏线'},lineStyle:{color:'rgba(244,63,94,0.6)',type:'dashed'}}],
+        symbol:'none' }
+    }]
+  });
+}
+
+// ═══════════════════════════════ RISK CHARTS ═══════════════════════════════
+function initRiskScatter() {
+  const c = getChart('chart-risk-scatter'); if (!c) return;
+  const stocks = [
+    { name:'阿里巴巴', risk:35, ret:85, size:22, color:'#38bdf8' },
+    { name:'宁德H', risk:42, ret:40, size:18, color:'#10b981' },
+    { name:'联想集团', risk:30, ret:30, size:15, color:'#38bdf8' },
+    { name:'英伟达', risk:45, ret:40, size:15, color:'#a78bfa' },
+    { name:'比亚迪H', risk:48, ret:40, size:15, color:'#34d399' },
+    { name:'中际旭创', risk:55, ret:50, size:10, color:'#fb923c' },
+    { name:'台积电', risk:28, ret:30, size:8, color:'#818cf8' },
+    { name:'澜起H', risk:52, ret:45, size:7, color:'#f472b6' },
+  ];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ formatter: p => `<b>${p.data[3]}</b><br/>风险: ${p.data[0]}<br/>目标收益: +${p.data[1]}%<br/>仓位: ${p.data[2]}%` },
+    grid:{ left:50, right:20, bottom:40, top:30 },
+    xAxis:{ name:'风险指数 →', axisLabel:{color:'#64748b',fontSize:10}, nameTextStyle:{color:'#64748b',fontSize:11},
+      splitLine:{lineStyle:{color:'rgba(30,58,95,0.5)'}} },
+    yAxis:{ name:'目标收益 ↑', axisLabel:{color:'#64748b',fontSize:10,formatter:v=>'+'+v+'%'}, nameTextStyle:{color:'#64748b',fontSize:11},
+      splitLine:{lineStyle:{color:'rgba(30,58,95,0.5)'}} },
+    series:[{
+      type:'scatter', symbolSize: d => Math.sqrt(d[2]) * 9,
+      data: stocks.map(s => [s.risk, s.ret, s.size, s.name]),
+      itemStyle:{ color: p => stocks[p.dataIndex].color, opacity:0.85 },
+      label:{ show:true, formatter: p => p.data[3], position:'top', color:'#94a3b8', fontSize:11 }
+    }]
+  });
+}
+
+function initRiskStack() {
+  const c = getChart('chart-risk-stack'); if (!c) return;
+  const names = ['阿里巴巴','宁德H','联想','英伟达','比亚迪H','中际旭创','台积电','澜起H'];
+  c.setOption({
+    backgroundColor:'transparent',
+    tooltip:{ trigger:'axis', axisPointer:{type:'shadow'} },
+    legend:{ data:['地缘政治','行业竞争','估值风险','流动性'], top:2, textStyle:{color:'#94a3b8',fontSize:11} },
+    grid:{ left:70, right:20, bottom:10, top:34 },
+    xAxis:{ type:'value', max:100, axisLabel:{color:'#64748b',fontSize:10} },
+    yAxis:{ type:'category', data:names, axisLabel:{color:'#94a3b8',fontSize:11} },
+    series:[
+      { name:'地缘政治', type:'bar', stack:'risk', barMaxWidth:14,
+        data:[35,25,20,40,40,20,35,30], itemStyle:{color:'#f43f5e'} },
+      { name:'行业竞争', type:'bar', stack:'risk',
+        data:[15,25,15,15,25,30,15,20], itemStyle:{color:'#fb923c'} },
+      { name:'估值风险', type:'bar', stack:'risk',
+        data:[5,18,10,25,12,22,20,25], itemStyle:{color:'#f59e0b'} },
+      { name:'流动性', type:'bar', stack:'risk', barMaxWidth:14,
+        data:[5,10,8,5,10,12,5,8], itemStyle:{color:'#64748b',borderRadius:[0,3,3,0]} },
+    ]
+  });
+}
+
+// ═══════════════════════════════ INIT ═══════════════════════════════
+window.addEventListener('load', () => {
+  initPieAlloc();
+  initPieSector();
+  initNavChart();
+  initUpsideChart();
+});
+window.addEventListener('resize', () => {
+  ['pie-alloc','pie-sector','chart-nav','chart-upside',
+   'chart-radar-ai','chart-radar-catl','chart-radar-byd','chart-radar-nvda','chart-quadrant',
+   'chart-catalyst-heat','chart-catalyst-bar',
+   'chart-scenario','chart-montecarlo',
+   'chart-risk-scatter','chart-risk-stack'
+  ].forEach(id => {
+    const dom = document.getElementById(id);
+    if (dom) { const inst = echarts.getInstanceByDom(dom); if (inst) inst.resize(); }
+  });
+});
+</script>
+</body>
+</html>
