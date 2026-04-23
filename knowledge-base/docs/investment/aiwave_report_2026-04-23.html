@@ -657,9 +657,27 @@ function switchTab(name, btn) {
 function initRadarMain() {
   const chart = getChart('radarMain');
   if (!chart) return;
+  const radarNames = ["中芯国际", "阿里巴巴", "联想集团", "天数智芯", "澜起科技H"];
+  const radarSeries = [
+        { value: [90, 85, 95, 98, 70], name: '中芯国际',
+          areaStyle: { color: '#38bdf833' },
+          lineStyle: { color: '#38bdf8' }, itemStyle: { color: '#38bdf8' } },
+        { value: [85, 88, 88, 70, 90], name: '阿里巴巴',
+          areaStyle: { color: '#fbbf2433' },
+          lineStyle: { color: '#fbbf24' }, itemStyle: { color: '#fbbf24' } },
+        { value: [65, 80, 78, 60, 92], name: '联想集团',
+          areaStyle: { color: '#34d39933' },
+          lineStyle: { color: '#34d399' }, itemStyle: { color: '#34d399' } },
+        { value: [78, 65, 98, 95, 55], name: '天数智芯',
+          areaStyle: { color: '#a78bfa33' },
+          lineStyle: { color: '#a78bfa' }, itemStyle: { color: '#a78bfa' } },
+        { value: [82, 78, 88, 75, 72], name: '澜起科技H',
+          areaStyle: { color: '#fb923c33' },
+          lineStyle: { color: '#fb923c' }, itemStyle: { color: '#fb923c' } },
+  ];
   chart.setOption({
     backgroundColor: 'transparent',
-    legend: { data: ['中芯国际', '阿里巴巴', '联想集团'], bottom: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
+    legend: { data: radarNames, bottom: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
     radar: {
       indicator: [
         { name: '技术壁垒
@@ -678,20 +696,7 @@ function initRadarMain() {
       splitLine: { lineStyle: { color: '#334155' } },
       axisLine: { lineStyle: { color: '#334155' } },
     },
-    series: [{
-      type: 'radar',
-      data: [
-        { value: [90, 85, 95, 98, 70], name: '中芯国际',
-          areaStyle: { color: 'rgba(56,189,248,0.2)' },
-          lineStyle: { color: '#38bdf8' }, itemStyle: { color: '#38bdf8' } },
-        { value: [80, 92, 88, 75, 88], name: '阿里巴巴',
-          areaStyle: { color: 'rgba(251,191,36,0.2)' },
-          lineStyle: { color: '#fbbf24' }, itemStyle: { color: '#fbbf24' } },
-        { value: [75, 80, 82, 70, 95], name: '联想集团',
-          areaStyle: { color: 'rgba(52,211,153,0.2)' },
-          lineStyle: { color: '#34d399' }, itemStyle: { color: '#34d399' } },
-      ],
-    }],
+    series: [{ type: 'radar', data: radarSeries }],
   });
   window.addEventListener('resize', () => chart.resize());
 }
@@ -699,12 +704,12 @@ function initRadarMain() {
 function initUpsideBar() {
   const chart = getChart('upsideBar');
   if (!chart) return;
-  const stocks = ['商汤科技','腾讯控股','华虹半导体','中兴通讯','百度集团','联想集团','澜起科技H','天数智芯','中芯国际','阿里巴巴'];
-  const upsides = [-15, 18, 20, 25, 35, 30, 45, 50, 40, 85];
+  const stocks = ["腾讯控股", "联想集团", "百度集团", "中芯国际", "澜起科技H", "天数智芯", "阿里巴巴"];
+  const upsides = [24.0, 30.2, 35.0, 40.2, 44.9, 50.0, 84.8];
   const colors = upsides.map(v => v < 0 ? '#f87171' : v > 40 ? '#34d399' : '#38bdf8');
   chart.setOption({
     backgroundColor: 'transparent',
-    grid: { left: 80, right: 60, top: 10, bottom: 20 },
+    grid: { left: 90, right: 70, top: 10, bottom: 20 },
     xAxis: { type: 'value', axisLabel: { color: '#94a3b8', formatter: v => v + '%' }, splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { show: false } },
     yAxis: { type: 'category', data: stocks, axisLabel: { color: '#94a3b8', fontSize: 12 }, axisLine: { show: false }, axisTick: { show: false } },
     series: [{
@@ -719,36 +724,31 @@ function initUpsideBar() {
 function initBubbleChart() {
   const chart = getChart('bubbleChart');
   if (!chart) return;
-  // [risk, return, confidence, name, signal]
+  // [risk, return, confidence, name, signal]  — 由 analysis.json 动态注入
   const data = [
-    [20, 85, 90, '阿里巴巴', '买入'],
-    [25, 40, 88, '中芯国际', '买入'],
-    [30, 30, 85, '联想集团', '买入'],
-    [35, 45, 75, '澜起科技H', '买入'],
-    [55, 50, 65, '天数智芯', '积累'],
-    [40, 35, 72, '百度集团', '积累'],
-    [30, 20, 78, '腾讯控股', '持有'],
-    [35, 25, 70, '中兴通讯', '积累'],
-    [38, 20, 68, '华虹半导体', '持有'],
-    [40, 25, 65, '小米集团', '持有'],
-    [45, 15, 60, '舜宇光学', '持有'],
-    [75, -15, 40, '商汤科技', '回避'],
-    [80, -20, 35, '旷视科技', '回避'],
+    [30, 40.2, 92, '中芯国际', '买入'],
+    [10, 84.8, 86, '阿里巴巴', '买入'],
+    [8, 30.2, 72, '联想集团', '买入'],
+    [45, 50.0, 88, '天数智芯', '买入'],
+    [28, 44.9, 85, '澜起科技H', '积累'],
+    [22, 35.0, 86, '百度集团', '积累'],
+    [32, 24.0, 84, '腾讯控股', '持有'],
+    [80, -15, 75, '商汤科技', '回避'],
   ];
   chart.setOption({
     backgroundColor: 'transparent',
-    grid: { left: 60, right: 80, top: 40, bottom: 60 },
+    grid: { left: 60, right: 100, top: 40, bottom: 60 },
     xAxis: { name: '风险度 →', nameLocation: 'end', min: 0, max: 100, nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } } },
     yAxis: { name: '↑ 预期收益', nameLocation: 'end', min: -30, max: 100, nameTextStyle: { color: '#94a3b8' }, axisLabel: { color: '#94a3b8', formatter: v => v + '%' }, splitLine: { lineStyle: { color: '#1e293b' } }, axisLine: { lineStyle: { color: '#334155' } } },
     series: [{
       type: 'scatter',
       data: data.map(d => ({ value: [d[0], d[1], d[2]], name: d[3],
-        itemStyle: { color: d[1] > 30 ? 'rgba(52,211,153,0.8)' : d[1] < 0 ? 'rgba(248,113,113,0.8)' : 'rgba(56,189,248,0.8)' } })),
-      symbolSize: d => Math.sqrt(d[2]) * 5,
+        itemStyle: { color: d[1] > 30 ? 'rgba(52,211,153,0.85)' : d[1] < 0 ? 'rgba(248,113,113,0.85)' : 'rgba(56,189,248,0.85)' } })),
+      symbolSize: d => Math.max(Math.sqrt(d[2]) * 5, 18),
       label: { show: true, formatter: p => p.name, position: 'right', color: '#e2e8f0', fontSize: 11 },
     }],
     markLine: { data: [{ xAxis: 50, lineStyle: { color: '#475569', type: 'dashed' } }, { yAxis: 0, lineStyle: { color: '#475569', type: 'dashed' } }] },
-    tooltip: { formatter: p => `${p.name}<br>风险: ${p.value[0]}<br>收益: ${p.value[1]}%<br>信心: ${p.value[2]}` },
+    tooltip: { formatter: p => `${p.name}<br/>风险度: ${p.value[0]}<br/>预期收益: +${p.value[1]}%<br/>信心度: ${p.value[2]}` },
   });
   window.addEventListener('resize', () => chart.resize());
 }
@@ -1049,13 +1049,20 @@ function renderUsTables() {
 }
 
 // ─── 初始化 ───────────────────────────────────────────────────────────────────
+function waitEchartsAndInit(fn, maxTries) {
+  maxTries = maxTries || 30;
+  if (typeof echarts !== 'undefined') { fn(); return; }
+  if (maxTries <= 0) { console.warn('ECharts 加载超时'); return; }
+  setTimeout(() => waitEchartsAndInit(fn, maxTries - 1), 200);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderAshareTables();
-  setTimeout(() => {
+  waitEchartsAndInit(() => {
     initRadarMain();
     initUpsideBar();
     initBubbleChart();
-  }, 300);
+  });
 });
 </script>
 </body>
