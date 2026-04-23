@@ -1049,20 +1049,13 @@ function renderUsTables() {
 }
 
 // ─── 初始化 ───────────────────────────────────────────────────────────────────
-function waitEchartsAndInit(fn, maxTries) {
-  maxTries = maxTries || 30;
-  if (typeof echarts !== 'undefined') { fn(); return; }
-  if (maxTries <= 0) { console.warn('ECharts 加载超时'); return; }
-  setTimeout(() => waitEchartsAndInit(fn, maxTries - 1), 200);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   renderAshareTables();
-  waitEchartsAndInit(() => {
+  setTimeout(() => {
     initRadarMain();
     initUpsideBar();
     initBubbleChart();
-  });
+  }, 400);
 });
 </script>
 </body>
