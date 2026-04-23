@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚗 比亚迪产业链追踪 — 2026-04-23</title>
+<style>
+:root {
+  --bg: #f8f9fb;
+  --card: #ffffff;
+  --border: #e8ecf1;
+  --text: #1a202c;
+  --text2: #64748b;
+  --accent: #f59e0b;
+  --green: #22c55e;
+  --red: #ef4444;
+  --orange: #f97316;
+  --yellow: #eab308;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+  }
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 16px;
+}
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 32px 0 24px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.header .meta {
+  color: var(--text2);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.summary-card .value {
+  font-size: 28px;
+  font-weight: 700;
+}
+.summary-card .label {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.summary-card.up .value { color: var(--red); }
+.summary-card.down .value { color: var(--green); }
+.summary-card.flat .value { color: var(--text2); }
+
+/* Section */
+.section {
+  margin: 28px 0 16px;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Tab Navigation */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.tab:hover { border-color: var(--accent); }
+.tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Stock Table */
+.stock-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--bg);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: rgba(245,158,11,0.04); }
+.price { font-weight: 600; font-variant-numeric: tabular-nums; }
+.up { color: var(--red); }
+.down { color: var(--green); }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-core { background: #fef3c7; color: #92400e; }
+.tag-upstream { background: #dbeafe; color: #1e40af; }
+.tag-downstream { background: #d1fae5; color: #065f46; }
+
+/* Analysis Cards */
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+.analysis-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: box-shadow 0.2s;
+}
+.analysis-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.analysis-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.analysis-card .signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.signal-buy { background: #dcfce7; color: #166534; }
+.signal-sell { background: #fee2e2; color: #991b1b; }
+.signal-hold { background: #fef9c3; color: #854d0e; }
+.signal-watch { background: #e0e7ff; color: #3730a3; }
+.analysis-card .reason {
+  font-size: 13px;
+  color: var(--text2);
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.analysis-card .sources {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.analysis-card .sources a {
+  display: block;
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  margin: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.analysis-card .sources a:hover { text-decoration: underline; }
+
+/* News Section */
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+.news-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.news-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.news-item .snippet {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-item .news-meta {
+  font-size: 11px;
+  color: var(--text2);
+  display: flex;
+  justify-content: space-between;
+}
+.news-item a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 40px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header h1 { font-size: 22px; }
+  .analysis-grid { grid-template-columns: 1fr; }
+  .news-list { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🚗 比亚迪产业链追踪</h1>
+    <div class="meta">2026-04-23 · 数据来源：腾讯财经 · 仅供学习参考</div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-grid" id="summary-grid"></div>
+
+  <!-- Tab Nav -->
+  <div class="section">
+    <div class="tabs" id="main-tabs">
+      <div class="tab active" data-tab="quotes">📊 行情总览</div>
+      <div class="tab" data-tab="analysis">🧠 分析建议</div>
+      <div class="tab" data-tab="news">📰 要闻速递</div>
+      <div class="tab" data-tab="ecosystem">🌐 全景透视</div>
+    </div>
+  </div>
+
+  <!-- Quotes Panel -->
+  <div id="panel-quotes">
+    <div class="tabs" id="cat-tabs">
+      <div class="tab active" data-cat="all">全部</div>
+      <div class="tab" data-cat="core">核心</div>
+      <div class="tab" data-cat="upstream_mining">矿产</div>
+      <div class="tab" data-cat="upstream_material">材料</div>
+      <div class="tab" data-cat="upstream_equipment">设备</div>
+      <div class="tab" data-cat="downstream_auto">整车厂</div>
+      <div class="tab" data-cat="downstream_electronics">电子</div>
+      <div class="tab" data-cat="downstream_energy">储能</div>
+    </div>
+    <div class="stock-table-wrap">
+      <table id="stock-table">
+        <thead>
+          <tr>
+            <th>公司</th>
+            <th>代码</th>
+            <th>分类</th>
+            <th>最新价</th>
+            <th>昨收</th>
+            <th>涨跌幅</th>
+            <th>涨跌额</th>
+            <th>成交量</th>
+            <th>成交额</th>
+            <th>换手率</th>
+            <th>市盈率</th>
+            <th>PEG</th>
+          </tr>
+        </thead>
+        <tbody id="stock-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Analysis Panel -->
+  <div id="panel-analysis" style="display:none;">
+    <div class="analysis-grid" id="analysis-grid"></div>
+  </div>
+
+  <!-- News Panel -->
+  <div id="panel-news" style="display:none;">
+    <div style="margin-top:24px;">
+      <div class="section-title">行业要闻</div>
+    </div>
+    <div class="news-list" id="industry-news"></div>
+    <div style="margin-top:24px;">
+      <div class="section-title">个股新闻</div>
+    </div>
+    <div class="news-list" id="company-news"></div>
+  </div>
+
+  <!-- Ecosystem Panel -->
+  <div id="panel-ecosystem" style="display:none;">
+    <div style="background: var(--bg); padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;">
+  <!-- Header -->
+  <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+    <div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 24px;">🚗</span>
+        <h2 style="font-size: 24px; font-weight: 700; margin: 0; color: var(--text);">比亚迪 (BYD) — 全景生态透视</h2>
+      </div>
+      <div style="color: var(--text2); font-size: 14px; margin-top: 4px;">全球新能源车销冠 | 垂直整合之王 | 电池+汽车双擎驱动</div>
+    </div>
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px; padding: 12px 24px; text-align: center;">
+      <div style="font-size: 28px; font-weight: 700; color: #2563eb; line-height: 1;">95.2</div>
+      <div style="font-size: 12px; color: #60a5fa; margin-top: 4px;">综合评分</div>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+    <!-- Left Column: Core Stats -->
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span>📊</span> 1. 本体诊断 (Core)
+      </h3>
+      <div style="color: #2563eb; font-size: 13px; font-weight: 500; margin-bottom: 12px;">核心指标速览</div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; font-size: 13px;">
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">最新汽车月销量</span>
+          <span><strong>超 30 万辆</strong> <span style="color: var(--red); font-size: 12px;">稳居第一</span></span>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">刀片电池市占率</span>
+          <span><strong>稳居前二</strong> <span style="color: var(--red); font-size: 12px;">铁锂王者</span></span>
+        </div>
+         <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">单车净利润</span>
+          <span><strong>持续向上突破</strong></span>
+        </div>
+         <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--border); padding-bottom: 8px;">
+          <span style="color: var(--text2);">海外出口增速</span>
+          <span><strong>强势增长</strong></span>
+        </div>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <div style="color: #16a34a; font-size: 13px; font-weight: 600; margin-bottom: 8px;">🟩 核心护城河</div>
+        <ol style="margin: 0; padding-left: 16px; font-size: 12px; color: var(--text2); line-height: 1.6;">
+          <li><strong>极致垂直整合：</strong> 从锂矿、电池、芯片到整车制造几乎全产业链自研自产，成本控制能力全球无敌。</li>
+          <li><strong>技术鱼池战略：</strong> DM-i 超级混动、刀片电池、e平台 3.0、云辇系统、易四方等核心技术持续释放红利。</li>
+          <li><strong>规模效应爆发：</strong> 销量的绝对领先带来庞大的规模经济效应，摊薄研发和制造成本。</li>
+          <li><strong>出海与高端化：</strong> 仰望、方程豹等品牌向上突破，同时加速全球化布局，打开第二增长空间。</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Right Column: Radar Chart Placeholder & Scores -->
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column;">
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+        <span>🎯</span> 竞争力多维解析
+      </h3>
+
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; position: relative;">
+          <!-- Using SVG to draw a radar chart -->
+          <svg width="280" height="280" viewBox="0 0 300 300">
+            <g transform="translate(150, 150)">
+              <!-- Background grid -->
+              <polygon points="0,-120 114,-37 74,101 -74,101 -114,-37" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-96 91,-30 59,81 -59,81 -91,-30" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-72 68,-22 44,61 -44,61 -68,-22" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-48 45,-15 29,40 -29,40 -45,-15" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+              <polygon points="0,-24 23,-7 15,20 -15,20 -23,-7" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+              <!-- Axes -->
+              <line x1="0" y1="0" x2="0" y2="-120" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="114" y2="-37" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="74" y2="101" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="-74" y2="101" stroke="#e2e8f0" stroke-width="1"/>
+              <line x1="0" y1="0" x2="-114" y2="-37" stroke="#e2e8f0" stroke-width="1"/>
+
+              <!-- Data Polygon for BYD -->
+              <polygon points="0,-120 108,-35 67,90 -63,85 -102,-33" fill="#3b82f6" fill-opacity="0.2" stroke="#2563eb" stroke-width="2"/>
+
+              <!-- Data Points -->
+              <circle cx="0" cy="-120" r="4" fill="#2563eb"/> <!-- 成本控制: 100 -->
+              <circle cx="108" cy="-35" r="4" fill="#2563eb"/> <!-- 技术研发: 95 -->
+              <circle cx="67" cy="90" r="4" fill="#2563eb"/> <!-- 全球化: 90 -->
+              <circle cx="-63" cy="85" r="4" fill="#2563eb"/> <!-- 品牌溢价: 85 -->
+              <circle cx="-102" cy="-33" r="4" fill="#2563eb"/> <!-- 市场份额: 98 -->
+            </g>
+
+            <!-- Labels -->
+            <text x="150" y="20" text-anchor="middle" font-size="10" fill="#64748b">成本控制 (100)</text>
+
+            <text x="270" y="105" text-anchor="start" font-size="10" fill="#64748b">技术研发 (95)</text>
+
+            <text x="230" y="260" text-anchor="middle" font-size="10" fill="#64748b">全球化 (90)</text>
+
+            <text x="70" y="260" text-anchor="middle" font-size="10" fill="#64748b">品牌溢价 (85)</text>
+
+            <text x="30" y="105" text-anchor="end" font-size="10" fill="#64748b">市场份额 (98)</text>
+          </svg>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px;">
+        <div style="background: #f0fdf4; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #16a34a; font-size: 24px; font-weight: 700;">100</div>
+          <div style="color: #15803d; font-size: 11px; margin-top: 4px; font-weight: 500;">成本控制</div>
+          <div style="color: #4ade80; font-size: 10px; margin-top: 2px;">全产业链垂直整合</div>
+        </div>
+        <div style="background: #f0fdfa; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #0d9488; font-size: 24px; font-weight: 700;">98</div>
+          <div style="color: #0f766e; font-size: 11px; margin-top: 4px; font-weight: 500;">市场份额</div>
+          <div style="color: #5eead4; font-size: 10px; margin-top: 2px;">国内销冠绝对优势</div>
+        </div>
+        <div style="background: #faf5ff; border-radius: 8px; padding: 12px; text-align: center;">
+          <div style="color: #9333ea; font-size: 24px; font-weight: 700;">95</div>
+          <div style="color: #7e22ce; font-size: 11px; margin-top: 4px; font-weight: 500;">技术研发</div>
+          <div style="color: #d8b4fe; font-size: 10px; margin-top: 2px;">DM-i/易四方/云辇</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table 1 -->
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; overflow-x: auto;">
+    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #3b82f6; padding-bottom: 12px;">
+      <span>⛏️</span> 2. 上游核心供应链 — 材料与设备
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+      <thead>
+        <tr style="color: var(--text2); border-bottom: 1px solid var(--border);">
+          <th style="padding: 12px 8px; font-weight: 500;">公司</th>
+          <th style="padding: 12px 8px; font-weight: 500;">领域</th>
+          <th style="padding: 12px 8px; font-weight: 500;">核心逻辑</th>
+          <th style="padding: 12px 8px; font-weight: 500; text-align: center;">依赖度</th>
+          <th style="padding: 12px 8px; font-weight: 500; text-align: center;">壁垒</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">天齐锂业 (002466)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">锂盐/碳酸锂</td>
+          <td style="padding: 12px 8px;">电池上游核心原材料</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">湖南裕能 (301358)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">磷酸铁锂正极</td>
+          <td style="padding: 12px 8px;">铁锂正极龙头，深度绑定比亚迪</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">德方纳米 (300769)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">磷酸铁锂正极</td>
+          <td style="padding: 12px 8px;">铁锂正极重要供应商</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">先导智能 (300450)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">锂电设备</td>
+          <td style="padding: 12px 8px;">锂电池生产核心设备提供商</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Table 2 -->
+  <div style="background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; overflow-x: auto;">
+    <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #3b82f6; padding-bottom: 12px;">
+      <span>🔋</span> 3. 下游及相关领域 — 整车竞争与电子储能
+    </h3>
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+      <thead>
+        <tr style="color: var(--text2); border-bottom: 1px solid var(--border);">
+          <th style="padding: 12px 8px; font-weight: 500;">公司</th>
+          <th style="padding: 12px 8px; font-weight: 500;">角色</th>
+          <th style="padding: 12px 8px; font-weight: 500;">关系</th>
+          <th style="padding: 12px 8px; font-weight: 500;">影响度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">特斯拉 (TSLA)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">全球电动车龙头</td>
+          <td style="padding: 12px 8px;">最强竞争对手 & 刀片电池客户</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">理想汽车 (LI)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">增程路线代表</td>
+          <td style="padding: 12px 8px;">在高端 SUV 市场与仰望/腾势形成竞争</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">小米集团 (01810)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">SU7系列</td>
+          <td style="padding: 12px 8px;">在纯电轿车市场与汉/海豹直接竞争，且为电池客户</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fef08a; color: #854d0e; padding: 2px 8px; border-radius: 4px; font-size: 12px;">中</span></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #f1f5f9;">
+          <td style="padding: 12px 8px; font-weight: 500;">比亚迪电子 (00285)</td>
+          <td style="padding: 12px 8px; color: var(--text2);">电子代工/汽车智能部件</td>
+          <td style="padding: 12px 8px;">控股子公司，承接集团智能座舱等核心部件业务</td>
+          <td style="padding: 12px 8px; text-align: center;"><span style="background: #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 4px; font-size: 12px;">高</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ 免责声明：本报告数据来自公开市场信息，通过腾讯财经获取，仅供学习和参考，不构成任何投资建议。投资有风险，入市需谨慎。
+  </div>
+</div>
+
+<script>
+// ============= DATA INJECTION =============
+const stockData = {"timestamp": "2026-04-21 17:06:52", "date": "2026-04-21", "source": "Tencent Finance (qt.gtimg.cn)", "total_companies": 31, "companies": [{"name": "比亚迪", "name_en": "BYD", "role": "新能源汽车龙头(A)", "category": "core", "market": "SZ", "code": "002594"}, {"name": "比亚迪", "name_en": "BYD", "role": "新能源汽车龙头(港)", "category": "core", "market": "HK", "code": "01211", "tencent": "hk01211"}, {"name": "天齐锂业", "name_en": "Tianqi Lithium", "role": "锂盐/碳酸锂(A)", "category": "upstream_mining", "market": "SZ", "code": "002466"}, {"name": "天齐锂业", "name_en": "Tianqi Lithium", "role": "锂盐/碳酸锂(港)", "category": "upstream_mining", "market": "HK", "code": "09696", "tencent": "hk09696"}, {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "role": "锂化合物/金属锂(A)", "category": "upstream_mining", "market": "SZ", "code": "002460"}, {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "role": "锂化合物/金属锂(港)", "category": "upstream_mining", "market": "HK", "code": "01772", "tencent": "hk01772"}, {"name": "华友钴业", "name_en": "Huayou Cobalt", "role": "钴材料/三元前驱体", "category": "upstream_mining", "market": "SH", "code": "603799"}, {"name": "洛阳钼业", "name_en": "CMOC", "role": "钴镍资源(A)", "category": "upstream_mining", "market": "SH", "code": "603993"}, {"name": "洛阳钼业", "name_en": "CMOC", "role": "钴镍资源(港)", "category": "upstream_mining", "market": "HK", "code": "03993", "tencent": "hk03993"}, {"name": "湖南裕能", "name_en": "Hunan Yuneng", "role": "磷酸铁锂正极", "category": "upstream_material", "market": "SZ", "code": "301358"}, {"name": "德方纳米", "name_en": "Dynanonic", "role": "磷酸铁锂正极", "category": "upstream_material", "market": "SZ", "code": "300769"}, {"name": "璞泰来", "name_en": "Putailai", "role": "负极材料/涂覆隔膜", "category": "upstream_material", "market": "SH", "code": "603659"}, {"name": "贝特瑞", "name_en": "BTR New Material", "role": "负极材料", "category": "upstream_material", "market": "BJ", "code": "835185"}, {"name": "恩捷股份", "name_en": "Enjie", "role": "锂电隔膜", "category": "upstream_material", "market": "SZ", "code": "002812"}, {"name": "天赐材料", "name_en": "Tinci Materials", "role": "电解液", "category": "upstream_material", "market": "SZ", "code": "002709"}, {"name": "新宙邦", "name_en": "Capchem", "role": "电解液", "category": "upstream_material", "market": "SZ", "code": "300037"}, {"name": "先导智能", "name_en": "Lead Intelligent", "role": "锂电池生产设备(A)", "category": "upstream_equipment", "market": "SZ", "code": "300450"}, {"name": "先导智能", "name_en": "Lead Intelligent", "role": "锂电池生产设备(港)", "category": "upstream_equipment", "market": "HK", "code": "00470", "tencent": "hk00470"}, {"name": "赢合科技", "name_en": "Yinghe Technology", "role": "锂电池设备", "category": "upstream_equipment", "market": "SZ", "code": "300457"}, {"name": "北方华创", "name_en": "Naura", "role": "半导体/新能源装备", "category": "upstream_equipment", "market": "SZ", "code": "002371"}, {"name": "特斯拉", "name_en": "Tesla", "role": "全球电动车龙头", "category": "downstream_auto", "market": "US", "code": "TSLA", "tencent": "usTSLA"}, {"name": "理想汽车", "name_en": "Li Auto", "role": "增程式电动车(美)", "category": "downstream_auto", "market": "US", "code": "LI", "tencent": "usLI"}, {"name": "理想汽车", "name_en": "Li Auto", "role": "增程式电动车(港)", "category": "downstream_auto", "market": "HK", "code": "02015", "tencent": "hk02015"}, {"name": "蔚来汽车", "name_en": "NIO", "role": "智能电动车(美)", "category": "downstream_auto", "market": "US", "code": "NIO", "tencent": "usNIO"}, {"name": "蔚来汽车", "name_en": "NIO", "role": "智能电动车(港)", "category": "downstream_auto", "market": "HK", "code": "09866", "tencent": "hk09866"}, {"name": "小鹏汽车", "name_en": "XPeng", "role": "智能电动车(美)", "category": "downstream_auto", "market": "US", "code": "XPEV", "tencent": "usXPEV"}, {"name": "小鹏汽车", "name_en": "XPeng", "role": "智能电动车(港)", "category": "downstream_auto", "market": "HK", "code": "09868", "tencent": "hk09868"}, {"name": "小米集团", "name_en": "Xiaomi", "role": "SU7系列竞品", "category": "downstream_auto", "market": "HK", "code": "01810", "tencent": "hk01810"}, {"name": "比亚迪电子", "name_en": "BYD Electronic", "role": "手机部件及组装", "category": "downstream_electronics", "market": "HK", "code": "00285", "tencent": "hk00285"}, {"name": "阳光电源", "name_en": "Sungrow", "role": "光伏逆变器+储能", "category": "downstream_energy", "market": "SZ", "code": "300274"}, {"name": "科华数据", "name_en": "Kehua Data", "role": "储能系统", "category": "downstream_energy", "market": "SZ", "code": "002335"}], "quotes": {"002594": {"name": "比亚迪", "name_en": "BYD", "code": "002594", "market": "SZ", "price": 101.53, "prev_close": 102.91, "open": 102.91, "high": 103.19, "low": 101.33, "volume": 432258.0, "amount": 4398230000.0, "change_pct": -1.34, "change_amt": -1.38, "turn_over": 1.24, "pe": 28.38, "market_cap": 925669000000.0, "float_cap": 353996000000.0}, "01211": {"name": "比亚迪", "name_en": "BYD", "code": "01211", "market": "HK", "price": 109.1, "prev_close": 110.0, "open": 111.1, "high": 111.2, "low": 108.3, "volume": 16306241.0, "amount": 17792075957000.0, "change_pct": -0.82, "change_amt": -0.9, "turn_over": 0.0, "pe": 27.54, "market_cap": 994686249999.9999, "float_cap": 401858940000.0}, "002466": {"name": "天齐锂业", "name_en": "Tianqi Lithium", "code": "002466", "market": "SZ", "price": 70.71, "prev_close": 66.82, "open": 70.0, "high": 73.3, "low": 68.71, "volume": 1367064.0, "amount": 9705110000.0, "change_pct": 5.82, "change_amt": 3.89, "turn_over": 9.26, "pe": 260.79, "market_cap": 120649000000.0, "float_cap": 104340000000.00002}, "09696": {"name": "天齐锂业", "name_en": "Tianqi Lithium", "code": "09696", "market": "HK", "price": 58.7, "prev_close": 58.25, "open": 63.1, "high": 64.3, "low": 58.65, "volume": 25862335.0, "amount": 15821840729000.0, "change_pct": 0.77, "change_amt": 0.45, "turn_over": 0.0, "pe": 197.33, "market_cap": 100156580000.0, "float_cap": 13452410000.0}, "002460": {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "code": "002460", "market": "SZ", "price": 83.36, "prev_close": 82.71, "open": 83.8, "high": 85.74, "low": 81.61, "volume": 786631.0, "amount": 6603440000.0, "change_pct": 0.79, "change_amt": 0.65, "turn_over": 6.49, "pe": 108.36, "market_cap": 174780000000.0, "float_cap": 100967000000.0}, "01772": {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "code": "01772", "market": "HK", "price": 80.4, "prev_close": 80.6, "open": 82.5, "high": 83.6, "low": 80.1, "volume": 11091221.0, "amount": 9046644409500.0, "change_pct": -0.25, "change_amt": -0.2, "turn_over": 0.0, "pe": 94.36, "market_cap": 168574230000.0, "float_cap": 38841300000.0}, "603799": {"name": "华友钴业", "name_en": "Huayou Cobalt", "code": "603799", "market": "SH", "price": 65.5, "prev_close": 65.78, "open": 66.45, "high": 66.57, "low": 64.96, "volume": 617177.0, "amount": 4053280000.0, "change_pct": -0.43, "change_amt": -0.28, "turn_over": 3.27, "pe": 16.89, "market_cap": 124235999999.99998, "float_cap": 123638000000.00002}, "603993": {"name": "洛阳钼业", "name_en": "CMOC", "code": "603993", "market": "SH", "price": 20.08, "prev_close": 20.24, "open": 20.15, "high": 20.22, "low": 19.75, "volume": 1583945.0, "amount": 3166700000.0, "change_pct": -0.79, "change_amt": -0.16, "turn_over": 0.91, "pe": 21.12, "market_cap": 429597999999.99994, "float_cap": 350614000000.0}, "03993": {"name": "洛阳钼业", "name_en": "CMOC", "code": "03993", "market": "HK", "price": 19.34, "prev_close": 19.44, "open": 19.43, "high": 19.49, "low": 19.19, "volume": 21900838.0, "amount": 4233866523500.0, "change_pct": -0.51, "change_amt": -0.1, "turn_over": 0.0, "pe": 18.37, "market_cap": 413765960000.0, "float_cap": 76073270000.0}, "301358": {"name": "湖南裕能", "name_en": "Hunan Yuneng", "code": "301358", "market": "SZ", "price": 85.5, "prev_close": 83.13, "open": 83.13, "high": 85.95, "low": 81.67, "volume": 228034.0, "amount": 1927190000.0, "change_pct": 2.85, "change_amt": 2.37, "turn_over": 3.0, "pe": 96.38, "market_cap": 72106000000.0, "float_cap": 64975000000.0}, "300769": {"name": "德方纳米", "name_en": "Dynanonic", "code": "300769", "market": "SZ", "price": 48.66, "prev_close": 47.89, "open": 48.0, "high": 49.16, "low": 46.8, "volume": 178906.0, "amount": 864980000.0, "change_pct": 1.61, "change_amt": 0.77, "turn_over": 7.11, "pe": -12.86, "market_cap": 13634000000.0, "float_cap": 12251000000.0}, "603659": {"name": "璞泰来", "name_en": "Putailai", "code": "603659", "market": "SH", "price": 36.22, "prev_close": 35.39, "open": 35.88, "high": 36.7, "low": 34.88, "volume": 618790.0, "amount": 2220860000.0, "change_pct": 2.35, "change_amt": 0.83, "turn_over": 2.9, "pe": 32.8, "market_cap": 77380000000.0, "float_cap": 77380000000.0}, "835185": {"name": "贝特瑞", "name_en": "BTR New Material", "code": "835185", "market": "BJ", "price": 45.91, "prev_close": 45.91, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turn_over": 0.0, "pe": 57.55, "market_cap": 51755999999.99999, "float_cap": 50922000000.0}, "002812": {"name": "恩捷股份", "name_en": "Enjie", "code": "002812", "market": "SZ", "price": 75.84, "prev_close": 72.15, "open": 72.6, "high": 76.35, "low": 70.61, "volume": 506624.0, "amount": 3776090000.0, "change_pct": 5.11, "change_amt": 3.69, "turn_over": 6.16, "pe": -68.58, "market_cap": 74485000000.0, "float_cap": 62390000000.0}, "002709": {"name": "天赐材料", "name_en": "Tinci Materials", "code": "002709", "market": "SZ", "price": 52.79, "prev_close": 49.65, "open": 49.8, "high": 53.62, "low": 48.28, "volume": 1593427.0, "amount": 8145540000.0, "change_pct": 6.32, "change_amt": 3.14, "turn_over": 10.56, "pe": 79.02, "market_cap": 107616000000.00002, "float_cap": 79661000000.0}, "300037": {"name": "新宙邦", "name_en": "Capchem", "code": "300037", "market": "SZ", "price": 62.88, "prev_close": 62.53, "open": 62.9, "high": 63.42, "low": 60.19, "volume": 255239.0, "amount": 1581220000.0, "change_pct": 0.56, "change_amt": 0.35, "turn_over": 4.74, "pe": 43.08, "market_cap": 47273000000.0, "float_cap": 33875000000.0}, "300450": {"name": "先导智能", "name_en": "Lead Intelligent", "code": "300450", "market": "SZ", "price": 58.58, "prev_close": 56.7, "open": 56.99, "high": 59.51, "low": 55.6, "volume": 980281.0, "amount": 5700890000.0, "change_pct": 3.32, "change_amt": 1.88, "turn_over": 6.29, "pe": 62.72, "market_cap": 98076000000.0, "float_cap": 91350000000.0}, "00470": {"name": "先导智能", "name_en": "Lead Intelligent", "code": "00470", "market": "HK", "price": 56.7, "prev_close": 53.3, "open": 53.3, "high": 61.25, "low": 52.9, "volume": 7462056.0, "amount": 4300529003000.0, "change_pct": 6.38, "change_amt": 3.4, "turn_over": 0.0, "pe": 54.83, "market_cap": 94928360000.0, "float_cap": 6126910000.0}, "300457": {"name": "赢合科技", "name_en": "Yinghe Technology", "code": "300457", "market": "SZ", "price": 28.65, "prev_close": 28.53, "open": 28.54, "high": 29.08, "low": 28.13, "volume": 175897.0, "amount": 505030000.0, "change_pct": 0.42, "change_amt": 0.12, "turn_over": 2.77, "pe": 34.35, "market_cap": 18484000000.0, "float_cap": 18161000000.0}, "002371": {"name": "北方华创", "name_en": "Naura", "code": "002371", "market": "SZ", "price": 450.36, "prev_close": 471.23, "open": 471.96, "high": 472.0, "low": 446.71, "volume": 160056.0, "amount": 7231310000.0, "change_pct": -4.43, "change_amt": -20.87, "turn_over": 2.21, "pe": 59.12, "market_cap": 326436000000.0, "float_cap": 326175000000.0}, "TSLA": {"name": "特斯拉", "name_en": "Tesla", "code": "TSLA", "market": "US", "price": 392.5, "prev_close": 400.62, "open": 402.58, "high": 406.8, "low": 388.33, "volume": 64603868.0, "amount": 25438316253.0, "change_pct": -2.03, "change_amt": -8.12, "turn_over": 1.72, "pe": 363.43, "market_cap": 1472829554000.0, "float_cap": 1309259616000.0}, "LI": {"name": "理想汽车", "name_en": "Li Auto", "code": "LI", "market": "US", "price": 18.71, "prev_close": 18.39, "open": 18.74, "high": 18.83, "low": 18.57, "volume": 2403885.0, "amount": 44951724.0, "change_pct": 1.74, "change_amt": 0.32, "turn_over": 0.24, "pe": 121.26, "market_cap": 19129893000.0, "float_cap": 10424969000.0}, "02015": {"name": "理想汽车", "name_en": "Li Auto", "code": "02015", "market": "HK", "price": 73.2, "prev_close": 73.3, "open": 73.3, "high": 73.3, "low": 71.85, "volume": 5150652.0, "amount": 3745010283800.0, "change_pct": -0.14, "change_amt": -0.1, "turn_over": 0.0, "pe": 120.56, "market_cap": 150082630000.0, "float_cap": 124037179999.99998}, "NIO": {"name": "蔚来汽车", "name_en": "NIO", "code": "NIO", "market": "US", "price": 6.66, "prev_close": 6.83, "open": 6.8, "high": 6.8, "low": 6.62, "volume": 20657337.0, "amount": 138109498.0, "change_pct": -2.49, "change_amt": -0.17, "turn_over": 0.82, "pe": -6.81, "market_cap": 16687742000.0, "float_cap": 12705502000.0}, "09866": {"name": "蔚来汽车", "name_en": "NIO", "code": "09866", "market": "HK", "price": 52.65, "prev_close": 53.25, "open": 53.0, "high": 53.15, "low": 52.25, "volume": 2964743.0, "amount": 1559719126900.0, "change_pct": -1.13, "change_amt": -0.6, "turn_over": 0.0, "pe": -7.65, "market_cap": 131923370000.0, "float_cap": 124104839999.99998}, "XPEV": {"name": "小鹏汽车", "name_en": "XPeng", "code": "XPEV", "market": "US", "price": 17.8, "prev_close": 18.1, "open": 17.8, "high": 17.81, "low": 17.5, "volume": 5534982.0, "amount": 97877413.0, "change_pct": -1.66, "change_amt": -0.3, "turn_over": 0.58, "pe": -103.85, "market_cap": 17012361999.999998, "float_cap": 13461662999.999998}, "09868": {"name": "小鹏汽车", "name_en": "XPeng", "code": "09868", "market": "HK", "price": 68.3, "prev_close": 69.4, "open": 69.45, "high": 69.45, "low": 67.65, "volume": 8501597.0, "amount": 5798635397200.0, "change_pct": -1.59, "change_amt": -1.1, "turn_over": 0.0, "pe": -103.53, "market_cap": 130607260000.0, "float_cap": 106790490000.0}, "01810": {"name": "小米集团", "name_en": "Xiaomi", "code": "01810", "market": "HK", "price": 32.4, "prev_close": 32.32, "open": 32.32, "high": 32.58, "low": 32.02, "volume": 72569687.0, "amount": 23415170859400.0, "change_pct": 0.25, "change_amt": 0.08, "turn_over": 0.0, "pe": 18.2, "market_cap": 839116959999.9999, "float_cap": 694351890000.0}, "00285": {"name": "比亚迪电子", "name_en": "BYD Electronic", "code": "00285", "market": "HK", "price": 28.28, "prev_close": 28.04, "open": 28.2, "high": 28.4, "low": 27.7, "volume": 12423656.0, "amount": 3486942953800.0, "change_pct": 0.86, "change_amt": 0.24, "turn_over": 0.0, "pe": 16.38, "market_cap": 63720620000.0, "float_cap": 63720620000.0}, "300274": {"name": "阳光电源", "name_en": "Sungrow", "code": "300274", "market": "SZ", "price": 136.23, "prev_close": 135.2, "open": 135.99, "high": 136.77, "low": 133.35, "volume": 517375.0, "amount": 7000800000.0, "change_pct": 0.76, "change_amt": 1.03, "turn_over": 3.25, "pe": 20.98, "market_cap": 282434000000.0, "float_cap": 216608000000.0}, "002335": {"name": "科华数据", "name_en": "Kehua Data", "code": "002335", "market": "SZ", "price": 67.42, "prev_close": 64.02, "open": 63.32, "high": 67.5, "low": 61.59, "volume": 583463.0, "amount": 3819080000.0, "change_pct": 5.31, "change_amt": 3.4, "turn_over": 12.83, "pe": 82.42, "market_cap": 34749000000.0, "float_cap": 30654000000.000004}}};
+const newsData = {"timestamp": "2026-04-21 17:07:03", "date": "2026-04-21", "industry_news": [{"title": "工信部：加快编制智能网联新能源汽车等“十五五”规划", "content": "加快编制智能网联新能源汽车等“十五五”规划，研究出台加快智能装备创新发展的指导意见。 二是稳定运行。落实机械、汽车、电力装备等行业新一轮稳增长工作方案，持续推进设备更新和汽车以旧换新，以钉钉子精神规范产业竞争秩序。 三是聚力攻关。", "source": "东方财富", "time": "2026-04-21 11:24:00", "url": "http://finance.eastmoney.com/a/202604213712077542.html"}, {"title": "工信部：加快编制智能网联新能源汽车等“十五五”规划", "content": "加快编制智能网联新能源汽车等“十五五”规划，研究出台加快智能装备创新发展的指导意见。二是稳定运行。落实机械、汽车、电力装备等行业新一轮稳增长工作方案，持续推进设备更新和汽车以旧换新，以钉钉子精神规范产业竞争秩序。三是聚力攻关。", "source": "东方财富", "time": "2026-04-21 10:39:36", "url": "http://finance.eastmoney.com/a/202604213712151912.html"}, {"title": "中创新航成立科技新公司 含新能源汽车业务", "content": "人民财讯4月21日电，企查查APP显示，近日，中创凯博科技（自贡）有限公司成立，注册资本1亿元，经营范围包含：电池制造；电池销售；新材料技术推广服务；汽车零部件及配件制造；新能源汽车整车销售等。企查查股权穿透显示，该公司由中创新航全资持股。", "source": "东方财富", "time": "2026-04-21 14:19:00", "url": "http://finance.eastmoney.com/a/202604213712161139.html"}, {"title": "新能源汽车产业链迎来多重积极信号，新能源车ETF平安冲涨", "content": "新能源车ETF平安紧密跟踪中证新能源汽车产业指数，中证新能源汽车产业指数选取50只业务涉及新能源整车、电机电控、锂电设备、电芯电池、电池材料等新能源汽车产业的上市公司证券作为指数样本，反映新能源汽车产业龙头上市公司证券的整体表现。", "source": "东方财富", "time": "2026-04-21 14:54:36", "url": "http://finance.eastmoney.com/a/202604213712194290.html"}, {"title": "沃尔核材：公司新能源汽车相关业务持续秉承技术领先、品质稳定的竞争策略", "content": "证券日报网讯 4月21日，沃尔核材在互动平台回答投资者提问时表示，公司新能源汽车相关业务持续秉承技术领先、品质稳定的竞争策略，产品品类和功率等级不断丰富和提升，较好的把握了行业发展机会、业绩稳定增长。具体经营信息请关注公司披露的公告。", "source": "东方财富", "time": "2026-04-21 16:33:00", "url": "http://finance.eastmoney.com/a/202604213712365381.html"}, {"title": "国产高频非晶软磁材料在东莞实现量产 惠及芯片、新能源汽车领域", "content": "特别是在新能源汽车领域，实现了高频软磁材料自主化应用的实质性突破，打破了国外同类材料的技术垄断，为我国新能源汽车产业高质量发展提供了关键材料支撑。", "source": "东方财富", "time": "2026-04-21 08:35:00", "url": "http://finance.eastmoney.com/a/202604203711072272.html"}, {"title": "金麒麟：公司将持续重点关注新能源汽车市场", "content": "证券日报网4月20日讯 ，金麒麟在接受调研者提问时表示，公司将持续重点关注新能源汽车市场，从国产小型车开始，逐步向更高端车型迈进。", "source": "东方财富", "time": "2026-04-20 20:07:00", "url": "http://finance.eastmoney.com/a/202604203710985145.html"}, {"title": "郑永年：新能源汽车再这样内卷下去，最后的赢家就是特斯拉", "content": "这样的循环，在新能源汽车、低空经济、大模型、算力中心等领域，都曾不同程度出现。 郑永年对此有些着急。 在新能源汽车行业，价格战持续升级，企业之间靠低价竞争抢占市场份额，利润空间被不断压缩。“新能源汽车再这样内卷下去，最后的赢家就是特斯拉。”", "source": "东方财富", "time": "2026-04-20 18:57:38", "url": "http://finance.eastmoney.com/a/202604203710855769.html"}, {"title": "国产新能源汽车在港热销 有门店行情好时“单月能卖三四千台”", "content": "吉利门店的销售员介绍，自己也是新能源汽车用户，自从使用了新能源汽车，用车成本大幅降低。 香港新能源汽车在4月前迎来抢购潮，原因是优惠政策即将到期。", "source": "东方财富", "time": "2026-04-20 07:49:00", "url": "http://finance.eastmoney.com/a/202604203710011874.html"}, {"title": "工信部：加快编制智能网联新能源汽车等“十五五”规划 研究出台加快智能装备创新发展的指导意见", "content": "加快编制智能网联新能源汽车等“十五五”规划，研究出台加快智能装备创新发展的指导意见。二是稳定运行。落实机械、汽车、电力装备等行业新一轮稳增长工作方案，持续推进设备更新和汽车以旧换新，以钉钉子精神规范产业竞争秩序。三是聚力攻关。", "source": "东方财富", "time": "2026-04-21 10:40:00", "url": "http://finance.eastmoney.com/a/202604213712036894.html"}], "company_news": {"比亚迪": {"name": "比亚迪", "news": [{"title": "【读财报】比亚迪、长安、吉利领衔：上市车企海外销售快速增长", "content": "其中，头部车企海外出口表现亮眼，长安汽车、吉利汽车的3月出口销量同比实现翻倍，奇瑞集团、比亚迪、上汽集团的出口销量同比增超40%。", "source": "东方财富", "time": "2026-04-21 08:16:37", "url": "http://finance.eastmoney.com/a/202604213711510215.html"}, {"title": "利润失速！彩虹集团股东“换手”：比亚迪早期发起人减持VS均胜系高管增持", "content": "金融投资报记者查阅比亚迪首次公开发行A股股票招股意向书发现，在发起人一栏，鲁国芝的名字格外显眼。作为比亚迪的早期发起人之一，其属于公司创立初期的核心成员。 利润端依旧延续下滑颓势 上述两位股东截然相反的操作，折射出产业资本对彩虹集团价值判断的分歧。", "source": "东方财富", "time": "2026-04-21 14:15:07", "url": "http://finance.eastmoney.com/a/202604213712167410.html"}, {"title": "比亚迪大宗交易成交11.10万股 成交额1036.74万元", "content": "据天眼查APP显示，比亚迪股份有限公司成立于1995年02月10日，注册资本911719.7565万人民币。", "source": "东方财富", "time": "2026-04-20 17:55:00", "url": "http://finance.eastmoney.com/a/202604203710772825.html"}, {"title": "比亚迪闪充“珠峰站”正式投入运营", "content": "人民财讯4月18日电，日前，比亚迪珠峰小镇闪充站——全球海拔最高的闪充站正式投入运营。比亚迪珠峰小镇闪充站坐落于西藏自治区日喀则市珠峰小镇内，是距离珠峰最近的闪充站点。截至4月16日，比亚迪已累计建成5356座闪充站，覆盖全国311座城市。", "source": "东方财富", "time": "2026-04-18 20:59:00", "url": "http://finance.eastmoney.com/a/202604183709756075.html"}, {"title": "比亚迪闪充“珠峰站”正式投入运营", "content": "新京报贝壳财经讯 4月18日，据比亚迪官微消息，全球海拔最高的闪充站，比亚迪珠峰小镇闪充站日前正式投入运营。截至4月16日，比亚迪已累计建成5356座闪充站，覆盖全国311座城市。", "source": "东方财富", "time": "2026-04-18 20:43:11", "url": "http://finance.eastmoney.com/a/202604183709753181.html"}]}, "天齐锂业": {"name": "天齐锂业", "news": [{"title": "锂矿概念逆势活跃 天齐锂业逼近涨停", "content": "每经AI快讯，4月21日早盘，锂矿概念逆势活跃，天齐锂业逼近涨停，永杉锂业、西藏珠峰、雅化集团、西藏矿业等冲高。", "source": "东方财富", "time": "2026-04-21 09:54:23", "url": "http://finance.eastmoney.com/a/202604213711929116.html"}, {"title": "锂矿概念逆势活跃 天齐锂业逼近涨停", "content": "南方财经4月21日电，早盘锂矿概念逆势活跃，天齐锂业逼近涨停，永杉锂业、西藏珠峰、雅化集团、西藏矿业等冲高。消息面上，天齐锂业公告，预计2026年1-3月归属净利润盈利17亿元至20亿元。", "source": "东方财富", "time": "2026-04-21 09:51:43", "url": "http://finance.eastmoney.com/a/202604213711925636.html"}, {"title": "锂矿概念逆势活跃 天齐锂业逼近涨停", "content": "锂矿概念逆势活跃，天齐锂业逼近涨停，永杉锂业、西藏珠峰、雅化集团、西藏矿业等冲高。消息面上，天齐锂业公告，预计2026年1-3月归属净利润盈利17亿元至20亿元。", "source": "东方财富", "time": "2026-04-21 09:48:56", "url": "http://finance.eastmoney.com/a/202604213711882854.html"}, {"title": "锂矿概念逆势活跃 天齐锂业逼近涨停", "content": "早盘锂矿概念逆势活跃，天齐锂业逼近涨停，永杉锂业、西藏珠峰、雅化集团、西藏矿业等冲高。消息面上，天齐锂业公告，预计2026年1-3月归属净利润盈利17亿元至20亿元。", "source": "东方财富", "time": "2026-04-21 09:47:06", "url": "http://finance.eastmoney.com/a/202604213711926553.html"}, {"title": "锂矿概念逆市走强 天齐锂业涨近9%", "content": "人民财讯4月21日电，锂矿概念逆市走强，截至发稿，天齐锂业涨近9%，永杉锂业、赣锋锂业等跟涨。消息面上，天齐锂业4月20日披露业绩预告，预计2026年一季度归母净利润为17亿元—20亿元，同比增长1530.31%—1818.01%。", "source": "东方财富", "time": "2026-04-21 10:06:00", "url": "http://finance.eastmoney.com/a/202604213711973926.html"}]}, "赣锋锂业": {"name": "赣锋锂业", "news": [{"title": "赣锋锂业在甘肃成立新能源公司", "content": "企查查股权穿透显示，该公司由赣锋锂业间接全资持股。", "source": "东方财富", "time": "2026-04-21 10:11:38", "url": "http://finance.eastmoney.com/a/202604213711954950.html"}, {"title": "赣锋锂业：已储备较为丰富和优质的锂矿资源", "content": "上证报中国证券网讯 4月17日晚，赣锋锂业发布的投资者关系纪要显示，公司目前已储备较为丰富和优质的锂矿资源，后续工作重点聚焦在优质锂矿资源的开采和利用。", "source": "东方财富", "time": "2026-04-17 22:56:37", "url": "http://finance.eastmoney.com/a/202604173709356369.html"}, {"title": "赣锋锂业：公司主要聚焦在自身优质锂矿资源开发", "content": "证券日报网4月17日讯 ，赣锋锂业在接受调研者提问时表示，公司主要聚焦在自身优质锂矿资源开发、提升公司锂矿自给率、以及技术的不断提升和创新，实现公司主要产品成本的不断优化。公司通过自有资源和外采方式获取锂矿，会根据锂产品价格严控产品成本来应对周期性波动。", "source": "东方财富", "time": "2026-04-17 19:23:00", "url": "http://finance.eastmoney.com/a/202604173709174784.html"}, {"title": "港股赣锋锂业涨近7%", "content": "4月16日，截至发稿，赣锋锂业(01772.HK)涨6.82%，报83.8港元；天齐锂业(09696.HK)涨5.01%，报56.55港元。", "source": "东方财富", "time": "2026-04-16 14:09:20", "url": "http://finance.eastmoney.com/a/202604163707281244.html"}, {"title": "赣锋锂业：公司目前已储备较为丰富和优质的锂矿资源", "content": "证券日报网4月17日讯 ，赣锋锂业在接受调研者提问时表示，公司已建立完善的风控体系、足够强的团队和解决问题的决心。公司出海前会对锂矿资源所属区位、政治经济环境、行业政策等进行评估和筛选，重视与当地政府开展合作、打造属地化团队。", "source": "东方财富", "time": "2026-04-17 19:28:00", "url": "http://finance.eastmoney.com/a/202604173709179737.html"}]}, "华友钴业": {"name": "华友钴业", "news": [{"title": "华友钴业：各家在津锂企已获锂精矿出口批文", "content": "据《上海证券报》，4月20日，在华友钴业2025年度暨2026年第一季度业绩暨现金分红说明会上，公司总裁陈红良表示，目前各家在津巴布韦布局锂资源的企业拿到了锂精矿出口相关批文，具体都在走流程中。华友钴业在津巴布韦主要有锂精矿、硫酸锂两类产品。", "source": "东方财富", "time": "2026-04-20 16:53:04", "url": "http://finance.eastmoney.com/a/202604203710683014.html"}, {"title": "华友钴业：硫磺涨价带来成本压力 已采取手段压减硫磺用量", "content": "上证报中国证券网讯（记者霍星羽）4月20日，在华友钴业2025年度暨2026年第一季度业绩暨现金分红说明会上，公司管理层表示，硫磺涨价给公司造成成本压力，公司上半年硫磺储备足够，已加快建设硫铁矿制酸产线来压降硫磺用量。", "source": "东方财富", "time": "2026-04-20 20:50:41", "url": "http://finance.eastmoney.com/a/202604203711003097.html"}, {"title": "华友钴业总裁陈红良：预计津巴布韦硫酸锂项目上半年达产", "content": "上证报中国证券网讯（记者霍星羽）4月20日，在华友钴业2025年度暨2026年第一季度业绩暨现金分红说明会上，公司总裁陈红良表示，公司在津巴布韦的硫酸锂项目已进入全面试生产状态，预计上半年完成达产。加上津巴布韦到国内转化产品的3个月周期。", "source": "东方财富", "time": "2026-04-20 20:36:12", "url": "http://finance.eastmoney.com/a/202604203710985318.html"}, {"title": "华友钴业总裁陈红良：公司在刚果（金）的钴产品陆续开启出口", "content": "记者了解到，华友钴业所获2026年刚果（金）钴出口配额为1080吨。", "source": "东方财富", "time": "2026-04-20 20:36:03", "url": "http://finance.eastmoney.com/a/202604203710984643.html"}, {"title": "39股获券商买入评级，华友钴业目标涨幅达31.4%", "content": "按最高目标价计算，华友钴业目标涨幅排名居前，涨幅分别达31.4%。 从评级调整方向来看，31只个股评级维持不变，8只个股为首次评级。此外，有2只个股获多家券商关注，贵州茅台、中际旭创获评级数量居前，分别有3家、2家券商给予评级。", "source": "东方财富", "time": "2026-04-20 08:43:06", "url": "http://finance.eastmoney.com/a/202604203710078780.html"}]}, "洛阳钼业": {"name": "洛阳钼业", "news": [{"title": "洛阳钼业：2025年度业绩说明会提供会后视频回放", "content": "证券日报网讯 4月17日，洛阳钼业在互动平台回答投资者提问时表示，公司2024年年度业绩说明会以网络文字互动回答的形式召开；2025年度业绩说明会提供会后视频回放，可于上证路演平台观看。", "source": "东方财富", "time": "2026-04-17 19:23:00", "url": "http://finance.eastmoney.com/a/202604173709173680.html"}, {"title": "港股有色金属股再度走高，洛阳钼业涨近5%", "content": "4月15日，港股有色金属股再度走高，洛阳钼业涨近5%，江西铜业股份、赤峰黄金、紫金黄金国际涨超3%，山东黄金、五矿资源、招金矿业涨超2%。", "source": "东方财富", "time": "2026-04-15 09:43:28", "url": "http://finance.eastmoney.com/a/202604153705581723.html"}, {"title": "洛阳钼业2025年营收微降 净利润同比增长超五成", "content": "为了进一步优化资本结构、保障全球战略顺利落地，洛阳钼业于2026年1月宣布，公司完成12亿美元1年期零息可转换债券的发行工作，本次初始转股溢价率达到28.70%。", "source": "东方财富", "time": "2026-04-07 04:33:52", "url": "http://finance.eastmoney.com/a/202604073695909231.html"}, {"title": "有色金属行业资金流入榜：洛阳钼业等35股净流入资金超亿元", "content": "以资金流向数据进行统计，该行业资金净流入的个股有109只，其中，净流入资金超亿元的有35只，净流入资金居首的是洛阳钼业，今日净流入资金9.60亿元，紧随其后的是紫金矿业、中钨高新，净流入资金分别为9.04亿元、5.51亿元。", "source": "东方财富", "time": "2026-04-08 17:04:00", "url": "http://finance.eastmoney.com/a/202604083698118981.html"}, {"title": "洛阳钼业：2025年净利润同比增长50.3%", "content": "4月1日，洛阳钼业（03993.HK）公告，截至2025年12月31日止年度，公司营业收入为2066.84亿元人民币，同比下降2.98%；年内归属于上市公司股东的净利润为203.39亿元人民币，同比增长50.3%；每股基本盈利为0.95元人民币。", "source": "东方财富", "time": "2026-04-01 16:54:13", "url": "http://finance.eastmoney.com/a/202604013691955545.html"}]}, "湖南裕能": {"name": "湖南裕能", "news": [{"title": "湖南裕能：公司CN-5系列、YN-9系列和更高端系列等新产品较好地契合了储能电池向大电芯演进的市场趋势、动力电池提升快充性能等应用需求", "content": "证券日报网讯 4月13日，湖南裕能在互动平台回答投资者提问时表示，公司CN-5系列、YN-9系列和更高端系列等新产品较好地契合了储能电池向大电芯演进的市场趋势、动力电池提升快充性能等应用需求，受到客户广泛认可，其出货占比快速提高。", "source": "东方财富", "time": "2026-04-13 16:12:00", "url": "http://finance.eastmoney.com/a/202604133702881691.html"}, {"title": "湖南裕能完成近48亿元定增 中汇人寿保险、UBS AG等18家机构获配", "content": "上证报中国证券网讯湖南裕能4月3日发布公告显示，公司已完成定增事项，发行价格为58.01元/股，募集资金总额为47.88亿元，将用于“年产32万吨磷酸锰铁锂项目”“年产7.5万吨超长循环磷酸铁锂项目”等。", "source": "东方财富", "time": "2026-04-06 18:23:00", "url": "http://finance.eastmoney.com/a/202604063695794539.html"}, {"title": "湖南裕能：今年以来行业需求旺盛", "content": "证券日报网讯 4月3日，湖南裕能在互动平台回答投资者提问时表示，今年以来，行业需求旺盛，公司一季度具体经营数据请以公司披露的定期报告为准。", "source": "东方财富", "time": "2026-04-03 20:03:00", "url": "http://finance.eastmoney.com/a/202604033695144277.html"}, {"title": "湖南裕能：公司密切关注原材料市场情况", "content": "证券日报网讯 4月3日，湖南裕能在互动平台回答投资者提问时表示，公司密切关注原材料市场情况，已构建了多元化的原材料采购渠道，有助于保障正常生产所需。原材料价格波动对公司利润的具体影响，请以公司披露的定期报告数据为准。", "source": "东方财富", "time": "2026-04-03 20:48:00", "url": "http://finance.eastmoney.com/a/202604033695182421.html"}, {"title": "刚IPO就缺钱的磷酸铁锂龙头定增终落地，锂电复苏后湖南裕能红利如何？", "content": "历时两年半，从最初的65亿元到砍至近48亿元，其间两轮延期、七个月问询、股价长期承压，全球磷酸盐正极材料第一大生产商湖南裕能新能源电池材料股份有限公司（下称“湖南裕能”，301358.SZ）的定增终于落地。 4月3日晚间，湖南裕能正式发布了向特定对象发行股票的上市公告书。", "source": "东方财富", "time": "2026-04-03 22:38:00", "url": "http://finance.eastmoney.com/a/202604033695300470.html"}]}, "德方纳米": {"name": "德方纳米", "news": [{"title": "大宗交易：德方纳米成交1008.98万元，折价11.90%（4-13）", "content": "2026年4月13日，德方纳米发生1笔大宗交易，共成交24.95万股，成交金额1008.98万元，占其流通市值比例为0.09%。 该笔大宗交易成交均价40.44元，较该股当日收盘价45.90元折价11.90%。", "source": "东方财富", "time": "2026-04-13 16:32:37", "url": "http://finance.eastmoney.com/a/202604133702874093.html"}, {"title": "德方纳米：公司及控股子公司提供的实际担保总余额为552801.71万元", "content": "证券日报网讯 4月10日，德方纳米发布公告称，截至本公告披露日，公司及控股子公司提供的实际担保总余额（含公司对控股子公司的担保及控股子公司对控股子公司的担保）为552801.71万元，占公司最近一期经审计净资产的比例为99.69%，均系为合并报表范围内的子公司提供的担保。", "source": "东方财富", "time": "2026-04-10 20:36:00", "url": "http://finance.eastmoney.com/a/202604103701549966.html"}, {"title": "德方纳米：公司始终专注于主业深耕，持续强化技术优势", "content": "证券日报网讯 4月8日，德方纳米在互动平台回答投资者提问时表示，当前全球能源结构加速转型，新能源产业已成为推动能源变革、实现可持续发展的重要力量，公司始终专注于主业深耕，持续强化技术优势，公司自主研发的液相法工艺生产的磷酸铁锂，在产品结构稳定性、循环寿命、能量密度、倍率性能等方面综合优势显著", "source": "东方财富", "time": "2026-04-08 18:24:00", "url": "http://finance.eastmoney.com/a/202604083698178281.html"}, {"title": "大宗交易：德方纳米成交403.43万元，折价14.07%（4-8）", "content": "2026年4月8日，德方纳米发生1笔大宗交易，共成交10.88万股，成交金额403.43万元，占其流通市值比例为0.04%。 该笔大宗交易成交均价37.08元，较该股当日收盘价43.15元折价14.07%。", "source": "东方财富", "time": "2026-04-08 16:32:44", "url": "http://finance.eastmoney.com/a/202604083698066656.html"}, {"title": "德方纳米：公司液相法工艺生产的磷酸铁锂产品性能优异", "content": "证券日报网讯 4月8日，德方纳米在互动平台回答投资者提问时表示，公司液相法工艺生产的磷酸铁锂产品性能优异，适配储能赛道的应用需求。目前储能领域市场需求旺盛，公司也在积极把握行业机遇，不断加大市场拓展和产品匹配，出货量和占比稳步提升。", "source": "东方财富", "time": "2026-04-08 19:28:00", "url": "http://finance.eastmoney.com/a/202604083698232452.html"}]}, "璞泰来": {"name": "璞泰来", "news": [{"title": "璞泰来：2025年年度权益分派实施公告", "content": "证券日报网讯 4月10日，璞泰来发布公告称，公司2025年年度权益分派方案为：以实施权益分派股权登记日登记的总股本2，136，399，076股扣除公司回购专用账户32，632，415股，即以2，103，766，661股为基数，向全体股东每10股派发现金红利2.30元（含税），合计派发现金红利", "source": "东方财富", "time": "2026-04-10 21:52:00", "url": "http://finance.eastmoney.com/a/202604103701635640.html"}, {"title": "璞泰来：每股派0.23元，股权登记日为4月16日", "content": "南财智讯4月10日电，璞泰来发布2025年年度权益分派实施公告，每股派0.23元（含税），股权登记日为4月16日。", "source": "东方财富", "time": "2026-04-10 18:07:00", "url": "http://finance.eastmoney.com/a/202604103701301434.html"}, {"title": "璞泰来：公司及控股子公司不存在逾期担保的情形", "content": "证券日报网讯 4月9日，璞泰来发布公告称，截至本公告日，扣除已履行到期的担保，本次新增担保后公司实际对外担保总额为177.01亿元人民币，占公司2025年末经审计归属于上市公司股东净资产的86.63%。", "source": "东方财富", "time": "2026-04-09 18:52:00", "url": "http://finance.eastmoney.com/a/202604093699770516.html"}, {"title": "分红早知道|最近72小时，藏格矿业、好上好、璞泰来、浙江东日、征和工业（003033.SZ）等5家A股上市公司发布分红派息实施公告", "content": "璞泰来（603659.SH）：每股现金红利0.23元（含税），股权登记日：2026-4-16，除息除权日：2026-4-17，数据来源：《上海璞泰来新能源科技集团股份有限公司2025年年度权益分派实施公告》；申万一级行业：电力设备，非红利低波（H30269.CSI）成分股，非红利质量", "source": "东方财富", "time": "2026-04-13 09:39:28", "url": "http://finance.eastmoney.com/a/202604133702505512.html"}, {"title": "璞泰来成交额创上市以来新高", "content": "据天眼查APP显示，上海璞泰来新能源科技集团股份有限公司成立于2012年11月06日，注册资本213639.9076万人民币。", "source": "东方财富", "time": "2026-03-26 14:46:00", "url": "http://finance.eastmoney.com/a/202603263685438127.html"}]}, "贝特瑞": {"name": "贝特瑞", "news": [{"title": "贝特瑞在深圳成立绿色能源公司 含物联网业务", "content": "人民财讯4月3日电，企查查APP显示，近日，深圳市贝特瑞绿色能源有限公司成立，经营范围包含：物联网技术研发；物联网技术服务；工业互联网数据服务；智能控制系统集成等。企查查股权穿透显示，该公司由贝特瑞全资持股。", "source": "东方财富", "time": "2026-04-03 13:42:00", "url": "http://finance.eastmoney.com/a/202604033694812519.html"}, {"title": "贝特瑞：董事会审议通过《关于公司在银行办理授信额度的议案》", "content": "证券日报网讯 3月30日，贝特瑞发布公告称，公司第六届董事会第三十三次会议审议通过《关于公司在银行办理授信额度的议案》。", "source": "东方财富", "time": "2026-03-30 21:45:00", "url": "http://finance.eastmoney.com/a/202603303689216474.html"}, {"title": "贝特瑞、福鞍股份成立新能源材料公司", "content": "企查查股权穿透显示，该公司由四川瑞鞍新材料科技有限公司全资持股，后者由贝特瑞、福鞍股份共同持股。", "source": "东方财富", "time": "2026-03-26 14:52:00", "url": "http://finance.eastmoney.com/a/202603263685441814.html"}, {"title": "中国宝安：下属子公司贝特瑞拥有数百项国内、国际专利权", "content": "证券日报网讯 3月27日，中国宝安在互动平台回答投资者提问时表示，下属子公司贝特瑞拥有数百项国内、国际专利权，其主导及参与制定多项新能源、新材料相关的国际标准、行业标准、团体标准，具体情况请关注贝特瑞公司公告。", "source": "东方财富", "time": "2026-03-27 16:24:00", "url": "http://finance.eastmoney.com/a/202603273687047197.html"}, {"title": "中国宝安：贝特瑞在欧盟国家的收入不是全部来源于境外子公司", "content": "证券日报网讯 3月27日，中国宝安在互动平台回答投资者提问时表示，公司下属子公司贝特瑞海外收入信息请关注其公司公告，贝特瑞在欧盟国家的收入不是全部来源于境外子公司。下属子公司国际精密产品销售到欧盟国家的收入占其收入比例大致为13%，国际精密没有在德国成立子公司。", "source": "东方财富", "time": "2026-03-27 16:24:00", "url": "http://finance.eastmoney.com/a/202603273687047234.html"}]}, "恩捷股份": {"name": "恩捷股份", "news": [{"title": "恩捷股份：公司不存在逾期担保", "content": "证券日报网讯 4月15日，恩捷股份发布公告称，截至本公告披露日，公司及子公司间经审批担保总额为人民币6000000.00万元，占公司最近一期经审计归属于上市公司股东净资产的245.19%；公司及子公司之间实际签署有效的担保总额为人民币3573992.56万元，占公司最近一期经审计归属于上市公司股东净", "source": "东方财富", "time": "2026-04-15 19:54:00", "url": "http://finance.eastmoney.com/a/202604153706185579.html"}, {"title": "恩捷股份：公司将于2026年4月23日披露《2025年年度报告》", "content": "恩捷股份（002812.SZ）4月14日在投资者互动平台表示，公司将于2026年4月23日在指定信息披露媒体和巨潮资讯网（www.cninfo.com.cn）披露《2025年年度报告》。", "source": "东方财富", "time": "2026-04-14 16:12:58", "url": "http://finance.eastmoney.com/a/202604143704392873.html"}, {"title": "恩捷股份：公司目前湿法隔膜产能利用率较高", "content": "恩捷股份（002812.SZ）4月3日在投资者互动平台表示，公司目前湿法隔膜产能利用率较高，具体价格等财务信息详见巨潮资讯网披露的定期公告。", "source": "东方财富", "time": "2026-04-03 12:22:31", "url": "http://finance.eastmoney.com/a/202604033694716459.html"}, {"title": "“中国膜”力引领全球，恩捷股份与锂电池的“心脏瓣膜”之战", "content": "恩捷股份全球研究院副院长焦令宽这样解释行业的底层逻辑。做薄，意味着挑战物理极限。一张普通A4纸的厚度大约是100微米，而恩捷股份的主力产品厚度只有它的二十分之一。然而，极致的薄不能以牺牲安全为代价。", "source": "东方财富", "time": "2026-04-03 16:33:37", "url": "http://finance.eastmoney.com/a/202604033694976674.html"}, {"title": "恩捷股份：关于部分限制性股票回购注销完成的公告", "content": "证券日报网讯 3月26日，恩捷股份发布公告称，公司已完成对2024年限制性股票激励计划中11名离职激励对象所持有的88240股已获授但尚未解除限售的限制性股票的回购注销手续。", "source": "东方财富", "time": "2026-03-26 17:21:00", "url": "http://finance.eastmoney.com/a/202603263685646242.html"}]}}, "financials": {}};
+const analysisData = {"report_date": "2026-04-23", "market_summary": "比亚迪产业链今日随大盘震荡调整。核心整车及上游锂矿均有不同程度回撤。整车端竞争加剧预期依然存在，但出海战略及新技术（第五代DM-i）周期有望支撑估值。", "analyses": [{"name": "比亚迪", "code": "SZ.002594", "signal": "buy", "price_info": "¥99.49 (-2.10%)", "reason": "短期受市场情绪影响回调，但第五代DM-i车型上市及出海放量将带来业绩确定性，PEG<1处于低估区间，建议逢低买入。", "key_factors": "1) 出海销量持续高增 2) 规模效应带来成本优势 3) 垂直整合抗风险能力强", "sources": [{"title": "乘联会最新新能源销量数据", "url": "#"}]}, {"name": "天齐锂业", "code": "SZ.002466", "signal": "hold", "price_info": "¥68.00 (-3.86%)", "reason": "上游资源端碳酸锂价格近期震荡，盈利修复需要时间验证。建议持有观望为主。", "key_factors": "1) 碳酸锂价格处于底部区间 2) 供给端去库进度", "sources": [{"title": "碳酸锂现货价格日报", "url": "#"}]}, {"name": "先导智能", "code": "SZ.300450", "signal": "buy", "price_info": "¥56.94 (-3.16%)", "reason": "锂电设备出海进展顺利，非锂电业务（如光伏、储能设备）占比提升改善毛利结构。", "key_factors": "1) 海外电池厂扩产订单落地 2) 非锂电业务高增", "sources": [{"title": "先导智能欧洲公司获大单", "url": "#"}]}]};
+
+// ============= CATEGORY LABELS =============
+const catLabels = {
+  core: '核心', upstream_mining: '矿产', upstream_material: '材料',
+  upstream_equipment: '设备', downstream_auto: '整车厂', downstream_electronics: '电子', downstream_energy: '储能'
+};
+const catTagClass = {
+  core: 'tag-core', upstream_mining: 'tag-upstream', upstream_material: 'tag-upstream',
+  upstream_equipment: 'tag-upstream', downstream_auto: 'tag-downstream', downstream_electronics: 'tag-downstream', downstream_energy: 'tag-downstream'
+};
+
+// ============= RENDER SUMMARY =============
+function renderSummary() {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  let upCount = 0, downCount = 0, flatCount = 0;
+  let maxUp = {name:'', pct: -999}, maxDown = {name:'', pct: 999};
+  
+  companies.forEach(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) return;
+    const pct = q.change_pct || 0;
+    if (pct > 0) upCount++;
+    else if (pct < 0) downCount++;
+    else flatCount++;
+    if (pct > maxUp.pct) maxUp = {name: c.name, pct};
+    if (pct < maxDown.pct) maxDown = {name: c.name, pct};
+  });
+  
+  document.getElementById('summary-grid').innerHTML = `
+    <div class="summary-card up"><div class="value">${upCount}</div><div class="label">上涨</div></div>
+    <div class="summary-card down"><div class="value">${downCount}</div><div class="label">下跌</div></div>
+    <div class="summary-card flat"><div class="value">${flatCount}</div><div class="label">持平/停牌</div></div>
+    <div class="summary-card up"><div class="value">${maxUp.pct > -999 ? maxUp.pct.toFixed(2)+'%' : '-'}</div><div class="label">🔥 ${maxUp.name || '-'}</div></div>
+    <div class="summary-card down"><div class="value">${maxDown.pct < 999 ? maxDown.pct.toFixed(2)+'%' : '-'}</div><div class="label">📉 ${maxDown.name || '-'}</div></div>
+    <div class="summary-card"><div class="value">${companies.length}</div><div class="label">追踪标的</div></div>
+  `;
+}
+
+// ============= RENDER TABLE =============
+function renderTable(catFilter) {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  const tbody = document.getElementById('stock-tbody');
+  
+  const filtered = catFilter === 'all' ? companies : companies.filter(c => c.category === catFilter);
+  
+  tbody.innerHTML = filtered.map(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) {
+      return `<tr><td>${c.name}</td><td>${c.code}</td><td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || c.category}</span></td><td colspan="8" style="color:var(--text2)">暂无数据</td></tr>`;
+    }
+    const pctClass = q.change_pct > 0 ? 'up' : q.change_pct < 0 ? 'down' : '';
+    const sign = q.change_pct > 0 ? '+' : '';
+    const mktUnit = c.market === 'US' ? '$' : c.market === 'HK' ? 'HK$' : '¥';
+    const fmtVol = q.volume > 1e8 ? (q.volume/1e8).toFixed(2)+'亿' : q.volume > 1e4 ? (q.volume/1e4).toFixed(0)+'万' : q.volume.toFixed(0);
+    const fmtAmt = q.amount > 1e8 ? (q.amount/1e8).toFixed(2)+'亿' : q.amount > 1e4 ? (q.amount/1e4).toFixed(0)+'万' : q.amount.toFixed(0);
+    
+    // 计算 PEG
+    let pegStr = '-';
+    let pegColor = '';
+    if (q.pe && newsData && newsData.financials && newsData.financials[c.code]) {
+      const fin = newsData.financials[c.code].data || {};
+      const growthStr = fin['净利润同比增长率'] || '';
+      const growth = parseFloat(growthStr);
+      if (!isNaN(growth) && growth > 0) {
+        const peg = q.pe / growth;
+        pegStr = peg.toFixed(2);
+        if (peg < 1) pegColor = 'var(--green)'; // 低估
+        else if (peg > 1.5) pegColor = 'var(--red)'; // 明显高估
+      } else if (growth <= 0) {
+        pegStr = 'N/A'; // 负增长或零增长无法计算有效PEG
+      }
+    }
+    
+    return `<tr>
+      <td><strong>${c.name}</strong><br><small style="color:var(--text2)">${c.name_en}</small></td>
+      <td>${c.market}.${c.code}</td>
+      <td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || ''}</span></td>
+      <td class="price ${pctClass}">${mktUnit}${q.price.toFixed(2)}</td>
+      <td>${mktUnit}${q.prev_close.toFixed(2)}</td>
+      <td class="${pctClass}" style="font-weight:600">${sign}${q.change_pct.toFixed(2)}%</td>
+      <td class="${pctClass}">${sign}${q.change_amt.toFixed(2)}</td>
+      <td>${fmtVol}</td>
+      <td>${fmtAmt}</td>
+      <td>${q.turn_over ? q.turn_over.toFixed(2)+'%' : '-'}</td>
+      <td>${q.pe ? q.pe.toFixed(1) : '-'}</td>
+      <td style="color:${pegColor}; font-weight:600;">${pegStr}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============= RENDER ANALYSIS =============
+function renderAnalysis() {
+  const grid = document.getElementById('analysis-grid');
+  const items = analysisData.analyses || [];
+  
+  if (items.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text2);padding:20px;">暂无分析数据</p>';
+    return;
+  }
+  
+  const signalClass = {buy:'signal-buy', sell:'signal-sell', hold:'signal-hold', watch:'signal-watch'};
+  const signalText = {buy:'📈 建议买入', sell:'📉 建议卖出', hold:'✋ 建议持有', watch:'👀 观望'};
+  
+  grid.innerHTML = items.map(a => `
+    <div class="analysis-card">
+      <h3>
+        <span>${a.name || ''}</span>
+        <span class="signal ${signalClass[a.signal] || 'signal-watch'}">${signalText[a.signal] || a.signal || ''}</span>
+      </h3>
+      <div style="font-size:13px;color:var(--text2);">${a.code || ''} · ${a.price_info || ''}</div>
+      <div class="reason">${a.reason || ''}</div>
+      ${a.key_factors ? `<div style="margin:8px 0;font-size:13px;"><strong>关键因素：</strong>${a.key_factors}</div>` : ''}
+      ${a.sources && a.sources.length ? `
+        <div class="sources">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:4px;">📎 参考来源：</div>
+          ${a.sources.map(s => `<a href="${s.url || '#'}" target="_blank">${s.title || s.url || ''}</a>`).join('')}
+        </div>
+      ` : ''}
+    </div>
+  `).join('');
+}
+
+// ============= RENDER NEWS =============
+function renderNews() {
+  // Industry
+  const iNews = newsData.industry_news || [];
+  document.getElementById('industry-news').innerHTML = iNews.length ? iNews.map(n => `
+    <div class="news-item">
+      <h4>${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无行业新闻</p>';
+  
+  // Company
+  const cNews = newsData.company_news || {};
+  const allCompanyNews = [];
+  Object.entries(cNews).forEach(([code, data]) => {
+    (data.news || []).forEach(n => allCompanyNews.push({...n, company: data.name}));
+  });
+  allCompanyNews.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  
+  document.getElementById('company-news').innerHTML = allCompanyNews.length ? allCompanyNews.slice(0, 30).map(n => `
+    <div class="news-item">
+      <h4><span class="tag tag-core" style="font-size:11px;margin-right:4px;">${n.company}</span> ${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无个股新闻</p>';
+}
+
+// ============= TAB SWITCHING =============
+document.getElementById('main-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#main-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const name = tab.dataset.tab;
+  ['quotes','analysis','news','ecosystem'].forEach(p => {
+    document.getElementById('panel-'+p).style.display = p === name ? '' : 'none';
+  });
+});
+
+document.getElementById('cat-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#cat-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderTable(tab.dataset.cat);
+});
+
+// ============= INIT =============
+renderSummary();
+renderTable('all');
+renderAnalysis();
+renderNews();
+</script>
+</body>
+</html>
