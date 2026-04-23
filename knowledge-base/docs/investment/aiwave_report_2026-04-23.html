@@ -799,7 +799,7 @@ function initSignalChart() {
     visualMap: { min: 0, max: 100, calculable: true, orient: 'horizontal', left: 'center', bottom: 0, textStyle: { color: '#94a3b8' },
       inRange: { color: ['#1e3a5f','#0369a1','#0284c7','#34d399','#10b981'] } },
     series: [{ type: 'heatmap', data: flatData, label: { show: true, color: '#fff', fontSize: 11, formatter: p => p.value[2] }, emphasis: { itemStyle: { shadowBlur: 10 } } }],
-    tooltip: { formatter: p => `${stocks[p.value[1]]} · ${dims[p.value[0]]]}：${p.value[2]}` },
+    tooltip: { formatter: p => `${stocks[p.value[1]]} · ${dims[p.value[0]]}：${p.value[2]}` },
   });
   window.addEventListener('resize', () => chart.resize());
 }
