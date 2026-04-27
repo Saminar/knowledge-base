@@ -1,0 +1,157 @@
+{
+  "date": "2026-04-27",
+  "positions": [
+    {
+      "code": "NVDA",
+      "name": "NVIDIA",
+      "theme": "nvda",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 1419.22,
+      "weight_pct": 14.2,
+      "target_price": 263.0
+    },
+    {
+      "code": "MSFT",
+      "name": "Microsoft",
+      "theme": "ai",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 1046.17,
+      "weight_pct": 10.5,
+      "target_price": 475.0
+    },
+    {
+      "code": "GOOG",
+      "name": "Alphabet/Google",
+      "theme": "ai",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 747.26,
+      "weight_pct": 7.5,
+      "target_price": 215.0
+    },
+    {
+      "code": "META",
+      "name": "Meta Platforms",
+      "theme": "ai",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 747.26,
+      "weight_pct": 7.5,
+      "target_price": 640.0
+    },
+    {
+      "code": "BYDDY",
+      "name": "比亚迪 ADR",
+      "theme": "byd",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 695.13,
+      "weight_pct": 7.0,
+      "target_price": 0
+    },
+    {
+      "code": "ON",
+      "name": "安森美半导体",
+      "theme": "byd",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 695.13,
+      "weight_pct": 7.0,
+      "target_price": 0
+    },
+    {
+      "code": "ALB",
+      "name": "雅保（锂矿龙头）",
+      "theme": "catl",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 695.13,
+      "weight_pct": 7.0,
+      "target_price": 0
+    },
+    {
+      "code": "AMZN",
+      "name": "Amazon",
+      "theme": "ai",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 672.53,
+      "weight_pct": 6.7,
+      "target_price": 245.0
+    },
+    {
+      "code": "TSM",
+      "name": "台积电",
+      "theme": "nvda",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 547.41,
+      "weight_pct": 5.5,
+      "target_price": 230.0
+    },
+    {
+      "code": "ARM",
+      "name": "ARM Holdings",
+      "theme": "nvda",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 405.49,
+      "weight_pct": 4.1,
+      "target_price": 262.0
+    },
+    {
+      "code": "MRVL",
+      "name": "Marvell Technology",
+      "theme": "nvda",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 405.49,
+      "weight_pct": 4.1,
+      "target_price": 228.0
+    },
+    {
+      "code": "AMAT",
+      "name": "Applied Materials",
+      "theme": "nvda",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 304.12,
+      "weight_pct": 3.0,
+      "target_price": 205.0
+    },
+    {
+      "code": "MU",
+      "name": "Micron Technology",
+      "theme": "nvda",
+      "signal": "accumulate",
+      "shares": 0,
+      "amount_usd": 304.12,
+      "weight_pct": 3.0,
+      "target_price": 130.0
+    },
+    {
+      "code": "AVGO",
+      "name": "Broadcom",
+      "theme": "nvda",
+      "signal": "buy",
+      "shares": 0,
+      "amount_usd": 283.84,
+      "weight_pct": 2.8,
+      "target_price": 250.0
+    },
+    {
+      "code": "COHR",
+      "name": "Coherent Corp",
+      "theme": "catl",
+      "signal": "hold",
+      "shares": 0,
+      "amount_usd": 231.71,
+      "weight_pct": 2.3,
+      "target_price": 98.0
+    }
+  ],
+  "total_invested": 9200.01,
+  "cash_reserve": 799.99
+}

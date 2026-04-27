@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$10,000 美股配置方案 — 四大产业链 · 2026-04-27</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #060c18; --card: #0d1829; --card2: #111e30;
+    --border: #1e3050; --text: #e2e8f0; --muted: #64748b;
+    --blue: #38bdf8; --green: #34d399; --yellow: #fbbf24;
+    --red: #f87171; --purple: #a78bfa; --orange: #fb923c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'PingFang SC', sans-serif; line-height: 1.6; }
+
+  .header {
+    background: linear-gradient(135deg, #060c18 0%, #0a1628 50%, #0d1a35 100%);
+    border-bottom: 1px solid var(--border); padding: 32px 40px 24px;
+  }
+  .header h1 { font-size: 26px; font-weight: 700; color: var(--blue); letter-spacing: 0.5px; }
+  .header .sub { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .header .meta { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+  .meta-chip {
+    background: rgba(56,189,248,0.08); border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 20px; padding: 4px 14px; font-size: 12px; color: var(--blue);
+  }
+
+  .macro-banner {
+    background: rgba(15,23,42,0.95); border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 10px; padding: 14px 18px; margin-bottom: 24px; font-size: 12px; color: var(--muted);
+  }
+  .macro-banner strong { color: var(--blue); }
+
+  .main { max-width: 1280px; margin: 0 auto; padding: 32px 24px 60px; }
+
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;
+  }
+  @media(max-width:900px){ .summary-grid{ grid-template-columns: repeat(2,1fr); } }
+  .s-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .s-card .label { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+  .s-card .value { font-size: 26px; font-weight: 700; }
+  .s-card .note { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  .section-title {
+    font-size: 16px; font-weight: 600; color: var(--blue);
+    border-left: 3px solid var(--blue); padding-left: 12px; margin: 36px 0 16px;
+  }
+
+  .alloc-wrapper { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead tr { background: #0a1628; }
+  th { padding: 12px 14px; color: var(--muted); font-weight: 500; text-align: left; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid rgba(30,48,80,0.6); transition: background 0.15s; }
+  tbody tr:hover { background: rgba(56,189,248,0.04); }
+  td { padding: 13px 14px; vertical-align: middle; }
+  .tag {
+    display: inline-block; padding: 2px 9px; border-radius: 10px;
+    font-size: 11px; font-weight: 500; white-space: nowrap;
+  }
+  .tag-nvda   { background:rgba(56,189,248,0.15); color:#38bdf8; }
+  .tag-byd    { background:rgba(52,211,153,0.15); color:#34d399; }
+  .tag-catl   { background:rgba(251,191,36,0.15); color:#fbbf24; }
+  .tag-ai     { background:rgba(167,139,250,0.15); color:#a78bfa; }
+  .tag-core   { background:rgba(56,189,248,0.1);  color:#67e8f9; border:1px solid rgba(56,189,248,0.3);}
+  .tag-growth { background:rgba(52,211,153,0.1);  color:#6ee7b7; border:1px solid rgba(52,211,153,0.3);}
+  .tag-spec   { background:rgba(251,191,36,0.1);  color:#fde68a; border:1px solid rgba(251,191,36,0.3);}
+  .up   { color: var(--green); }
+  .down { color: var(--red); }
+  .bold { font-weight: 600; }
+  .ticker { font-family: 'SF Mono', monospace; font-size: 12px; color: var(--blue); }
+  .chg-cell { font-size: 11px; font-weight: 600; }
+
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  @media(max-width:768px){ .chart-grid{ grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .chart-card h3 { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .chart-box { width: 100%; height: 300px; }
+  .chart-wide { grid-column: 1 / -1; }
+  .chart-box-tall { height: 380px; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 20px; position: relative; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; min-width: 52px; }
+  .tl-dot {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0; border: 2px solid;
+  }
+  .tl-line { flex: 1; width: 2px; background: var(--border); margin: 4px 0; min-height: 24px; }
+  .tl-right { padding-bottom: 28px; flex: 1; }
+  .tl-phase { font-size: 12px; font-weight: 600; margin-bottom: 4px; }
+  .tl-desc { font-size: 12px; color: var(--muted); line-height: 1.7; }
+  .tl-action {
+    margin-top: 8px; background: var(--card2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+  }
+  .action-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 3px 0; }
+  .action-row .amt { font-weight: 600; color: var(--blue); }
+
+  .risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  @media(max-width:680px){ .risk-grid{ grid-template-columns: 1fr; } }
+  .risk-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+  }
+  .risk-card .r-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .risk-card .r-item { font-size: 12px; color: var(--muted); padding: 3px 0; display: flex; gap: 8px; }
+  .r-bullet { color: var(--red); flex-shrink: 0; }
+  .r-bullet-g { color: var(--green); flex-shrink: 0; }
+
+  /* 持仓调整说明 */
+  .adj-box {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px; margin-bottom: 24px;
+  }
+  .adj-first {
+    font-size: 13px; color: var(--text); padding: 8px 0; line-height: 1.8;
+  }
+  .adj-op {
+    display: inline-block; padding: 2px 8px; border-radius: 6px;
+    font-size: 11px; font-weight: 700; white-space: nowrap;
+  }
+  .adj-new  { background:rgba(52,211,153,0.15);  color:#34d399; border:1px solid rgba(52,211,153,0.3); }
+  .adj-up   { background:rgba(52,211,153,0.1);   color:#6ee7b7; border:1px solid rgba(52,211,153,0.25);}
+  .adj-dn   { background:rgba(248,113,113,0.1);  color:#fca5a5; border:1px solid rgba(248,113,113,0.25);}
+  .adj-rm   { background:rgba(248,113,113,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
+  .adj-adj  { background:rgba(251,191,36,0.1);   color:#fde68a; border:1px solid rgba(251,191,36,0.25);}
+
+  .footer { text-align: center; color: var(--muted); font-size: 11px; padding: 32px; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <h1>🇺🇸 $10,000 美股资产配置方案</h1>
+  <div class="sub">基于宁德时代 · 比亚迪 · 英伟达 · AI浪潮 四大产业链研究 · 可执行买入路径</div>
+  <div class="meta">
+    <span class="meta-chip">📅 2026-04-27 更新版</span>
+    <span class="meta-chip">💵 总预算 $10,000</span>
+    <span class="meta-chip">🎯 目标收益 +100% / 6-12个月</span>
+    <span class="meta-chip">⚖️ 哑铃策略：底仓 + 进攻 + 卫星</span>
+    <span class="meta-chip">🔥 浪潮信息Q1净利超预期，盘后涨近20%（AI服务器需求爆发信</span>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ═══ 宏观横幅 ═══ -->
+  <div class="macro-banner">
+    <strong>📡 宏观观点：</strong>2026-04-27是美股科技板块大爆发日。ARM +14.76%领涨全场（季报超预期+AI推理芯片多授权），AMD +13.91%（数据中心AI GPU需求暴增），INTC +23.6%（扭亏为盈+与台积电合作），NVDA +4.32%（市值重回$5万亿）。港股半导体同步大涨：中芯国际HK +6.92%，整个AI算力板块形成共振。这是2026年迄今最强劲的科技板块单日表现，验证AI算力超级周期尚
+  </div>
+
+  <!-- ═══ SUMMARY CARDS ═══ -->
+  <div class="summary-grid">
+    <div class="s-card">
+      <div class="label">🟦 英伟达产业链</div>
+      <div class="value" style="color:var(--blue)">$3,670</div>
+      <div class="note">NVDA · TSM · ARM · MRVL · MU</div>
+    </div>
+    <div class="s-card">
+      <div class="label">🟣 AI浪潮平台</div>
+      <div class="value" style="color:var(--purple)">$3,213</div>
+      <div class="note">MSFT · GOOG · META · AMZN</div>
+    </div>
+    <div class="s-card">
+      <div class="label">🟢 比亚迪 + 🟡 宁德主题</div>
+      <div class="value" style="color:var(--green)">$2,317</div>
+      <div class="note">BYDDY · ON · ALB · COHR</div>
+    </div>
+    <div class="s-card">
+      <div class="label">现金+机动弹药</div>
+      <div class="value" style="color:var(--muted)">$800</div>
+      <div class="note">急跌补仓 + 候补标的</div>
+    </div>
+  </div>
+
+  <!-- ═══ ALLOCATION TABLE ═══ -->
+  <div class="section-title">📋 逐笔买入清单（2026-04-27 · 可直接下单）</div>
+  <div class="alloc-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th>主题</th>
+        <th>代码</th>
+        <th>公司</th>
+        <th>产业链逻辑</th>
+        <th>仓位</th>
+        <th>分配金额</th>
+        <th>今日价格</th>
+        <th>较昨日</th>
+        <th>可买股数</th>
+        <th>仓位类型</th>
+        <th>目标价 / 止损</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">NVDA</span></td>
+        <td class="bold">NVIDIA</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">Blackwell GB200供不应求；2026全年数据中心收入预计超$1000亿；AI推理需求激增</td>
+        <td class="bold up">14.2%</td>
+        <td class="bold">$1,419</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$263.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-ai">🟣 AI浪潮平台</span></td>
+        <td><span class="ticker">MSFT</span></td>
+        <td class="bold">Microsoft</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">Copilot企业版渗透率持续提升；Azure AI工作负载增长；OpenAI合作护城河</td>
+        <td class="bold up">10.5%</td>
+        <td class="bold">$1,046</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$475.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-ai">🟣 AI浪潮平台</span></td>
+        <td><span class="ticker">GOOG</span></td>
+        <td class="bold">Alphabet/Google</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">Gemini Ultra商业化；Google Cloud AI基础设施需求强劲；TPU自研降低算力成本</td>
+        <td class="bold up">7.5%</td>
+        <td class="bold">$747</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$215.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-ai">🟣 AI浪潮平台</span></td>
+        <td><span class="ticker">META</span></td>
+        <td class="bold">Meta Platforms</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">Llama开源生态扩张；AI广告效率提升推动ARPU持续增长；Reels+Threads势头强劲</td>
+        <td class="bold up">7.5%</td>
+        <td class="bold">$747</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$640.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-byd">🟢 比亚迪主题</span></td>
+        <td><span class="ticker">BYDDY</span></td>
+        <td class="bold">比亚迪 ADR</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">全球 NEV 销量第一，出海东南亚/欧洲加速，美股折价港股</td>
+        <td class="bold up">7.0%</td>
+        <td class="bold">$695</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-spec">主题卫星</span></td>
+        <td style="font-size:11px"><span class="up">—</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-byd">🟢 比亚迪主题</span></td>
+        <td><span class="ticker">ON</span></td>
+        <td class="bold">安森美半导体</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">SiC 功率器件龙头，BYD/Tesla 核心供应商，EV 渗透率提升受益</td>
+        <td class="bold up">7.0%</td>
+        <td class="bold">$695</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-spec">主题卫星</span></td>
+        <td style="font-size:11px"><span class="up">—</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-catl">🟡 宁德时代主题</span></td>
+        <td><span class="ticker">ALB</span></td>
+        <td class="bold">雅保（锂矿龙头）</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">全球最大锂矿商，宁德上游，锂价周期底部左侧布局</td>
+        <td class="bold up">7.0%</td>
+        <td class="bold">$695</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-spec">主题卫星</span></td>
+        <td style="font-size:11px"><span class="up">—</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-ai">🟣 AI浪潮平台</span></td>
+        <td><span class="ticker">AMZN</span></td>
+        <td class="bold">Amazon</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">AWS AI服务收入加速增长；Trainium2芯片降低训练成本；Alexa+AI重构消费入口</td>
+        <td class="bold up">6.7%</td>
+        <td class="bold">$673</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$245.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">TSM</span></td>
+        <td class="bold">台积电</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">AI芯片代工全球垄断地位；CoWoS封装产能持续扩张；但地缘风险压制估值</td>
+        <td class="bold up">5.5%</td>
+        <td class="bold">$547</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-core">核心底仓</span></td>
+        <td style="font-size:11px"><span class="up">$230.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">ARM</span></td>
+        <td class="bold">ARM Holdings</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">今日+4.09%；AI推理端ARM架构占比快速提升；Royalty收入随AI芯片出货量弹性增长</td>
+        <td class="bold up">4.1%</td>
+        <td class="bold">$405</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-growth">进攻仓</span></td>
+        <td style="font-size:11px"><span class="up">$262.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">MRVL</span></td>
+        <td class="bold">Marvell Technology</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">今日+5.24%，定制AI ASIC需求爆发；AWS/Google XPU合作落地；CPO技术领先</td>
+        <td class="bold up">4.1%</td>
+        <td class="bold">$405</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-growth">进攻仓</span></td>
+        <td style="font-size:11px"><span class="up">$228.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">AMAT</span></td>
+        <td class="bold">Applied Materials</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">先进封装设备需求爆发；Gate-All-Around工艺设备主供；中国市场受限但全球需求补偿</td>
+        <td class="bold up">3.0%</td>
+        <td class="bold">$304</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-growth">进攻仓</span></td>
+        <td style="font-size:11px"><span class="up">$205.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">MU</span></td>
+        <td class="bold">Micron Technology</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">HBM3E量产供应NVDA GB200；AI推理端DRAM需求激增；周期底部向上</td>
+        <td class="bold up">3.0%</td>
+        <td class="bold">$304</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-growth">进攻仓</span></td>
+        <td style="font-size:11px"><span class="up">$130.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td><span class="ticker">AVGO</span></td>
+        <td class="bold">Broadcom</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">Google TPU/Meta MTIA等定制芯片主要合作商；AI网络交换机订单暴增</td>
+        <td class="bold up">2.8%</td>
+        <td class="bold">$284</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-growth">进攻仓</span></td>
+        <td style="font-size:11px"><span class="up">$250.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-catl">🟡 宁德时代主题</span></td>
+        <td><span class="ticker">COHR</span></td>
+        <td class="bold">Coherent Corp</td>
+        <td style="font-size:11px;color:var(--muted);max-width:200px">800G/1.6T光模块需求受益；但竞争加剧，ASP压力明显</td>
+        <td class="bold up">2.3%</td>
+        <td class="bold">$232</td>
+        <td>—</td>
+        <td><span class="chg-cell up">+0.00%</span></td>
+        <td><span class="bold">—股</span></td>
+        <td><span class="tag tag-spec">主题卫星</span></td>
+        <td style="font-size:11px"><span class="up">$98.00</span> / <span class="down">—</span></td>
+      </tr>
+      <tr style="background:rgba(30,48,80,0.2)">
+        <td>—</td>
+        <td><span class="ticker" style="color:var(--muted)">CASH</span></td>
+        <td style="color:var(--muted)">现金+机动弹药</td>
+        <td style="font-size:11px;color:var(--muted)">急跌补仓 + 批次间差价弹药 + 候补标的</td>
+        <td style="color:var(--muted)">8.0%</td>
+        <td style="color:var(--muted)">$800</td>
+        <td>—</td><td>—</td><td>—</td>
+        <td><span class="tag" style="background:rgba(100,116,139,0.15);color:var(--muted)">现金</span></td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- ═══ CHARTS ═══ -->
+  <div class="section-title">📊 配置可视化</div>
+  <div class="chart-grid">
+
+    <div class="chart-card">
+      <h3>资金分配 — 主题占比</h3>
+      <div id="pieTheme" class="chart-box"></div>
+    </div>
+
+    <div class="chart-card">
+      <h3>仓位类型结构 — 底仓 / 进攻 / 卫星</h3>
+      <div id="pieType" class="chart-box"></div>
+    </div>
+
+    <div class="chart-card">
+      <h3>各标的预期上行空间 vs 止损幅度</h3>
+      <div id="barUpside" class="chart-box"></div>
+    </div>
+
+    <div class="chart-card">
+      <h3>单股配置金额（美元）</h3>
+      <div id="barAmount" class="chart-box"></div>
+    </div>
+
+    <div class="chart-card chart-wide">
+      <h3>产业链分布矩阵 — 风险 × 潜在收益（气泡大小 = 配置金额）</h3>
+      <div id="bubbleRisk" class="chart-box chart-box-tall"></div>
+    </div>
+
+  </div>
+
+  
+  <div class="section-title">🗓️ 可执行买入路径 — 分批建仓计划</div>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:16px">
+    建仓第 <strong style="color:var(--blue)">4</strong> 天 · 起始日: 2026-04-23 · 今日: 2026-04-27
+  </div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot" style="background:rgba(56,189,248,0.15);border-color:var(--blue);color:var(--blue)">1</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-phase" style="color:var(--blue)">第一批 · 今日立即建仓（核心底仓 ~$5,180）</div>
+        <div class="tl-desc">NVDA / MSFT / GOOG / META / TSM 核心底仓，趋势明确，一次性打底，锁定 AI 超级周期主线。</div>
+        <div class="tl-action">
+          <div class="action-row">
+            <span>NVDA × 0股 (待确认)</span>
+            <span class="amt">$1,419</span>
+          </div>
+          <div class="action-row">
+            <span>MSFT × 0股 (待确认)</span>
+            <span class="amt">$1,046</span>
+          </div>
+          <div class="action-row">
+            <span>GOOG × 0股 (待确认)</span>
+            <span class="amt">$747</span>
+          </div>
+          <div class="action-row">
+            <span>META × 0股 (待确认)</span>
+            <span class="amt">$747</span>
+          </div>
+          <div class="action-row">
+            <span>AMZN × 0股 (待确认)</span>
+            <span class="amt">$673</span>
+          </div>
+          <div class="action-row">
+            <span>TSM × 0股 (待确认)</span>
+            <span class="amt">$547</span>
+          </div>
+          <div class="action-row" style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">
+            <span>小计</span><span class="amt">$5,180</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot" style="background:rgba(52,211,153,0.15);border-color:var(--green);color:var(--green)">2</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-phase" style="color:var(--green)">第二批 · 1~2 周内分批建仓（进攻仓 ~$1,703）</div>
+        <div class="tl-desc">等待财报季结束后情绪落定，或遇回调 5% 时加仓进攻仓（ARM / MRVL / MU / AVGO 等高弹性标的）。</div>
+        <div class="tl-action">
+          <div class="action-row">
+            <span>ARM × 0股 (待确认)</span>
+            <span class="amt">$405</span>
+          </div>
+          <div class="action-row">
+            <span>MRVL × 0股 (待确认)</span>
+            <span class="amt">$405</span>
+          </div>
+          <div class="action-row">
+            <span>AMAT × 0股 (待确认)</span>
+            <span class="amt">$304</span>
+          </div>
+          <div class="action-row">
+            <span>MU × 0股 (待确认)</span>
+            <span class="amt">$304</span>
+          </div>
+          <div class="action-row">
+            <span>AVGO × 0股 (待确认)</span>
+            <span class="amt">$284</span>
+          </div>
+          <div class="action-row" style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">
+            <span>小计</span><span class="amt">$1,703</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot" style="background:rgba(251,191,36,0.15);border-color:var(--yellow);color:var(--yellow)">3</div>
+        <div class="tl-line"></div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-phase" style="color:var(--yellow)">第三批 · 1 个月后补仓 + 机动弹药（~$3,117）</div>
+        <div class="tl-desc">等待卫星仓（BYDDY / ON / ALB / COHR）回调至支撑区间建仓；剩余现金留作急跌补仓或 AMD 候补。</div>
+        <div class="tl-action">
+          <div class="action-row">
+            <span>BYDDY × 0股 (待确认)</span>
+            <span class="amt">$695</span>
+          </div>
+          <div class="action-row">
+            <span>ON × 0股 (待确认)</span>
+            <span class="amt">$695</span>
+          </div>
+          <div class="action-row">
+            <span>ALB × 0股 (待确认)</span>
+            <span class="amt">$695</span>
+          </div>
+          <div class="action-row">
+            <span>COHR × 0股 (待确认)</span>
+            <span class="amt">$232</span>
+          </div>
+          <div class="action-row"><span>现金机动弹药</span><span class="amt">$800</span></div>
+          <div class="action-row" style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px">
+            <span>小计</span><span class="amt">$3,117</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left">
+        <div class="tl-dot" style="background:rgba(167,139,250,0.15);border-color:var(--purple);color:var(--purple)">⚡</div>
+      </div>
+      <div class="tl-right">
+        <div class="tl-phase" style="color:var(--purple)">止盈 / 止损 触发条件</div>
+        <div class="tl-desc" style="line-height:2">
+          📈 <strong>止盈</strong>：整体仓位浮盈超过 +40% 时，减持进攻仓 50%，转入底仓或现金<br>
+          📉 <strong>止损</strong>：单股跌幅超过 -20% 触发预警；整体组合跌幅超过 -25%（净值低于 $7,500）时，清仓卫星仓，保住底仓
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ RISK MATRIX ═══ -->
+  <div class="section-title">⚠️ 风险矩阵 & 对冲思路</div>
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="r-title" style="color:var(--red)">🔴 高风险因素</div>
+      <div class="r-item"><span class="r-bullet">▶</span><span>美联储高利率延续压制估值</span></div>
+      <div class="r-item"><span class="r-bullet">▶</span><span>中美贸易关税超预期升级</span></div>
+      <div class="r-item"><span class="r-bullet">▶</span><span>NVDA 出口管制扩大至 B200/GB200</span></div>
+      <div class="r-item"><span class="r-bullet">▶</span><span>AI 算力需求放缓（超级周期证伪）</span></div>
+      <div class="r-item"><span class="r-bullet">▶</span><span>台积电地缘风险（台海局势）</span></div>
+    </div>
+    <div class="risk-card">
+      <div class="r-title" style="color:var(--green)">🟢 对冲 / 催化剂</div>
+      <div class="r-item"><span class="r-bullet-g">▶</span><span>NVDA Rubin 架构 2026 年发布</span></div>
+      <div class="r-item"><span class="r-bullet-g">▶</span><span>META Llama 4 + AI 眼镜商业化</span></div>
+      <div class="r-item"><span class="r-bullet-g">▶</span><span>Microsoft/Google Capex 持续创新高</span></div>
+      <div class="r-item"><span class="r-bullet-g">▶</span><span>美联储降息周期开启（成长股估值修复）</span></div>
+      <div class="r-item"><span class="r-bullet-g">▶</span><span>中国新能源出海加速（BYD 受益）</span></div>
+    </div>
+    <div class="risk-card">
+      <div class="r-title" style="color:var(--yellow)">🟡 操作纪律</div>
+      <div class="r-item"><span class="r-bullet" style="color:var(--yellow)">▶</span><span>单仓超 20% 需强制减半</span></div>
+      <div class="r-item"><span class="r-bullet" style="color:var(--yellow)">▶</span><span>每月最后一个交易日复盘持仓</span></div>
+      <div class="r-item"><span class="r-bullet" style="color:var(--yellow)">▶</span><span>止损价格提前设置 Good-Till-Cancel</span></div>
+      <div class="r-item"><span class="r-bullet" style="color:var(--yellow)">▶</span><span>进攻仓不超过总仓位 35%</span></div>
+      <div class="r-item"><span class="r-bullet" style="color:var(--yellow)">▶</span><span>持有周期最少 6 个月，不做短线</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCENARIO ═══ -->
+  <div class="section-title">🎯 三情景预期回报（12 个月后）</div>
+  <div class="chart-grid">
+    <div class="chart-card chart-wide">
+      <h3>牛市 / 基准 / 熊市 三情景净值预测</h3>
+      <div id="scenarioChart" class="chart-box" style="height:260px"></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px">
+    <div class="s-card" style="border-color:rgba(52,211,153,0.4)">
+      <div class="label">🐂 牛市情景（概率 35%）</div>
+      <div class="value" style="color:var(--green)">$18,000~$22,000</div>
+      <div class="note">AI 算力超级周期延续，NVDA 突破 $280，META 突破 $900，降息落地，回报 +80%~+120%</div>
+    </div>
+    <div class="s-card" style="border-color:rgba(56,189,248,0.4)">
+      <div class="label">📊 基准情景（概率 45%）</div>
+      <div class="value" style="color:var(--blue)">$14,000~$17,000</div>
+      <div class="note">AI 需求稳健增长，估值小幅扩张，回报 +40%~+70%</div>
+    </div>
+    <div class="s-card" style="border-color:rgba(248,113,113,0.4)">
+      <div class="label">🐻 熊市情景（概率 20%）</div>
+      <div class="value" style="color:var(--red)">$7,000~$9,000</div>
+      <div class="note">衰退 + 关税重击科技估值，止损纪律执行后回撤控制在 -30% 以内</div>
+    </div>
+  </div>
+
+  
+  <div class="section-title">📋 持仓调整说明（相较昨日方案）</div>
+  <div class="adj-box">
+    <div class="adj-first">
+      🚀 建仓首日（2026-04-23），本次为首次建仓方案，无前日持仓对比。<br>
+      <span style="color:var(--muted);font-size:12px">建仓第 0 天 · 目标: 6-12 个月实现翻番 (+100%)</span>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  📊 数据基于实时行情 2026-04-27 · 产业链研究：宁德时代/比亚迪/英伟达/AI浪潮 Skill · 仅供参考，不构成投资建议
+</div>
+
+<script>
+const C = s => document.getElementById(s);
+const dark = { backgroundColor: 'transparent' };
+
+// ─── 1. 主题饼图 ───
+(function() {
+  const c = echarts.init(C('pieTheme'), 'dark');
+  c.setOption({
+    ...dark,
+    legend: { bottom: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
+    series: [{
+      type: 'pie', radius: ['38%', '65%'], center: ['50%', '45%'],
+      data: [
+        { value: 3670, name: "🟦 英伟达产业链", itemStyle: { color: "#38bdf8" } },
+        { value: 3213, name: "🟣 AI浪潮平台", itemStyle: { color: "#a78bfa" } },
+        { value: 1390, name: "🟢 比亚迪主题", itemStyle: { color: "#34d399" } },
+        { value: 927, name: "🟡 宁德时代主题", itemStyle: { color: "#fbbf24" } },
+        { value: 800, name: "💵 现金+弹药", itemStyle: { color: "#475569" } }
+      ],
+      label: { show: false },
+      emphasis: { label: { show: true, fontSize: 13, color: '#e2e8f0', fontWeight: 'bold' } },
+    }],
+    tooltip: { formatter: p => `${p.name}<br/>$${p.value} (${p.percent}%)` },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+
+// ─── 2. 仓位类型饼图 ───
+(function() {
+  const c = echarts.init(C('pieType'), 'dark');
+  c.setOption({
+    ...dark,
+    legend: { bottom: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
+    series: [{
+      type: 'pie', radius: ['38%', '65%'], center: ['50%', '45%'],
+      data: [
+        { value: 5180, name: '🔵 核心底仓 (52%)', itemStyle: { color: '#38bdf8' } },
+        { value: 1703, name: '🟢 进攻仓 (17%)', itemStyle: { color: '#34d399' } },
+        { value: 2317, name: '🟡 主题卫星 (23%)', itemStyle: { color: '#fbbf24' } },
+        { value: 800, name: '⚡ 现金+弹药 (8%)', itemStyle: { color: '#fb923c' } },
+      ],
+      label: { show: false },
+      emphasis: { label: { show: true, fontSize: 13, color: '#e2e8f0' } },
+    }],
+    tooltip: { formatter: p => `${p.name}<br/>$${p.value}` },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+
+// ─── 3. 上行/下行空间柱图 ───
+(function() {
+  const c = echarts.init(C('barUpside'), 'dark');
+  const tickers = ["NVDA", "MSFT", "GOOG", "META", "BYDDY", "ON", "ALB", "AMZN", "TSM", "ARM", "MRVL", "AMAT"];
+  const upside  = [32.0, 15.0, 20.0, 18.0, 52.0, 38.0, 45.0, 18.0, 22.0, 28.0, 38.0, 22.0];
+  const downside = [-18, -18, -18, -18, -18, -18, -18, -18, -18, -18, -18, -18];
+  c.setOption({
+    ...dark,
+    legend: { top: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
+    grid: { left: 60, right: 20, top: 36, bottom: 30 },
+    xAxis: { type: 'category', data: tickers, axisLabel: { color: '#94a3b8', fontSize: 11 }, axisLine: { show: false } },
+    yAxis: { type: 'value', axisLabel: { color: '#94a3b8', formatter: v => v + '%' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    series: [
+      { name:'目标价上行', type:'bar', stack:'rng', data: upside.map(v => ({ value: v, itemStyle: { color: '#34d399', borderRadius: [4,4,0,0] } })), label: { show: true, position:'top', color:'#34d399', fontSize:10, formatter: p => '+'+p.value+'%' } },
+      { name:'止损下行',   type:'bar', stack:'rng', data: downside.map(v => ({ value: v, itemStyle: { color: '#f87171', borderRadius: [0,0,4,4] } })), label: { show: true, position:'bottom', color:'#f87171', fontSize:10, formatter: p => p.value+'%' } },
+    ],
+    tooltip: { trigger: 'axis' },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+
+// ─── 4. 配置金额横条图 ───
+(function() {
+  const c = echarts.init(C('barAmount'), 'dark');
+  const items = [{ name: "COHR", val: 232, color: "#fbbf24" }, { name: "AVGO", val: 284, color: "#38bdf8" }, { name: "AMAT", val: 304, color: "#38bdf8" }, { name: "MU", val: 304, color: "#38bdf8" }, { name: "ARM", val: 405, color: "#38bdf8" }, { name: "MRVL", val: 405, color: "#38bdf8" }, { name: "TSM", val: 547, color: "#38bdf8" }, { name: "AMZN", val: 673, color: "#a78bfa" }, { name: "BYDDY", val: 695, color: "#34d399" }, { name: "ON", val: 695, color: "#34d399" }, { name: "ALB", val: 695, color: "#fbbf24" }, { name: "GOOG", val: 747, color: "#a78bfa" }, { name: "META", val: 747, color: "#a78bfa" }, { name: "MSFT", val: 1046, color: "#a78bfa" }, { name: "NVDA", val: 1419, color: "#38bdf8" }].sort((a,b) => a.val - b.val);
+  c.setOption({
+    ...dark,
+    grid: { left: 58, right: 70, top: 10, bottom: 10 },
+    xAxis: { type: 'value', axisLabel: { color: '#94a3b8', formatter: v => '$'+v }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    yAxis: { type: 'category', data: items.map(i=>i.name), axisLabel: { color: '#94a3b8', fontSize: 12 }, axisLine: { show: false }, axisTick: { show: false } },
+    series: [{ type:'bar', data: items.map(i => ({ value: i.val, itemStyle: { color: i.color, borderRadius: [0,4,4,0] } })),
+      label: { show: true, position:'right', color:'#e2e8f0', formatter: p => '$'+p.value } }],
+    tooltip: { trigger: 'item', formatter: p => p.name + ': $' + p.value },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+
+// ─── 5. 气泡图 ───
+(function() {
+  const c = echarts.init(C('bubbleRisk'), 'dark');
+  const raw = [
+    [30,32.0,28.3844,"NVDA","#38bdf8"],
+    [30,15.0,20.9234,"MSFT","#a78bfa"],
+    [30,20.0,14.9452,"GOOG","#a78bfa"],
+    [30,18.0,14.9452,"META","#a78bfa"],
+    [75,52.0,13.9026,"BYDDY","#34d399"],
+    [75,38.0,13.9026,"ON","#34d399"],
+    [75,45.0,13.9026,"ALB","#fbbf24"],
+    [30,18.0,13.4506,"AMZN","#a78bfa"],
+    [30,22.0,10.9482,"TSM","#38bdf8"],
+    [55,28.0,10,"ARM","#38bdf8"],
+    [55,38.0,10,"MRVL","#38bdf8"],
+    [55,22.0,10,"AMAT","#38bdf8"],
+    [55,35.0,10,"MU","#38bdf8"],
+    [55,25.0,10,"AVGO","#38bdf8"],
+    [75,12.0,10,"COHR","#fbbf24"]
+  ];
+  c.setOption({
+    ...dark,
+    grid: { left: 70, right: 30, top: 30, bottom: 50 },
+    xAxis: { type: 'value', name: '风险评分', min: 10, max: 95, nameLocation: 'middle', nameGap: 30, axisLabel: { color: '#94a3b8' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    yAxis: { type: 'value', name: '上行空间 %', nameLocation: 'middle', nameGap: 40, axisLabel: { color: '#94a3b8', formatter: v => v+'%' }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    series: [{
+      type: 'scatter',
+      data: raw.map(d => ({ value: [d[0], d[1], d[2]], name: d[3], itemStyle: { color: d[4], opacity: 0.8 } })),
+      symbolSize: d => Math.max(12, d[2]),
+      label: { show: true, formatter: p => p.name, color: '#e2e8f0', fontSize: 10, position: 'top' },
+    }],
+    tooltip: { formatter: p => `${p.name}<br/>风险: ${p.value[0]} | 上行: ${p.value[1]}% | 配置: $${(p.value[2]*50).toFixed(0)}` },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+
+// ─── 6. 情景预测线 ───
+(function() {
+  const c = echarts.init(C('scenarioChart'), 'dark');
+  const months = [0,1,2,3,4,5,6,7,8,9,10,11,12];
+  const base   = [10000,10200,10500,10900,11400,11800,12200,12700,13200,13800,14500,15500,16500];
+  const bull   = [10000,10300,10700,11200,11800,12500,13300,14200,15200,16400,17800,19500,22000];
+  const bear   = [10000,9800,9600,9500,9200,9000,8800,8500,8200,8000,7800,7600,7500];
+  c.setOption({
+    ...dark,
+    legend: { top: 0, textStyle: { color: '#94a3b8', fontSize: 11 } },
+    grid: { left: 70, right: 20, top: 36, bottom: 30 },
+    xAxis: { type: 'category', data: months.map(m => m===0?'今日':m+'月后'), axisLabel: { color: '#94a3b8' }, axisLine: { show: false } },
+    yAxis: { type: 'value', axisLabel: { color: '#94a3b8', formatter: v => '$'+v.toLocaleString() }, splitLine: { lineStyle: { color: '#1e293b' } } },
+    series: [
+      { name:'🐂 牛市', type:'line', smooth: true, data: bull, lineStyle:{ color:'#34d399', width:2 }, itemStyle:{ color:'#34d399' }, areaStyle:{ color:'rgba(52,211,153,0.05)' } },
+      { name:'📊 基准', type:'line', smooth: true, data: base, lineStyle:{ color:'#38bdf8', width:2 }, itemStyle:{ color:'#38bdf8' }, areaStyle:{ color:'rgba(56,189,248,0.05)' } },
+      { name:'🐻 熊市', type:'line', smooth: true, data: bear, lineStyle:{ color:'#f87171', width:2, type:'dashed' }, itemStyle:{ color:'#f87171' } },
+    ],
+    tooltip: { trigger: 'axis', formatter: params => params.map(p => `${p.seriesName}: $${p.value.toLocaleString()}`).join('<br/>') },
+  });
+  window.addEventListener('resize', () => c.resize());
+})();
+</script>
+</body>
+</html>
