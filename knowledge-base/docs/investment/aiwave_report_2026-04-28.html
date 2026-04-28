@@ -883,10 +883,12 @@ function initSankeyChart() {
         {name:'ASIC芯片\n(AVGO/MRVL)'},
         {name:'华为昇腾 910B'},
         {name:'国产GPU/AI芯片'},
+        {name:'光电混合算力\n(曦智科技)'},
         // ── L5: 服务器 + 网络互连 + 电源散热 ──
         {name:'SMCI/Dell AI服务器'},
         {name:'浪潮/富联 AI服务器'},
         {name:'光模块\n(旭创/新易盛)'},
+        {name:'光互连/光计算互连\n(MRVL DSP)'},
         {name:'网络互连\n(思科/锐捷)'},
         {name:'电源散热\n(VRT/申菱)'},
         // ── L6: 云/数据中心 ──
@@ -937,6 +939,17 @@ function initSankeyChart() {
         // 光模块 → 服务器
         {source:'光模块\n(旭创/新易盛)', target:'SMCI/Dell AI服务器', value:50},
         {source:'光模块\n(旭创/新易盛)', target:'浪潮/富联 AI服务器', value:30},
+        {source:'光模块\n(旭创/新易盛)', target:'光互连/光计算互连\n(MRVL DSP)', value:40},
+        // 光电混合算力（曦智科技）← 上游：代工+光器件+EDA
+        {source:'台积电 CoWoS先进封装', target:'光电混合算力\n(曦智科技)', value:35},
+        {source:'光模块\n(旭创/新易盛)', target:'光电混合算力\n(曦智科技)', value:25},
+        {source:'EDA\n(SNPS/华大九天)', target:'光电混合算力\n(曦智科技)', value:10},
+        // 光电混合算力 → 数据中心（替代传统GPU互连，显著降低能耗）
+        {source:'光电混合算力\n(曦智科技)', target:'国内AI数据中心', value:45},
+        {source:'光电混合算力\n(曦智科技)', target:'阿里云/腾讯云', value:25},
+        // 光互连互连节点 → 服务器
+        {source:'光互连/光计算互连\n(MRVL DSP)', target:'SMCI/Dell AI服务器', value:35},
+        {source:'光互连/光计算互连\n(MRVL DSP)', target:'浪潮/富联 AI服务器', value:25},
         // 网络互连 → 服务器
         {source:'网络互连\n(思科/锐捷)', target:'SMCI/Dell AI服务器', value:30},
         {source:'网络互连\n(思科/锐捷)', target:'浪潮/富联 AI服务器', value:20},
@@ -979,9 +992,10 @@ function initTreemapChart() {
           { name: 'AMD', value: 60 }, { name: '寒武纪', value: 40 },
           { name: '海光信息', value: 30 }, { name: '天数智芯', value: 20 },
         ]},
-        { name: '🟠 光模块/网络', value: 200, itemStyle: { color: '#1a3040' }, children: [
+        { name: '🟠 光模块/光计算', value: 250, itemStyle: { color: '#1a3040' }, children: [
           { name: '中际旭创', value: 70 }, { name: '天孚通信', value: 50 },
           { name: '新易盛', value: 40 }, { name: 'Coherent', value: 40 },
+          { name: '曦智科技\n光电算力', value: 50 },
         ]},
         { name: '⚙️ 先进代工', value: 180, itemStyle: { color: '#1e2840' }, children: [
           { name: '中芯国际', value: 90 }, { name: '台积电', value: 60 }, { name: '华虹半导体', value: 30 },
