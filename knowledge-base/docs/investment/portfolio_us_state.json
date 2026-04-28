@@ -1,25 +1,25 @@
 {
-  "date": "2026-04-27",
+  "date": "2026-04-28",
   "positions": [
     {
       "code": "NVDA",
-      "name": "NVIDIA",
+      "name": "英伟达",
       "theme": "nvda",
       "signal": "buy",
       "shares": 6,
-      "amount_usd": 1249.62,
-      "weight_pct": 12.5,
-      "target_price": 266.59
+      "amount_usd": 1298.52,
+      "weight_pct": 13.0,
+      "target_price": 290.0
     },
     {
       "code": "GOOG",
       "name": "谷歌",
       "theme": "ai",
       "signal": "buy",
-      "shares": 6,
-      "amount_usd": 948.0,
-      "weight_pct": 9.5,
-      "target_price": 214.88
+      "shares": 2,
+      "amount_usd": 699.18,
+      "weight_pct": 7.0,
+      "target_price": 430.0
     },
     {
       "code": "META",
@@ -27,9 +27,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 675.0,
+      "amount_usd": 677.69,
       "weight_pct": 6.8,
-      "target_price": 769.5
+      "target_price": 820.0
     },
     {
       "code": "ON",
@@ -52,16 +52,6 @@
       "target_price": 129.2
     },
     {
-      "code": "AMZN",
-      "name": "亚马逊",
-      "theme": "ai",
-      "signal": "buy",
-      "shares": 3,
-      "amount_usd": 567.0,
-      "weight_pct": 5.7,
-      "target_price": 264.6
-    },
-    {
       "code": "ALB",
       "name": "雅保（锂矿龙头）",
       "theme": "catl",
@@ -73,33 +63,53 @@
     },
     {
       "code": "MU",
-      "name": "Micron Technology",
+      "name": "美光科技",
       "theme": "nvda",
-      "signal": "accumulate",
+      "signal": "buy",
       "shares": 1,
-      "amount_usd": 496.72,
-      "weight_pct": 5.0,
-      "target_price": 576.19
+      "amount_usd": 524.59,
+      "weight_pct": 5.2,
+      "target_price": 640.0
+    },
+    {
+      "code": "AMZN",
+      "name": "亚马逊",
+      "theme": "ai",
+      "signal": "buy",
+      "shares": 2,
+      "amount_usd": 520.32,
+      "weight_pct": 5.2,
+      "target_price": 320.0
     },
     {
       "code": "MSFT",
-      "name": "Microsoft",
+      "name": "微软",
       "theme": "ai",
       "signal": "accumulate",
       "shares": 1,
-      "amount_usd": 424.64,
+      "amount_usd": 425.0,
       "weight_pct": 4.2,
-      "target_price": 475.6
+      "target_price": 510.0
     },
     {
       "code": "AVGO",
-      "name": "Broadcom",
+      "name": "博通",
       "theme": "nvda",
       "signal": "accumulate",
       "shares": 1,
-      "amount_usd": 422.78,
+      "amount_usd": 418.03,
       "weight_pct": 4.2,
-      "target_price": 486.2
+      "target_price": 510.0
+    },
+    {
+      "code": "AMAT",
+      "name": "应用材料",
+      "theme": "nvda",
+      "signal": "accumulate",
+      "shares": 1,
+      "amount_usd": 405.17,
+      "weight_pct": 4.1,
+      "target_price": 470.0
     },
     {
       "code": "TSM",
@@ -107,9 +117,9 @@
       "theme": "nvda",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 402.46,
+      "amount_usd": 404.96,
       "weight_pct": 4.0,
-      "target_price": 495.02
+      "target_price": 490.0
     },
     {
       "code": "COHR",
@@ -122,36 +132,26 @@
       "target_price": 96.1
     },
     {
-      "code": "AMAT",
-      "name": "应用材料",
+      "code": "ARM",
+      "name": "ARM Holdings",
       "theme": "nvda",
-      "signal": "buy",
-      "shares": 2,
-      "amount_usd": 300.0,
-      "weight_pct": 3.0,
-      "target_price": 207.0
+      "signal": "hold",
+      "shares": 1,
+      "amount_usd": 215.52,
+      "weight_pct": 2.2,
+      "target_price": 250.0
     },
     {
       "code": "MRVL",
       "name": "迈威尔科技",
       "theme": "nvda",
-      "signal": "buy",
-      "shares": 4,
-      "amount_usd": 260.0,
-      "weight_pct": 2.6,
-      "target_price": 98.15
-    },
-    {
-      "code": "ARM",
-      "name": "ARM Holdings",
-      "theme": "nvda",
-      "signal": "buy",
+      "signal": "accumulate",
       "shares": 1,
-      "amount_usd": 234.81,
-      "weight_pct": 2.3,
-      "target_price": 286.47
+      "amount_usd": 158.73,
+      "weight_pct": 1.6,
+      "target_price": 200.0
     }
   ],
-  "total_invested": 8154.03,
-  "cash_reserve": 1845.97
+  "total_invested": 7920.71,
+  "cash_reserve": 2079.29
 }
