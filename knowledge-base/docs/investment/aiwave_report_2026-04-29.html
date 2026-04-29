@@ -738,8 +738,23 @@ function switchTab(name, btn) {
 function initRadarMain() {
   const chart = getChart('radarMain');
   if (!chart) return;
-  const radarNames = [];
+  const radarNames = ["阿里巴巴", "中芯国际", "联想集团", "腾讯控股", "天数智芯"];
   const radarSeries = [
+        { value: [8.8, 9.2, 9.0, 8.5, 8.2], name: '阿里巴巴',
+          areaStyle: { color: '#38bdf833' },
+          lineStyle: { color: '#38bdf8' }, itemStyle: { color: '#38bdf8' } },
+        { value: [9.0, 8.5, 9.2, 9.8, 6.5], name: '中芯国际',
+          areaStyle: { color: '#fbbf2433' },
+          lineStyle: { color: '#fbbf24' }, itemStyle: { color: '#fbbf24' } },
+        { value: [7.2, 8.8, 8.5, 7.5, 9.0], name: '联想集团',
+          areaStyle: { color: '#34d39933' },
+          lineStyle: { color: '#34d399' }, itemStyle: { color: '#34d399' } },
+        { value: [9.5, 9.5, 8.2, 7.8, 7.2], name: '腾讯控股',
+          areaStyle: { color: '#a78bfa33' },
+          lineStyle: { color: '#a78bfa' }, itemStyle: { color: '#a78bfa' } },
+        { value: [7.2, 5.5, 9.6, 9.5, 5.5], name: '天数智芯',
+          areaStyle: { color: '#fb923c33' },
+          lineStyle: { color: '#fb923c' }, itemStyle: { color: '#fb923c' } },
   ];
   chart.setOption({
     backgroundColor: 'transparent',
@@ -765,8 +780,8 @@ function initRadarMain() {
 function initUpsideBar() {
   const chart = getChart('upsideBar');
   if (!chart) return;
-  const stocks = [];
-  const upsides = [];
+  const stocks = ["华润电力", "小米集团", "腾讯控股", "中广核电力", "百度集团", "联想集团", "中芯国际", "阿里巴巴", "天数智芯"];
+  const upsides = [15.8, 20.8, 23.1, 23.5, 27.8, 33.3, 42.8, 52.5, 63.5];
   const colors = upsides.map(v => v < 0 ? '#f87171' : v > 40 ? '#34d399' : '#38bdf8');
   chart.setOption({
     backgroundColor: 'transparent',
@@ -787,6 +802,16 @@ function initBubbleChart() {
   if (!chart) return;
   // [risk, return, confidence, name, signal]  — 由 analysis.json 动态注入
   const data = [
+    [39, 52.5, 9, '阿里巴巴', '买入'],
+    [54, 42.8, 9, '中芯国际', '积累'],
+    [31, 33.3, 8, '联想集团', '买入'],
+    [49, 23.1, 9, '腾讯控股', '积累'],
+    [59, 63.5, 8, '天数智芯', '积累'],
+    [49, 27.8, 8, '百度集团', '持有'],
+    [58, 20.8, 8, '小米集团', '持有'],
+    [43, 15.8, 7, '华润电力', '持有'],
+    [42, 23.5, 7, '中广核电力', '积累'],
+    [90, -15, 6, '商汤科技', '回避'],
   ];
   chart.setOption({
     backgroundColor: 'transparent',
