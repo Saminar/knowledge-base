@@ -729,7 +729,6 @@ tr:hover { background: rgba(14,165,233,0.04); }
 function initTechRadar() {
     var chartDom = document.getElementById('techRadar');
     if(!chartDom || typeof echarts === 'undefined') return;
-    if(chartDom.offsetWidth === 0 || chartDom.offsetHeight === 0) return;
     var existingChart = echarts.getInstanceByDom(chartDom);
     if(existingChart) existingChart.dispose();
     var myChart = echarts.init(chartDom);
@@ -763,7 +762,7 @@ function initTechRadar() {
     window._techRadarChart = myChart;
     window.addEventListener('resize', () => myChart.resize());
 }
-setTimeout(initTechRadar, 500);
+// initTechRadar 由 tab 切换时调用，不在 load 时 setTimeout 触发
 
 // 产业链涨跌柱状图
 function initChainChart() {
@@ -803,7 +802,7 @@ function initChainChart() {
     myChart.setOption(option);
     window.addEventListener('resize', () => myChart.resize());
 }
-setTimeout(initChainChart, 600);
+// initChainChart 由 tab 切换时调用，不在 load 时 setTimeout 触发
 </script>
 
 </body>
@@ -1035,6 +1034,7 @@ function renderNews() {
 }
 
 // ============= TAB SWITCHING =============
+var _ecosystemChartsInited = false;
 document.getElementById('main-tabs').addEventListener('click', e => {
   const tab = e.target.closest('.tab');
   if (!tab) return;
@@ -1044,6 +1044,13 @@ document.getElementById('main-tabs').addEventListener('click', e => {
   ['quotes','analysis','news','ecosystem'].forEach(p => {
     document.getElementById('panel-'+p).style.display = p === name ? '' : 'none';
   });
+  if (name === 'ecosystem' && !_ecosystemChartsInited) {
+    _ecosystemChartsInited = true;
+    setTimeout(function() {
+      initTechRadar();
+      initChainChart();
+    }, 100);
+  }
 });
 
 document.getElementById('cat-tabs').addEventListener('click', e => {
