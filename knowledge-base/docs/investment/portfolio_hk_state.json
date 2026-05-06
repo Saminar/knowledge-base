@@ -1,35 +1,35 @@
 {
-  "date": "2026-04-30",
+  "date": "2026-05-06",
   "positions": [
     {
       "code": "03750",
       "name": "宁德时代",
       "theme": "catl",
       "signal": "accumulate",
-      "shares": 29,
-      "amount_hkd": 17994.5,
+      "shares": 27,
+      "amount_hkd": 18063.0,
       "weight_pct": 9.0,
-      "target_price": 825.27
+      "target_price": 889.77
     },
     {
       "code": "01772",
       "name": "赣锋锂业",
       "theme": "catl",
-      "signal": "accumulate",
-      "shares": 115,
-      "amount_hkd": 9867.0,
-      "weight_pct": 4.9,
-      "target_price": 124.41
+      "signal": "hold",
+      "shares": 74,
+      "amount_hkd": 6571.2,
+      "weight_pct": 3.3,
+      "target_price": 128.76
     },
     {
       "code": "09696",
       "name": "天齐锂业",
       "theme": "catl",
-      "signal": "accumulate",
-      "shares": 148,
-      "amount_hkd": 9871.6,
-      "weight_pct": 4.9,
-      "target_price": 99.38
+      "signal": "hold",
+      "shares": 98,
+      "amount_hkd": 6561.1,
+      "weight_pct": 3.3,
+      "target_price": 99.76
     },
     {
       "code": "01211",
@@ -37,49 +37,49 @@
       "theme": "byd",
       "signal": "buy",
       "shares": 100,
-      "amount_hkd": 10650.0,
-      "weight_pct": 5.3,
-      "target_price": 135.0
+      "amount_hkd": 9890.0,
+      "weight_pct": 4.9,
+      "target_price": 380.0
     },
     {
       "code": "00285",
       "name": "比亚迪电子",
       "theme": "byd",
       "signal": "accumulate",
-      "shares": 288,
-      "amount_hkd": 7626.2,
+      "shares": 278,
+      "amount_hkd": 7628.3,
       "weight_pct": 3.8,
-      "target_price": 33.0
+      "target_price": 55.0
     },
     {
       "code": "00981",
       "name": "中芯国际",
       "theme": "nvda",
       "signal": "buy",
-      "shares": 362,
-      "amount_hkd": 24181.6,
+      "shares": 323,
+      "amount_hkd": 24176.5,
       "weight_pct": 12.1,
-      "target_price": 91.0
+      "target_price": 102.0
     },
     {
       "code": "09903",
       "name": "天数智芯",
       "theme": "nvda",
-      "signal": "accumulate",
-      "shares": 25,
-      "amount_hkd": 9725.0,
-      "weight_pct": 4.9,
-      "target_price": 28.0
+      "signal": "hold",
+      "shares": 11,
+      "amount_hkd": 6286.5,
+      "weight_pct": 3.1,
+      "target_price": 845.82
     },
     {
       "code": "06082",
       "name": "壁仞科技",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 148,
-      "amount_hkd": 6565.3,
+      "shares": 129,
+      "amount_hkd": 6579.0,
       "weight_pct": 3.3,
-      "target_price": 70.98
+      "target_price": 81.6
     },
     {
       "code": "02382",
@@ -87,9 +87,9 @@
       "theme": "nvda",
       "signal": "hold",
       "shares": 50,
-      "amount_hkd": 3145.0,
+      "amount_hkd": 3272.5,
       "weight_pct": 1.6,
-      "target_price": 91.2
+      "target_price": 94.9
     },
     {
       "code": "09988",
@@ -97,41 +97,41 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 200,
-      "amount_hkd": 25480.0,
-      "weight_pct": 12.7,
-      "target_price": 186.0
+      "amount_hkd": 26840.0,
+      "weight_pct": 13.4,
+      "target_price": 172.0
     },
     {
       "code": "00700",
       "name": "腾讯控股",
       "theme": "ai",
       "signal": "accumulate",
-      "shares": 56,
-      "amount_hkd": 26353.6,
+      "shares": 57,
+      "amount_hkd": 26391.0,
       "weight_pct": 13.2,
-      "target_price": 574.0
+      "target_price": 546.0
+    },
+    {
+      "code": "01810",
+      "name": "小米集团-W",
+      "theme": "ai",
+      "signal": "accumulate",
+      "shares": 200,
+      "amount_hkd": 6164.0,
+      "weight_pct": 3.1,
+      "target_price": 42.0
     },
     {
       "code": "09888",
       "name": "百度集团-SW",
       "theme": "ai",
       "signal": "accumulate",
-      "shares": 61,
-      "amount_hkd": 7185.8,
-      "weight_pct": 3.6,
-      "target_price": 165.0
-    },
-    {
-      "code": "01810",
-      "name": "小米集团-W",
-      "theme": "ai",
-      "signal": "hold",
-      "shares": 153,
-      "amount_hkd": 4473.7,
-      "weight_pct": 2.2,
-      "target_price": 58.0
+      "shares": 31,
+      "amount_hkd": 4079.6,
+      "weight_pct": 2.0,
+      "target_price": 160.0
     }
   ],
-  "total_invested": 163119.0,
-  "cash_reserve": 36881.0
+  "total_invested": 152503.0,
+  "cash_reserve": 47497.0
 }
