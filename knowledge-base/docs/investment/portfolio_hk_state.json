@@ -7,9 +7,9 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 50,
-      "amount_hkd": 32750.0,
+      "amount_hkd": 32875.0,
       "weight_pct": 16.4,
-      "target_price": 871.15
+      "target_price": 874.48
     },
     {
       "code": "01772",
@@ -17,9 +17,9 @@
       "theme": "catl",
       "signal": "hold",
       "shares": 106,
-      "amount_hkd": 8951.7,
+      "amount_hkd": 8967.6,
       "weight_pct": 4.5,
-      "target_price": 122.45
+      "target_price": 122.67
     },
     {
       "code": "01211",
@@ -37,19 +37,19 @@
       "theme": "byd",
       "signal": "hold",
       "shares": 146,
-      "amount_hkd": 4193.1,
+      "amount_hkd": 4190.2,
       "weight_pct": 2.1,
-      "target_price": 43.08
+      "target_price": 43.05
     },
     {
       "code": "00981",
       "name": "中芯国际",
       "theme": "nvda",
       "signal": "buy",
-      "shares": 372,
-      "amount_hkd": 28532.4,
+      "shares": 373,
+      "amount_hkd": 28571.8,
       "weight_pct": 14.3,
-      "target_price": 108.91
+      "target_price": 108.77
     },
     {
       "code": "09903",
@@ -57,47 +57,47 @@
       "theme": "nvda",
       "signal": "buy",
       "shares": 29,
-      "amount_hkd": 15413.5,
+      "amount_hkd": 15457.0,
       "weight_pct": 7.7,
-      "target_price": 786.62
+      "target_price": 788.84
     },
     {
       "code": "06082",
       "name": "壁仞科技",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 127,
-      "amount_hkd": 7213.6,
+      "shares": 126,
+      "amount_hkd": 7131.6,
       "weight_pct": 3.6,
-      "target_price": 90.88
+      "target_price": 90.56
     },
     {
       "code": "00700",
       "name": "腾讯控股",
       "theme": "ai",
       "signal": "buy",
-      "shares": 44,
-      "amount_hkd": 20468.8,
-      "weight_pct": 10.2,
-      "target_price": 618.72
+      "shares": 45,
+      "amount_hkd": 20898.0,
+      "weight_pct": 10.4,
+      "target_price": 617.65
     },
     {
       "code": "09988",
       "name": "阿里巴巴-W",
       "theme": "ai",
       "signal": "buy",
-      "shares": 117,
-      "amount_hkd": 15689.7,
-      "weight_pct": 7.8,
-      "target_price": 187.74
+      "shares": 114,
+      "amount_hkd": 15264.6,
+      "weight_pct": 7.6,
+      "target_price": 187.46
     },
     {
       "code": "01816",
       "name": "中广核电力",
       "theme": "power",
       "signal": "buy",
-      "shares": 2514,
-      "amount_hkd": 8799.0,
+      "shares": 2521,
+      "amount_hkd": 8798.3,
       "weight_pct": 4.4,
       "target_price": 4.2
     },
@@ -107,11 +107,11 @@
       "theme": "power",
       "signal": "buy",
       "shares": 128,
-      "amount_hkd": 4782.1,
+      "amount_hkd": 4777.0,
       "weight_pct": 2.4,
       "target_price": 55.0
     }
   ],
-  "total_invested": 156964.0,
-  "cash_reserve": 43036.0
+  "total_invested": 157101.0,
+  "cash_reserve": 42899.0
 }
