@@ -16,7 +16,7 @@ AI芯片/GPU/光模块/AI服务器产业链追踪分析报告合集。
 
 ## 最新报告
 
-- [最新AI产业链报告](./aiwave_report_latest.html) — 自动更新 (2026-05-11)
+- [最新AI产业链报告](./aiwave_report_latest.html) — 自动更新 (2026-05-12)
 
 ## 港股重点推荐
 
@@ -33,7 +33,8 @@ AI芯片/GPU/光模块/AI服务器产业链追踪分析报告合集。
 
 ## 历史报告
 
-- [2026-05-11 AI浪潮产业链报告](./aiwave_report_2026-05-11.html) —  80K
+- [2026-05-12 AI浪潮产业链报告](./aiwave_report_2026-05-12.html) — 116K
+- [2026-05-11 AI浪潮产业链报告](./aiwave_report_2026-05-11.html) — 116K
 - [2026-05-08 AI浪潮产业链报告](./aiwave_report_2026-05-08.html) —  80K
 - [2026-05-06 AI浪潮产业链报告](./aiwave_report_2026-05-06.html) —  80K
 - [2026-04-29 AI浪潮产业链报告](./aiwave_report_2026-04-29.html) —  76K
