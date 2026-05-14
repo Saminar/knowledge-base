@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔋 宁德时代产业链追踪 — 2026-05-14</title>
+<style>
+:root {
+  --bg: #f8f9fb;
+  --card: #ffffff;
+  --border: #e8ecf1;
+  --text: #1a202c;
+  --text2: #64748b;
+  --accent: #0ea5e9;
+  --green: #22c55e;
+  --red: #ef4444;
+  --orange: #f97316;
+  --yellow: #eab308;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text2: #94a3b8;
+  }
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 16px;
+}
+.container { max-width: 1280px; margin: 0 auto; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 32px 0 24px;
+}
+.header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.header .meta {
+  color: var(--text2);
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.summary-card .value {
+  font-size: 28px;
+  font-weight: 700;
+}
+.summary-card .label {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.summary-card.up .value { color: var(--red); }
+.summary-card.down .value { color: var(--green); }
+.summary-card.flat .value { color: var(--text2); }
+
+/* Section */
+.section {
+  margin: 28px 0 16px;
+}
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+/* Tab Navigation */
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.tab:hover { border-color: var(--accent); }
+.tab.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+/* Stock Table */
+.stock-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: var(--bg);
+  padding: 10px 12px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover { background: rgba(14,165,233,0.04); }
+.price { font-weight: 600; font-variant-numeric: tabular-nums; }
+.up { color: var(--red); }
+.down { color: var(--green); }
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.tag-core { background: #dbeafe; color: #1e40af; }
+.tag-upstream { background: #fef3c7; color: #92400e; }
+.tag-downstream { background: #d1fae5; color: #065f46; }
+
+/* Analysis Cards */
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+.analysis-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: box-shadow 0.2s;
+}
+.analysis-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+.analysis-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.analysis-card .signal {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.signal-buy { background: #dcfce7; color: #166534; }
+.signal-sell { background: #fee2e2; color: #991b1b; }
+.signal-hold { background: #fef9c3; color: #854d0e; }
+.signal-watch { background: #e0e7ff; color: #3730a3; }
+.analysis-card .reason {
+  font-size: 13px;
+  color: var(--text2);
+  margin: 8px 0;
+  line-height: 1.6;
+}
+.analysis-card .sources {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+.analysis-card .sources a {
+  display: block;
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  margin: 3px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.analysis-card .sources a:hover { text-decoration: underline; }
+
+/* News Section */
+.news-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+.news-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.news-item h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.news-item .snippet {
+  font-size: 13px;
+  color: var(--text2);
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.news-item .news-meta {
+  font-size: 11px;
+  color: var(--text2);
+  display: flex;
+  justify-content: space-between;
+}
+.news-item a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 40px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 12px;
+  color: var(--text2);
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header h1 { font-size: 22px; }
+  .analysis-grid { grid-template-columns: 1fr; }
+  .news-list { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🔋 宁德时代产业链追踪</h1>
+    <div class="meta">2026-05-14 · 数据来源：腾讯财经 · 仅供学习参考</div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-grid" id="summary-grid"></div>
+
+  <!-- Tab Nav -->
+  <div class="section">
+    <div class="tabs" id="main-tabs">
+      <div class="tab active" data-tab="quotes">📊 行情总览</div>
+      <div class="tab" data-tab="analysis">🧠 分析建议</div>
+      <div class="tab" data-tab="news">📰 要闻速递</div>
+      <div class="tab" data-tab="ecosystem">🌐 全景透视</div>
+    </div>
+  </div>
+
+  <!-- Quotes Panel -->
+  <div id="panel-quotes">
+    <div class="tabs" id="cat-tabs">
+      <div class="tab active" data-cat="all">全部</div>
+      <div class="tab" data-cat="core">核心</div>
+      <div class="tab" data-cat="upstream_mining">矿产</div>
+      <div class="tab" data-cat="upstream_material">材料</div>
+      <div class="tab" data-cat="upstream_equipment">设备</div>
+      <div class="tab" data-cat="downstream_auto">整车厂</div>
+      <div class="tab" data-cat="downstream_energy">储能</div>
+    </div>
+    <div class="stock-table-wrap">
+      <table id="stock-table">
+        <thead>
+          <tr>
+            <th>公司</th>
+            <th>代码</th>
+            <th>分类</th>
+            <th>最新价</th>
+            <th>昨收</th>
+            <th>涨跌幅</th>
+            <th>涨跌额</th>
+            <th>成交量</th>
+            <th>成交额</th>
+            <th>换手率</th>
+            <th>市盈率</th>
+            <th>PEG</th>
+          </tr>
+        </thead>
+        <tbody id="stock-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Analysis Panel -->
+  <div id="panel-analysis" style="display:none;">
+    <div class="analysis-grid" id="analysis-grid"></div>
+  </div>
+
+  <!-- News Panel -->
+  <div id="panel-news" style="display:none;">
+    <div class="section-title">行业要闻</div>
+    <div class="news-list" id="industry-news"></div>
+    <div style="margin-top:24px;">
+      <div class="section-title">个股新闻</div>
+    </div>
+    <div class="news-list" id="company-news"></div>
+  </div>
+
+  <!-- Ecosystem Panel -->
+  <div id="panel-ecosystem" style="display:none;">
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>宁德时代 全景生态透视报告 · 2026-05-14</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+  :root { --text: #1e293b; --subtext: #64748b; --card: #ffffff; --bg: #f8fafc; --border: #e2e8f0; --accent: #2563eb; }
+  body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .signal-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 99px; font-size: 11px; font-weight: 600; }
+  .sig-strong-buy { background: #dcfce7; color: #166534; }
+  .sig-buy { background: #dbeafe; color: #1e40af; }
+  .sig-hold { background: #fef9c3; color: #854d0e; }
+  .sig-watch { background: #f1f5f9; color: #475569; }
+  .dep-high { color: #dc2626; font-weight: 700; }
+  .dep-mid { color: #d97706; font-weight: 600; }
+  .dep-low { color: #16a34a; font-weight: 600; }
+  .wall-high { color: #2563eb; font-weight: 700; }
+  .wall-mid { color: #7c3aed; font-weight: 600; }
+  .wall-low { color: #9ca3af; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #f8fafc; font-weight: 600; color: #475569; padding: 8px 10px; text-align: left; border-bottom: 2px solid var(--border); }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f8fafc; }
+  .score-ring { font-size: 28px; font-weight: 800; }
+</style>
+</head>
+<body class="p-4 md:p-6">
+
+<!-- ===== HEADER ===== -->
+<div class="card mb-6">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-3 mb-2">
+        <div style="background:#eff6ff;border:2px solid #2563eb;border-radius:10px;padding:8px 14px;">
+          <span style="font-size:22px;font-weight:900;color:#1e40af;">宁德时代</span>
+          <span style="font-size:12px;color:#64748b;margin-left:8px;">CATL · 300750.SZ / 03750.HK</span>
+        </div>
+        <span class="signal-badge sig-strong-buy" style="font-size:13px;padding:4px 12px;">★ 强烈买入</span>
+      </div>
+      <p style="font-size:13px;color:var(--subtext);max-width:640px;">全球动力电池 + 储能电池双龙头，连续9年市占率全球第一（2026Q1全球份额约36%）。2026Q1营收1291亿元(+52%)、归母净利207亿元(+49%)，总资产首破万亿。</p>
+    </div>
+    <div class="flex gap-3 flex-wrap">
+      <div class="text-center px-4 py-2" style="background:#f0fdf4;border-radius:10px;border:1px solid #bbf7d0;">
+        <div style="font-size:11px;color:#15803d;font-weight:600;">A股现价</div>
+        <div style="font-size:20px;font-weight:800;color:#166534;">¥431</div>
+        <div style="font-size:11px;color:#64748b;">2026-05-12</div>
+      </div>
+      <div class="text-center px-4 py-2" style="background:#eff6ff;border-radius:10px;border:1px solid #bfdbfe;">
+        <div style="font-size:11px;color:#1d4ed8;font-weight:600;">H股现价</div>
+        <div style="font-size:20px;font-weight:800;color:#1e40af;">HK$644</div>
+        <div style="font-size:11px;color:#64748b;">2026-05-12</div>
+      </div>
+      <div class="text-center px-4 py-2" style="background:#fafafa;border-radius:10px;border:1px solid #e2e8f0;">
+        <div style="font-size:11px;color:#64748b;font-weight:600;">PE(TTM)</div>
+        <div style="font-size:20px;font-weight:800;color:#1e293b;">24.9x</div>
+        <div style="font-size:11px;color:#64748b;">低于历史中枢</div>
+      </div>
+      <div class="text-center px-4 py-2" style="background:#fafafa;border-radius:10px;border:1px solid #e2e8f0;">
+        <div style="font-size:11px;color:#64748b;font-weight:600;">机构共识TP</div>
+        <div style="font-size:20px;font-weight:800;color:#1e293b;">¥550+</div>
+        <div style="font-size:11px;color:#16a34a;">↑ 27%+ 上行空间</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 1+4: 本体诊断 + 技术雷达（两栏 50/50） ===== -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+  <!-- 本体诊断 -->
+  <div class="card">
+    <h2 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;">🏥 1. 本体诊断 (Core)</h2>
+
+    <div style="font-size:13px;font-weight:700;color:#1e40af;margin-bottom:8px;">📊 财务体检（2026Q1）</div>
+    <div class="grid grid-cols-2 gap-2 mb-4" style="font-size:12px;">
+      <div style="background:#f0fdf4;padding:8px;border-radius:8px;border:1px solid #bbf7d0;">
+        <div style="color:#64748b;">营业收入</div>
+        <div style="font-weight:800;color:#166534;font-size:16px;">¥1291亿</div>
+        <div style="color:#16a34a;">同比 +52.45%</div>
+      </div>
+      <div style="background:#f0fdf4;padding:8px;border-radius:8px;border:1px solid #bbf7d0;">
+        <div style="color:#64748b;">归母净利润</div>
+        <div style="font-weight:800;color:#166534;font-size:16px;">¥207亿</div>
+        <div style="color:#16a34a;">同比 +48.52%</div>
+      </div>
+      <div style="background:#fafafa;padding:8px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:#64748b;">毛利率</div>
+        <div style="font-weight:700;font-size:15px;">24.82%</div>
+        <div style="color:#f59e0b;">同比 +0.41pp</div>
+      </div>
+      <div style="background:#fafafa;padding:8px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:#64748b;">总资产</div>
+        <div style="font-weight:700;font-size:15px;">¥1.05万亿</div>
+        <div style="color:#16a34a;">首破万亿</div>
+      </div>
+      <div style="background:#fafafa;padding:8px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:#64748b;">经营现金流</div>
+        <div style="font-weight:700;font-size:15px;">¥337亿</div>
+        <div style="color:#16a34a;">+2.47%</div>
+      </div>
+      <div style="background:#fafafa;padding:8px;border-radius:8px;border:1px solid #e2e8f0;">
+        <div style="color:#64748b;">负债率</div>
+        <div style="font-weight:700;font-size:15px;">62.32%</div>
+        <div style="color:#16a34a;">同比降3.74pp</div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;font-weight:700;color:#7c3aed;margin-bottom:6px;">🚀 战略动向</div>
+    <ul style="font-size:12px;color:var(--subtext);padding-left:0;list-style:none;line-height:1.7;">
+      <li>🔋 <strong>凝聚态电池</strong> 500Wh/kg量产验证，商用航空电动化首批</li>
+      <li>⚡ <strong>神行超充3.0</strong> 6分钟充满400km，进入规模量产</li>
+      <li>🌍 <strong>全球化加速</strong> 匈牙利/西班牙/摩洛哥建厂，规避贸易壁垒</li>
+      <li>⛏️ <strong>时代资源集团</strong> 拟投300亿整合矿业资产，锁定上游</li>
+      <li>🤖 <strong>AI+储能</strong> 2500万辆车数据+3000座储能站，大科学模型</li>
+    </ul>
+
+    <div style="font-size:13px;font-weight:700;color:#dc2626;margin-bottom:6px;margin-top:10px;">⚠️ 核心挑战</div>
+    <ul style="font-size:12px;color:var(--subtext);padding-left:0;list-style:none;line-height:1.7;">
+      <li>🔴 比亚迪、三星SDI、LG等竞争加剧，价格战延续</li>
+      <li>🔴 大股东宁波联合创新减持计划（257亿元），短线压力</li>
+      <li>🟡 毛利率环比下降3.39pp，原材料碳酸锂成本上行压力</li>
+      <li>🟡 海外美国政策不确定性，FTA约束台系/韩系替代威胁</li>
+    </ul>
+  </div>
+
+  <!-- 技术竞争力雷达 -->
+  <div class="card">
+    <h2 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:10px;">🎯 技术竞争力量化雷达</h2>
+    <div id="techRadar" style="width:100%;height:300px;"></div>
+    <div class="grid grid-cols-3 gap-2 mt-3 text-center">
+      <div style="background:#eff6ff;border-radius:8px;padding:10px;">
+        <div class="score-ring" style="color:#2563eb;">95</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px;">核心技术 (40%)</div>
+        <div style="font-size:10px;color:#94a3b8;">研发强度5.7%·专利全球第一</div>
+      </div>
+      <div style="background:#f0fdf4;border-radius:8px;padding:10px;">
+        <div class="score-ring" style="color:#16a34a;">92</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px;">市场技术 (30%)</div>
+        <div style="font-size:10px;color:#94a3b8;">全球市占率36%·9年第一</div>
+      </div>
+      <div style="background:#fdf4ff;border-radius:8px;padding:10px;">
+        <div class="score-ring" style="color:#7c3aed;">88</div>
+        <div style="font-size:11px;color:#64748b;margin-top:4px;">创新潜力 (30%)</div>
+        <div style="font-size:10px;color:#94a3b8;">固态·钠离子·AI储能</div>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:600;color:#1e293b;margin-top:12px;margin-bottom:6px;">📐 产业链整合能力打分</div>
+    <div class="grid grid-cols-2 gap-2" style="font-size:11px;">
+      <div style="background:#fafafa;border-radius:8px;padding:8px;">
+        <div style="color:#64748b;">垂直整合度</div>
+        <div style="font-weight:700;color:#1e40af;">96 / 100</div>
+        <div style="color:#94a3b8;">矿→材料→电芯→Pack全覆盖</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:8px;">
+        <div style="color:#64748b;">技术迭代速度</div>
+        <div style="font-weight:700;color:#1e40af;">90 / 100</div>
+        <div style="color:#94a3b8;">神行超充·凝聚态·固态并进</div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#94a3b8;margin-top:10px;text-align:center;">综合技术评分 <strong style="color:#2563eb;font-size:14px;">93.2 / 100</strong> · 全球动力电池行业最高</div>
+  </div>
+</div>
+
+<!-- ===== SECTION 2: 上游供应链 ===== -->
+<div class="card mb-6">
+  <h2 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;">⛏️ 2. 上游核心供应链（卖铲人）</h2>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>代码</th><th>公司名称</th><th>细分角色</th><th>核心供给</th>
+        <th>对宁王技术依赖</th><th>业务依赖度</th><th>自身技术壁垒</th>
+        <th>信号</th><th>PE</th><th>PEG</th><th>机构目标价</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>300450.SZ</strong></td>
+        <td>先导智能</td>
+        <td>锂电设备总龙头</td>
+        <td>全线设备(涂布/卷绕/注液/固态产线)，占宁王设备采购80%+</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-high">极高 ~60%</span></td>
+        <td><span class="wall-high">高</span></td>
+        <td><span class="signal-badge sig-strong-buy">强买</span></td>
+        <td>38x</td><td>0.42</td>
+        <td style="font-size:11px;color:#1e40af;">中信¥70·东吴¥75<br>共识↑32%</td>
+      </tr>
+      <tr>
+        <td><strong>603799.SH</strong></td>
+        <td>华友钴业</td>
+        <td>镍钴锂一体化龙头</td>
+        <td>高镍正极(Ni≥95%)·前驱体·印尼镍矿(120万吨)·刚果钴矿(25%全球)</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-high">极高 60%+</span></td>
+        <td><span class="wall-high">高</span></td>
+        <td><span class="signal-badge sig-buy">买入</span></td>
+        <td>22x</td><td>0.26</td>
+        <td style="font-size:11px;color:#1e40af;">大摩¥38·招商¥42<br>共识↑40%+</td>
+      </tr>
+      <tr>
+        <td><strong>002009.SZ</strong></td>
+        <td>天华新能</td>
+        <td>锂盐供应商</td>
+        <td>氢氧化锂·碳酸锂，宁德参股13.54%，年关联交易≤19亿</td>
+        <td><span class="dep-mid">中</span></td>
+        <td><span class="dep-high">高 ~40%</span></td>
+        <td><span class="wall-mid">中</span></td>
+        <td><span class="signal-badge sig-hold">持有</span></td>
+        <td>45x</td><td>1.2</td>
+        <td style="font-size:11px;color:#64748b;">行业回暖受益<br>¥22-28区间</td>
+      </tr>
+      <tr>
+        <td><strong>002466.SZ</strong><br><span style="font-size:10px;color:#64748b;">09696.HK</span></td>
+        <td>天齐锂业</td>
+        <td>锂矿资源端</td>
+        <td>泰利森锂矿(全球最大锂辉石矿)·氢氧化锂，是SQM第二大股东</td>
+        <td><span class="dep-low">低</span></td>
+        <td><span class="dep-mid">中 ~20%</span></td>
+        <td><span class="wall-high">高</span></td>
+        <td><span class="signal-badge sig-hold">持有</span></td>
+        <td>亏转盈</td><td>—</td>
+        <td style="font-size:11px;color:#64748b;">锂价敏感，等待<br>拐点确认</td>
+      </tr>
+      <tr>
+        <td><strong>002460.SZ</strong><br><span style="font-size:10px;color:#64748b;">01772.HK</span></td>
+        <td>赣锋锂业</td>
+        <td>锂盐+电池双轮</td>
+        <td>卤水提锂·电池固态化研究，多元化客户不绑定单一下游</td>
+        <td><span class="dep-low">低</span></td>
+        <td><span class="dep-low">低 ~15%</span></td>
+        <td><span class="wall-mid">中</span></td>
+        <td><span class="signal-badge sig-watch">观望</span></td>
+        <td>28x</td><td>0.8</td>
+        <td style="font-size:11px;color:#64748b;">固态电池进展<br>为核心催化剂</td>
+      </tr>
+      <tr>
+        <td><strong>300457.SZ</strong></td>
+        <td>赢合科技</td>
+        <td>中段设备专家</td>
+        <td>涂布/卷绕设备，宁王采购占比40-50%</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-high">高 ~45%</span></td>
+        <td><span class="wall-mid">中</span></td>
+        <td><span class="signal-badge sig-hold">持有</span></td>
+        <td>32x</td><td>0.55</td>
+        <td style="font-size:11px;color:#64748b;">跟随宁王扩产节奏</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ===== SECTION 3: 下游客户 ===== -->
+<div class="card mb-6">
+  <h2 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;">🚗 3. 下游深度绑定客户（共生体）</h2>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>公司</th><th>合作模式</th><th>合作规模/深度</th>
+        <th>对宁王技术依赖</th><th>对宁王业务依赖</th><th>信号</th><th>核心逻辑</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>TSLA · US</strong><br><span style="font-size:10px;color:#64748b;">特斯拉</span></td>
+        <td>战略供货协议</td>
+        <td>2026-2027年框架协议，年供>40GWh，Model 3/Y主力</td>
+        <td><span class="dep-mid">中</span></td>
+        <td><span class="dep-mid">中 ~25%</span></td>
+        <td><span class="signal-badge sig-buy">买入</span></td>
+        <td>LFP成本优势，卖向全球最大BEV品牌</td>
+      </tr>
+      <tr>
+        <td><strong>启境汽车</strong><br><span style="font-size:10px;color:#64748b;">华为+CATL合资</span></td>
+        <td>战略投资+技术首发</td>
+        <td>宁德出资3亿元，定制麒麟电池800V+6C超充，AI驱动BMS</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-high">高</span></td>
+        <td><span style="font-size:11px;color:#7c3aed;font-weight:600;">未上市/打新</span></td>
+        <td>华为生态+CATL电池，高端SUV旗舰，潜在超级催化</td>
+      </tr>
+      <tr>
+        <td><strong>吉利汽车</strong><br><span style="font-size:10px;color:#64748b;">00175.HK</span></td>
+        <td>合资建厂（时代吉利）</td>
+        <td>深度绑定，供应极氪/领克等高端车型，占吉利电池需求50%+</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-mid">中</span></td>
+        <td><span class="signal-badge sig-hold">持有</span></td>
+        <td>受益新能源转型加速，但估值已有所修复</td>
+      </tr>
+      <tr>
+        <td><strong>比亚迪股份</strong><br><span style="font-size:10px;color:#64748b;">01211.HK</span></td>
+        <td>竞合关系</td>
+        <td>部分车型采购宁德，但主要用自研刀片电池，竞争持续加剧</td>
+        <td><span class="dep-low">低</span></td>
+        <td><span class="dep-low">低</span></td>
+        <td><span class="signal-badge sig-buy">买入</span></td>
+        <td>作为独立投资标的，下游最大竞争者也是行业验证者</td>
+      </tr>
+      <tr>
+        <td><strong>BMW / 宝马</strong><br><span style="font-size:10px;color:#64748b;">BMW.DE</span></td>
+        <td>合资产能（欧洲）</td>
+        <td>宁德匈牙利基地配套宝马，BMW合同锁定2026-2030年</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-mid">中</span></td>
+        <td>—</td>
+        <td>欧洲本土化生产规避关税，宁德欧洲最大客户</td>
+      </tr>
+      <tr>
+        <td><strong>Ford 福特</strong><br><span style="font-size:10px;color:#64748b;">F.US</span></td>
+        <td>技术许可</td>
+        <td>福特密歇根工厂采用CATL LFP技术，每辆车授权费约$50-100</td>
+        <td><span class="dep-high">高</span></td>
+        <td><span class="dep-low">低</span></td>
+        <td>—</td>
+        <td>收取技术授权费，无设备出口风险，隐形高毛利业务</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ===== SECTION 5: 投资策略 ===== -->
+<div class="card mb-6">
+  <h2 style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:12px;">💰 5. 投资策略与买卖建议</h2>
+
+  <!-- 核心vs周边比较 -->
+  <div style="background:#fafafa;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin-bottom:16px;">
+    <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:10px;">🎯 核心结论：买核心企业还是买周边？</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div style="background:#eff6ff;border-radius:8px;padding:12px;border:1px solid #bfdbfe;">
+        <div style="font-weight:700;color:#1e40af;margin-bottom:6px;">✅ 买宁德时代本身（确定性）</div>
+        <ul style="font-size:12px;color:#475569;line-height:1.8;padding-left:0;list-style:none;">
+          <li>▸ PE仅25x，历史底部区间（历史中枢40-60x），显著低估</li>
+          <li>▸ PEG约0.5，净利润2026年预计900-950亿，增速35-40%</li>
+          <li>▸ 多元化风险：即使单一客户丢单，全球份额36%提供护城河</li>
+          <li>▸ 技术授权+储能爆发 = 估值重塑逻辑清晰</li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf4;border-radius:8px;padding:12px;border:1px solid #bbf7d0;">
+        <div style="font-weight:700;color:#15803d;margin-bottom:6px;">🚀 买上游设备/材料（高弹性）</div>
+        <ul style="font-size:12px;color:#475569;line-height:1.8;padding-left:0;list-style:none;">
+          <li>▸ 先导智能：2025年净利润+482%，PEG仅0.42，弹性远超宁德</li>
+          <li>▸ 华友钴业：凝聚态电池正极高镍化直接受益，锁定1200亿大单</li>
+          <li>▸ 劣势：对单一客户依赖度极高，宁德减少资本开支即波及全链</li>
+          <li>▸ 建议：先导/华友小仓位博弹性，宁德本身中仓位保确定性</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 具体标的建议 -->
+  <div style="font-size:14px;font-weight:700;color:#1e293b;margin-bottom:10px;">📋 重点关注标的（含PE/PEG/机构目标价）</div>
+  <div style="overflow-x:auto;">
+  <table>
+    <thead>
+      <tr>
+        <th>代码</th><th>公司</th><th>信号</th><th>核心逻辑</th>
+        <th>PE (TTM)</th><th>PEG</th><th>现价/区间</th><th>机构目标价</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f0fdf4;">
+        <td><strong>300750.SZ</strong></td>
+        <td><strong>宁德时代A</strong></td>
+        <td><span class="signal-badge sig-strong-buy">强烈买入 ★</span></td>
+        <td>双龙头+估值底部+凝聚态催化+AI储能重塑</td>
+        <td><strong>24.9x</strong></td>
+        <td><strong style="color:#16a34a;">0.53</strong></td>
+        <td>¥431</td>
+        <td style="font-size:11px;">高盛¥528·大摩¥595<br>中信¥508-570·东吴¥618<br><strong style="color:#16a34a;">共识↑27-43%</strong></td>
+      </tr>
+      <tr style="background:#eff6ff;">
+        <td><strong>03750.HK</strong></td>
+        <td><strong>宁德时代H</strong></td>
+        <td><span class="signal-badge sig-strong-buy">强烈买入 ★</span></td>
+        <td>H股相对A股折价，大摩最新TP HK$815，上行空间更大</td>
+        <td><strong>~22x</strong></td>
+        <td><strong style="color:#16a34a;">~0.48</strong></td>
+        <td>HK$644</td>
+        <td style="font-size:11px;">大摩HK$815↑27%<br>大摩H股升至"增持"+首选<br><strong style="color:#16a34a;">港股折价+催化共振</strong></td>
+      </tr>
+      <tr>
+        <td><strong>300450.SZ</strong></td>
+        <td>先导智能</td>
+        <td><span class="signal-badge sig-strong-buy">强烈买入</span></td>
+        <td>宁德固态产线唯一整线方案商，2025净利+482%，PEG极低</td>
+        <td>38x</td>
+        <td><strong style="color:#16a34a;">0.42</strong></td>
+        <td>~¥60</td>
+        <td style="font-size:11px;">中信¥70·东吴¥75<br>共识↑32%</td>
+      </tr>
+      <tr>
+        <td><strong>603799.SH</strong></td>
+        <td>华友钴业</td>
+        <td><span class="signal-badge sig-buy">买入</span></td>
+        <td>凝聚态高镍正极独家供应，印尼镍资源+锁定1200亿长单</td>
+        <td>22x</td>
+        <td><strong style="color:#16a34a;">0.26</strong></td>
+        <td>~¥30</td>
+        <td style="font-size:11px;">大摩¥38·招商¥42<br>共识↑35-40%</td>
+      </tr>
+      <tr>
+        <td><strong>00470.HK</strong></td>
+        <td>先导智能(H)</td>
+        <td><span class="signal-badge sig-buy">买入</span></td>
+        <td>即将赴港上市/已有H股，港股溢价机会+A-H价差收窄逻辑</td>
+        <td>38x</td>
+        <td>0.42</td>
+        <td>HK$55±</td>
+        <td style="font-size:11px;">与A股联动，关注<br>港股折溢价变化</td>
+      </tr>
+      <tr>
+        <td><strong>002009.SZ</strong></td>
+        <td>天华新能</td>
+        <td><span class="signal-badge sig-hold">持有</span></td>
+        <td>宁德参股13.54%锁定，锂价回升受益，但盈利能力仍待修复</td>
+        <td>45x</td>
+        <td>1.2</td>
+        <td>~¥20</td>
+        <td style="font-size:11px;">等待锂价拐点，<br>共识¥22-28区间</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- 打新/特殊标的 -->
+  <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px;margin-top:14px;">
+    <div style="font-size:13px;font-weight:700;color:#92400e;margin-bottom:6px;">⭐ 特别关注：近期催化剂</div>
+    <ul style="font-size:12px;color:#78350f;line-height:1.8;padding-left:0;list-style:none;">
+      <li>🔥 <strong>宁德H股03750</strong> — 大摩5月9日上调H股TP至HK$815并列"首选股"，港股短期催化</li>
+      <li>🔥 <strong>凝聚态电池量产</strong> — 500Wh/kg首批商用验证，若2026Q2实现规模量产将触发估值重评</li>
+      <li>🔥 <strong>启境汽车上市规划</strong> — 华为+宁德+博世三方合资，IPO预期为上下游标的提供窗口期</li>
+      <li>🔥 <strong>时代资源集团</strong> — 300亿矿业整合，锁定上游资源或引发资源股联动（华友/天华）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div style="text-align:center;font-size:11px;color:#94a3b8;padding:16px 0;">
+  宁德时代全景生态透视报告 · 生成于 2026-05-14 · 仅供参考，不构成投资建议
+</div>
+
+<script>
+function initTechRadar() {
+    var chartDom = document.getElementById('techRadar');
+    if(!chartDom || typeof echarts === 'undefined') return;
+    if(chartDom.offsetWidth === 0 || chartDom.offsetHeight === 0) return;
+    var existingChart = echarts.getInstanceByDom(chartDom);
+    if(existingChart) existingChart.dispose();
+    var myChart = echarts.init(chartDom);
+    var option = {
+        radar: {
+            indicator: [
+                { name: '核心技术\n(研发/专利)', max: 100 },
+                { name: '市场技术\n(份额/认可)', max: 100 },
+                { name: '创新潜力\n(储备/人才)', max: 100 },
+                { name: '产业链\n整合能力', max: 100 },
+                { name: '技术\n迭代速度', max: 100 }
+            ],
+            splitArea: { areaStyle: { color: ['#f8fafc','#f1f5f9','#e2e8f0','#cbd5e1','#94a3b8'].reverse() } },
+            axisName: { color: '#475569', fontSize: 11, lineHeight: 16 }
+        },
+        series: [{
+            type: 'radar',
+            data: [{
+                value: [95, 92, 88, 96, 90],
+                name: '宁德时代',
+                areaStyle: { color: 'rgba(37, 99, 235, 0.35)' },
+                lineStyle: { color: '#2563eb', width: 2 },
+                itemStyle: { color: '#2563eb' }
+            }]
+        }],
+        tooltip: {
+            trigger: 'item',
+            formatter: function(params) {
+                var dims = ['核心技术','市场技术','创新潜力','产业链整合','技术迭代'];
+                var vals = params.value;
+                return dims.map((d,i) => d+': <b>'+vals[i]+'</b>').join('<br>');
+            }
+        }
+    };
+    myChart.setOption(option);
+    window._techRadarChart = myChart;
+    window.addEventListener('resize', () => myChart.resize());
+}
+
+setTimeout(initTechRadar, 500);
+
+const ecosystemPanel = document.getElementById('panel-ecosystem');
+if(ecosystemPanel) {
+    const observer = new MutationObserver(() => {
+        if(ecosystemPanel.style.display !== 'none') {
+            setTimeout(initTechRadar, 200);
+        }
+    });
+    observer.observe(ecosystemPanel, { attributes: true, attributeFilter: ['style'] });
+}
+
+document.addEventListener('click', (e) => {
+    if(e.target.dataset && e.target.dataset.tab === 'ecosystem') {
+        setTimeout(initTechRadar, 300);
+    }
+});
+</script>
+</body>
+</html>
+
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ 免责声明：本报告数据来自公开市场信息，通过腾讯财经获取，仅供学习和参考，不构成任何投资建议。投资有风险，入市需谨慎。
+  </div>
+</div>
+
+<script>
+// ============= DATA INJECTION =============
+const stockData = {"timestamp": "2026-05-11 09:13:18", "date": "2026-05-11", "source": "Tencent Finance (qt.gtimg.cn)", "total_companies": 37, "companies": [{"name": "宁德时代", "name_en": "CATL", "role": "动力电池龙头(A)", "category": "core", "market": "SZ", "code": "300750"}, {"name": "宁德时代", "name_en": "CATL", "role": "动力电池龙头(港)", "category": "core", "market": "HK", "code": "03750", "tencent": "hk03750"}, {"name": "洛阳钼业", "name_en": "CMOC", "role": "钴镍资源", "category": "upstream_mining", "market": "SH", "code": "603993"}, {"name": "洛阳钼业", "name_en": "CMOC", "role": "钴镍资源(港)", "category": "upstream_mining", "market": "HK", "code": "03993", "tencent": "hk03993"}, {"name": "华友钴业", "name_en": "Huayou Cobalt", "role": "钴材料/三元前驱体", "category": "upstream_mining", "market": "SH", "code": "603799"}, {"name": "天齐锂业", "name_en": "Tianqi Lithium", "role": "锂盐/碳酸锂", "category": "upstream_mining", "market": "SZ", "code": "002466"}, {"name": "天齐锂业", "name_en": "Tianqi Lithium", "role": "锂盐/碳酸锂(港)", "category": "upstream_mining", "market": "HK", "code": "09696", "tencent": "hk09696"}, {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "role": "锂化合物/金属锂", "category": "upstream_mining", "market": "SZ", "code": "002460"}, {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "role": "锂化合物/金属锂(港)", "category": "upstream_mining", "market": "HK", "code": "01772", "tencent": "hk01772"}, {"name": "湖南裕能", "name_en": "Hunan Yuneng", "role": "磷酸铁锂正极", "category": "upstream_material", "market": "SZ", "code": "301358"}, {"name": "璞泰来", "name_en": "Putailai", "role": "负极材料/涂覆隔膜", "category": "upstream_material", "market": "SH", "code": "603659"}, {"name": "翔丰华", "name_en": "Xiangfenghua", "role": "负极材料", "category": "upstream_material", "market": "SZ", "code": "300890"}, {"name": "恩捷股份", "name_en": "Enjie", "role": "锂电隔膜", "category": "upstream_material", "market": "SZ", "code": "002812"}, {"name": "天赐材料", "name_en": "Tinci Materials", "role": "电解液", "category": "upstream_material", "market": "SZ", "code": "002709"}, {"name": "科达利", "name_en": "Kedali", "role": "电池精密结构件", "category": "upstream_material", "market": "SZ", "code": "002850"}, {"name": "先导智能", "name_en": "Lead Intelligent", "role": "锂电池生产设备(A)", "category": "upstream_equipment", "market": "SZ", "code": "300450"}, {"name": "先导智能", "name_en": "Lead Intelligent", "role": "锂电池生产设备(港)", "category": "upstream_equipment", "market": "HK", "code": "00470", "tencent": "hk00470"}, {"name": "星云股份", "name_en": "Nebula", "role": "锂电池检测设备", "category": "upstream_equipment", "market": "SZ", "code": "300648"}, {"name": "北方华创", "name_en": "Naura", "role": "半导体/新能源装备", "category": "upstream_equipment", "market": "SZ", "code": "002371"}, {"name": "特斯拉", "name_en": "Tesla", "role": "最大客户之一", "category": "downstream_auto", "market": "US", "code": "TSLA", "tencent": "usTSLA"}, {"name": "理想汽车", "name_en": "Li Auto", "role": "麒麟电池首发(美)", "category": "downstream_auto", "market": "US", "code": "LI", "tencent": "usLI"}, {"name": "理想汽车", "name_en": "Li Auto", "role": "麒麟电池首发(港)", "category": "downstream_auto", "market": "HK", "code": "02015", "tencent": "hk02015"}, {"name": "蔚来汽车", "name_en": "NIO", "role": "核心电池供应商(美)", "category": "downstream_auto", "market": "US", "code": "NIO", "tencent": "usNIO"}, {"name": "蔚来汽车", "name_en": "NIO", "role": "核心电池供应商(港)", "category": "downstream_auto", "market": "HK", "code": "09866", "tencent": "hk09866"}, {"name": "小米集团", "name_en": "Xiaomi", "role": "SU7电池供应商", "category": "downstream_auto", "market": "HK", "code": "01810", "tencent": "hk01810"}, {"name": "赛力斯", "name_en": "SERES", "role": "问界电池供应商", "category": "downstream_auto", "market": "SH", "code": "601127"}, {"name": "长安汽车", "name_en": "Changan", "role": "合资时代长安", "category": "downstream_auto", "market": "SZ", "code": "000625"}, {"name": "上汽集团", "name_en": "SAIC", "role": "合资时代上汽", "category": "downstream_auto", "market": "SH", "code": "600104"}, {"name": "广汽集团", "name_en": "GAC", "role": "合资时代广汽(A)", "category": "downstream_auto", "market": "SH", "code": "601238"}, {"name": "广汽集团", "name_en": "GAC", "role": "合资时代广汽(港)", "category": "downstream_auto", "market": "HK", "code": "02238", "tencent": "hk02238"}, {"name": "吉利汽车", "name_en": "Geely", "role": "合资时代吉利", "category": "downstream_auto", "market": "HK", "code": "00175", "tencent": "hk00175"}, {"name": "长城汽车", "name_en": "GWM", "role": "长期战略合作(A)", "category": "downstream_auto", "market": "SH", "code": "601633"}, {"name": "长城汽车", "name_en": "GWM", "role": "长期战略合作(港)", "category": "downstream_auto", "market": "HK", "code": "02333", "tencent": "hk02333"}, {"name": "科士达", "name_en": "KSTAR", "role": "合资储能PCS", "category": "downstream_energy", "market": "SZ", "code": "002518"}, {"name": "永福股份", "name_en": "Yongfu", "role": "合资光伏+储能EPC", "category": "downstream_energy", "market": "SZ", "code": "300712"}, {"name": "中联重科", "name_en": "Zoomlion", "role": "工程机械电动化(A)", "category": "downstream_energy", "market": "SZ", "code": "000157"}, {"name": "中联重科", "name_en": "Zoomlion", "role": "工程机械电动化(港)", "category": "downstream_energy", "market": "HK", "code": "01157", "tencent": "hk01157"}], "quotes": {"300750": {"name": "宁德时代", "name_en": "CATL", "code": "300750", "market": "SZ", "price": 437.0, "prev_close": 437.0, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 25.6, "market_cap": 2021777000000.0, "float_cap": 1860256000000.0002}, "03750": {"name": "宁德时代", "name_en": "CATL", "code": "03750", "market": "HK", "price": 651.0, "prev_close": 665.0, "open": 672.5, "high": 672.5, "low": 649.5, "volume": 3853234.0, "amount": 25309804583000.0, "change_pct": -2.11, "change_amt": -14.0, "turnover": 0.0, "pe": 37.68, "market_cap": 3011846830000.0, "float_cap": 142113500000.0}, "603993": {"name": "洛阳钼业", "name_en": "CMOC", "code": "603993", "market": "SH", "price": 20.2, "prev_close": 20.2, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 17.89, "market_cap": 432164999999.99994, "float_cap": 352709000000.0}, "03993": {"name": "洛阳钼业", "name_en": "CMOC", "code": "03993", "market": "HK", "price": 20.16, "prev_close": 19.67, "open": 19.36, "high": 20.42, "low": 18.76, "volume": 79511739.0, "amount": 15600055053800.002, "change_pct": 2.49, "change_amt": 0.49, "turnover": 0.0, "pe": 19.15, "market_cap": 431309289999.99994, "float_cap": 79298710000.0}, "603799": {"name": "华友钴业", "name_en": "Huayou Cobalt", "code": "603799", "market": "SH", "price": 66.0, "prev_close": 66.0, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 17.02, "market_cap": 125183999999.99998, "float_cap": 124582000000.0}, "002466": {"name": "天齐锂业", "name_en": "Tianqi Lithium", "code": "002466", "market": "SZ", "price": 76.05, "prev_close": 76.05, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 58.26, "market_cap": 130181000000.0, "float_cap": 112219000000.0}, "09696": {"name": "天齐锂业", "name_en": "Tianqi Lithium", "code": "09696", "market": "HK", "price": 62.25, "prev_close": 67.0, "open": 65.65, "high": 67.95, "low": 62.0, "volume": 12319406.0, "amount": 7876045353500.0, "change_pct": -7.09, "change_amt": -4.75, "turnover": 0.0, "pe": 209.95, "market_cap": 106558590000.0, "float_cap": 14610810000.0}, "002460": {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "code": "002460", "market": "SZ", "price": 84.77, "prev_close": 84.77, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 46.7, "market_cap": 177737000000.0, "float_cap": 102675000000.0}, "01772": {"name": "赣锋锂业", "name_en": "Ganfeng Lithium", "code": "01772", "market": "HK", "price": 83.2, "prev_close": 89.0, "open": 88.0, "high": 91.2, "low": 82.6, "volume": 14319878.0, "amount": 12183960925000.0, "change_pct": -6.52, "change_amt": -5.8, "turnover": 0.0, "pe": 97.64, "market_cap": 174444970000.0, "float_cap": 40193980000.0}, "301358": {"name": "湖南裕能", "name_en": "Hunan Yuneng", "code": "301358", "market": "SZ", "price": 97.25, "prev_close": 97.25, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 32.3, "market_cap": 82015000000.0, "float_cap": 73904000000.0}, "603659": {"name": "璞泰来", "name_en": "Putailai", "code": "603659", "market": "SH", "price": 33.99, "prev_close": 33.99, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 28.2, "market_cap": 72616000000.0, "float_cap": 72616000000.0}, "300890": {"name": "翔丰华", "name_en": "Xiangfenghua", "code": "300890", "market": "SZ", "price": 41.93, "prev_close": 41.93, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 58.26, "market_cap": 4996000000.0, "float_cap": 4565000000.0}, "002812": {"name": "恩捷股份", "name_en": "Enjie", "code": "002812", "market": "SZ", "price": 81.27, "prev_close": 81.27, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 211.79, "market_cap": 79818000000.0, "float_cap": 66854999999.99999}, "002709": {"name": "天赐材料", "name_en": "Tinci Materials", "code": "002709", "market": "SZ", "price": 58.41, "prev_close": 58.41, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 41.54, "market_cap": 119072000000.0, "float_cap": 88141000000.0}, "002850": {"name": "科达利", "name_en": "Kedali", "code": "002850", "market": "SZ", "price": 206.0, "prev_close": 206.0, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 30.91, "market_cap": 56815000000.0, "float_cap": 41021000000.0}, "300450": {"name": "先导智能", "name_en": "Lead Intelligent", "code": "300450", "market": "SZ", "price": 54.75, "prev_close": 54.75, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 57.15, "market_cap": 91664000000.0, "float_cap": 85378000000.0}, "00470": {"name": "先导智能", "name_en": "Lead Intelligent", "code": "00470", "market": "HK", "price": 54.5, "prev_close": 57.25, "open": 57.2, "high": 57.25, "low": 53.85, "volume": 1532850.0, "amount": 846307770919.9999, "change_pct": -4.8, "change_amt": -2.75, "turnover": 0.0, "pe": 52.7, "market_cap": 91245070000.0, "float_cap": 5889180000.0}, "300648": {"name": "星云股份", "name_en": "Nebula", "code": "300648", "market": "SZ", "price": 50.28, "prev_close": 50.28, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": -37.76, "market_cap": 8763000000.0, "float_cap": 6670999999.999999}, "002371": {"name": "北方华创", "name_en": "Naura", "code": "002371", "market": "SZ", "price": 540.79, "prev_close": 540.79, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 70.3, "market_cap": 391982000000.0, "float_cap": 391669000000.0}, "TSLA": {"name": "特斯拉", "name_en": "Tesla", "code": "TSLA", "market": "US", "price": 428.35, "prev_close": 411.79, "open": 416.48, "high": 431.2, "low": 416.39, "volume": 65049970.0, "amount": 27740632465.0, "change_pct": 4.02, "change_amt": 16.56, "turnover": 1.73, "pe": 392.98, "market_cap": 1608764320000.0, "float_cap": 1430380050000.0}, "LI": {"name": "理想汽车", "name_en": "Li Auto", "code": "LI", "market": "US", "price": 18.0, "prev_close": 17.6, "open": 17.69, "high": 18.02, "low": 17.66, "volume": 2650359.0, "amount": 47492378.0, "change_pct": 2.27, "change_amt": 0.4, "turnover": 0.26, "pe": 116.66, "market_cap": 18379066000.0, "float_cap": 10010876000.0}, "02015": {"name": "理想汽车", "name_en": "Li Auto", "code": "02015", "market": "HK", "price": 70.05, "prev_close": 69.95, "open": 68.35, "high": 70.3, "low": 68.35, "volume": 7798476.0, "amount": 5421707558000.0, "change_pct": 0.14, "change_amt": 0.1, "turnover": 0.0, "pe": 115.37, "market_cap": 143624150000.0, "float_cap": 118749360000.0}, "NIO": {"name": "蔚来汽车", "name_en": "NIO", "code": "NIO", "market": "US", "price": 5.85, "prev_close": 5.87, "open": 5.94, "high": 6.02, "low": 5.83, "volume": 18960269.0, "amount": 111815798.0, "change_pct": -0.34, "change_amt": -0.02, "turnover": 0.76, "pe": -5.98, "market_cap": 14658152000.000002, "float_cap": 11160239000.0}, "09866": {"name": "蔚来汽车", "name_en": "NIO", "code": "09866", "market": "HK", "price": 46.74, "prev_close": 47.24, "open": 46.9, "high": 47.02, "low": 46.2, "volume": 4614300.0, "amount": 2154180030900.0, "change_pct": -1.06, "change_amt": -0.5, "turnover": 0.0, "pe": -6.79, "market_cap": 117114880000.0, "float_cap": 110173990000.0}, "01810": {"name": "小米集团", "name_en": "Xiaomi", "code": "01810", "market": "HK", "price": 31.68, "prev_close": 31.12, "open": 31.02, "high": 31.92, "low": 30.86, "volume": 132137552.0, "amount": 41680624334400.0, "change_pct": 1.8, "change_amt": 0.56, "turnover": 0.0, "pe": 17.81, "market_cap": 821201750000.0, "float_cap": 679653680000.0}, "601127": {"name": "赛力斯", "name_en": "SERES", "code": "601127", "market": "SH", "price": 90.3, "prev_close": 90.3, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 26.38, "market_cap": 157301000000.0, "float_cap": 140615000000.0}, "000625": {"name": "长安汽车", "name_en": "Changan", "code": "000625", "market": "SZ", "price": 9.29, "prev_close": 9.29, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 29.97, "market_cap": 92091000000.0, "float_cap": 76801000000.0}, "600104": {"name": "上汽集团", "name_en": "SAIC", "code": "600104", "market": "SH", "price": 13.64, "prev_close": 13.64, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 15.51, "market_cap": 156796000000.0, "float_cap": 156796000000.0}, "601238": {"name": "广汽集团", "name_en": "GAC", "code": "601238", "market": "SH", "price": 7.0, "prev_close": 7.0, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": -8.2, "market_cap": 71379000000.0, "float_cap": 51686000000.0}, "02238": {"name": "广汽集团", "name_en": "GAC", "code": "02238", "market": "HK", "price": 2.77, "prev_close": 2.78, "open": 2.78, "high": 2.78, "low": 2.75, "volume": 17567232.0, "amount": 485840966400.0, "change_pct": -0.36, "change_amt": -0.01, "turnover": 0.0, "pe": -2.9, "market_cap": 28245870000.000004, "float_cap": 7793030000.0}, "00175": {"name": "吉利汽车", "name_en": "Geely", "code": "00175", "market": "HK", "price": 22.74, "prev_close": 22.7, "open": 22.8, "high": 23.04, "low": 22.5, "volume": 35132544.0, "amount": 8003671045800.0, "change_pct": 0.18, "change_amt": 0.04, "turnover": 0.0, "pe": 13.15, "market_cap": 245423210000.00003, "float_cap": 245423210000.00003}, "601633": {"name": "长城汽车", "name_en": "GWM", "code": "601633", "market": "SH", "price": 19.8, "prev_close": 19.8, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 18.7, "market_cap": 169446000000.0, "float_cap": 122943000000.0}, "02333": {"name": "长城汽车", "name_en": "GWM", "code": "02333", "market": "HK", "price": 12.11, "prev_close": 12.25, "open": 12.24, "high": 12.24, "low": 12.05, "volume": 7025888.0, "amount": 851227727400.0, "change_pct": -1.14, "change_amt": -0.14, "turnover": 0.0, "pe": 9.49, "market_cap": 103635830000.00002, "float_cap": 28080380000.000004}, "002518": {"name": "科士达", "name_en": "KSTAR", "code": "002518", "market": "SZ", "price": 47.88, "prev_close": 47.88, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 43.66, "market_cap": 27877000000.0, "float_cap": 27058999999.999996}, "300712": {"name": "永福股份", "name_en": "Yongfu", "code": "300712", "market": "SZ", "price": 26.9, "prev_close": 26.9, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 724.71, "market_cap": 5045000000.0, "float_cap": 5023000000.0}, "000157": {"name": "中联重科", "name_en": "Zoomlion", "code": "000157", "market": "SZ", "price": 7.78, "prev_close": 7.78, "open": 0.0, "high": 0.0, "low": 0.0, "volume": 0.0, "amount": 0.0, "change_pct": 0.0, "change_amt": 0.0, "turnover": 0.0, "pe": 15.53, "market_cap": 67286000000.0, "float_cap": 55002000000.0}, "01157": {"name": "中联重科", "name_en": "Zoomlion", "code": "01157", "market": "HK", "price": 7.93, "prev_close": 8.17, "open": 8.06, "high": 8.06, "low": 7.85, "volume": 20445324.0, "amount": 1614696491800.0, "change_pct": -2.94, "change_amt": -0.24, "turnover": 0.0, "pe": 12.96, "market_cap": 68582880000.0, "float_cap": 12311380000.0}}};
+const newsData = {"timestamp": "2026-05-14 09:45:38", "company_news": {"300750": {"name": "宁德时代", "news": [{"title": "2026年一季报净利润为207.38亿元、宁德时代300750.SZ)较去年同期上涨48.52%", "content": "2026年4月16日，宁德时代300750.SZ)发布2026年一季报。 公司营业总收入为1291.31亿元，较去年同报告期营业总收入增加444.26亿元，实现2年连续上涨，同比较去年同期上涨52.45%。", "source": "界面新闻", "time": "2026-04-16 10:17:47", "url": "http://finance.eastmoney.com/a/202604163707108545.html"}, {"title": "宁德时代：控股股东向上海交通大学捐赠500万股股份完成过户", "content": "宁德时代300750.SZ)公告称，公司控股股东厦门瑞庭向上海交通大学教育发展基金会捐赠的500万股A股无限售流通股已完成过户。捐赠股份产生的全部收益及所得资金将注入“曾毓群教育发展基金”，用于支持上海交通大学教育事业发展。", "source": "财联社", "time": "2026-05-11 18:50:42", "url": "http://finance.eastmoney.com/a/202605113733237056.html"}, {"title": "6只个股大宗交易超5000万元", "content": "510.09 13.82 6301.23 5 455.95 -10.61 688757 胜科纳米 -2.08 30.65 202.91 6131.95 1 30.22 -1.40 603259 药明康德 1.48 110.33 54.85 6051.60 1 110.33 0.00 300750", "source": "证券时报网", "time": "2026-05-12 22:01:00", "url": "http://finance.eastmoney.com/a/202605123734846814.html"}, {"title": "广汽与华为联合打造的启境汽车完成超10亿元增资，宁德时代、博世等参投", "content": "红星资本局5月13日消息，今日，红星资本局从启境汽车方面获悉，近日，启境智能汽车科技（广州）有限公司（简称“启境汽车”）完成超10亿元增资，引入宁德时代（300750.SZ）、博世旗下投资平台及多家央国企资本等投资。", "source": "红星资本局", "time": "2026-05-13 11:27:42", "url": "http://finance.eastmoney.com/a/202605133735687119.html"}, {"title": "主力动向：5月13日特大单净流入302.83亿元", "content": "300.99 11.24 6.21 电子 特大单净流出资金排名 代码 简称 收盘价（元） 涨跌幅（%） 特大单净流入（亿元） 行业 300059 东方财富 21.08 -0.89 -13.19 非银金融 688981 中芯国际 121.86 -0.10 -10.35 电子 300750", "source": "证券时报网", "time": "2026-05-13 16:52:00", "url": "http://finance.eastmoney.com/a/202605133735953748.html"}, {"title": "电力设备行业今日净流出资金84.12亿元，宁德时代等44股净流出资金超亿元", "content": "拉普拉斯 -2.28 13.36 13334.71 600550 保变电气 5.16 7.64 12941.46 002606 大连电瓷 10.00 11.94 12834.56 电力设备行业资金流出榜  代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 300750", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734502985.html"}, {"title": "创业板公司融资余额五连增 其间累计增加253.70亿元", "content": "（数据宝） 创业板融资余额变动排名 代码 简称 最新融资余额（亿元） 其间增减（亿元） 代码 简称 最新融资余额（亿元） 其间增减（亿元） 300502 新易盛 208.12 23.54 300750 宁德时代 210.93 -17.89 300308 中际旭创 275.16", "source": "证券时报网", "time": "2026-05-13 09:33:00", "url": "http://finance.eastmoney.com/a/202605133735568413.html"}, {"title": "主力动向：5月12日特大单净流出634.97亿元", "content": "300782 卓胜微 109.90 2.34 4.49 电子 601869 长飞光纤 411.46 2.79 4.42 通信 601899 紫金矿业 34.58 0.90 4.24 有色金属 特大单净流出资金排名 代码 简称 收盘价（元） 涨跌幅（%） 特大单净流入（亿元） 行业 300750", "source": "证券时报网", "time": "2026-05-12 16:55:00", "url": "http://finance.eastmoney.com/a/202605123734529026.html"}]}, "603993": {"name": "洛阳钼业", "news": [{"title": "洛阳钼业603993.SH)：2026年一季报净利润为77.60亿元", "content": "2026年4月25日，洛阳钼业603993.SH)发布2026年一季报。 公司营业总收入为664.03亿元。归母净利润为77.60亿元。经营活动现金净流入为113.29亿元。", "source": "界面新闻", "time": "2026-04-25 11:17:32", "url": "http://finance.eastmoney.com/a/202604253718989025.html"}, {"title": "有色金属行业5月13日资金流向日报", "content": "14.64 46523.91 600497 驰宏锌锗 4.51 5.63 45369.80 000657 中钨高新 4.66 6.91 44757.44 601600 中国铝业 1.63 1.66 25154.40 000807 云铝股份 2.15 1.96 21408.80 603993", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735970444.html"}, {"title": "有色金属行业今日净流出资金88.10亿元，天齐锂业等21股净流出资金超亿元", "content": "37049.92 601600 中国铝业 -1.65 1.87 -34019.78 002428 云南锗业 4.14 16.18 -26614.09 000762 西藏矿业 -3.03 10.27 -21096.47 600549 厦门钨业 0.15 4.28 -19153.21 603993", "source": "证券时报网", "time": "2026-05-07 17:24:00", "url": "http://finance.eastmoney.com/a/202605073730182440.html"}, {"title": "金属钴概念上涨4.94%，11股主力资金净流入超亿元", "content": "002340 格林美 7.95 9.67 41732.05 9.11 300073 当升科技 5.13 7.26 28590.62 12.12 000426 兴业银锡 3.96 2.82 27809.91 12.98 600549 厦门钨业 8.19 5.62 17892.37 3.55 603993", "source": "证券时报网", "time": "2026-04-29 18:19:00", "url": "http://finance.eastmoney.com/a/202604293724709669.html"}, {"title": "洛阳钼业：一季度净利润同比增长96.65% 主要产品价格上涨及产销量实现增长", "content": "洛阳钼业603993.SH)公告称，2026年第一季度实现营业收入664.03亿元，同比增长44.34%；归属于上市公司股东的净利润为77.60亿元，同比增长96.65%。", "source": "财联社", "time": "2026-04-24 16:15:41", "url": "http://finance.eastmoney.com/a/202604243717967060.html"}, {"title": "21.28亿主力资金净流入，金属镍概念涨3.47%", "content": "603799 华友钴业 4.48 5.83 52199.63 7.17 002340 格林美 7.95 9.67 41732.05 9.11 600884 杉杉股份 7.23 11.43 31960.16 9.31 000426 兴业银锡 3.96 2.82 27809.91 12.98 603993", "source": "证券时报网", "time": "2026-04-29 18:19:00", "url": "http://finance.eastmoney.com/a/202604293725156375.html"}, {"title": "洛阳钼业一季度利润超77亿元 同比增长96.65%", "content": "4月24日晚间，洛阳钼业（603993.SH、03993.HK）发布2026年第一季度业绩报告。财报数据显示，洛阳钼业实现营业收入664.03亿元，同比增长44.34%；归母净利润77.60亿元，同比增长96.65%；经营性净现金流113.29亿元，同比增长762.30%。", "source": "中国经营报", "time": "2026-04-25 09:37:20", "url": "http://finance.eastmoney.com/a/202604253718886030.html"}, {"title": "盐湖提锂概念涨3.65%，主力资金净流入33股", "content": "华友钴业 4.48 5.83 52199.63 7.17 600338 西藏珠峰 10.00 14.96 37507.82 10.30 000792 盐湖股份 6.70 2.94 27914.58 4.66 300207 欣旺达 4.91 5.13 19073.99 7.96 603993", "source": "证券时报网", "time": "2026-04-29 18:18:00", "url": "http://finance.eastmoney.com/a/202604293724712350.html"}]}, "603799": {"name": "华友钴业", "news": [{"title": "华友钴业603799.SH)：拟2.1亿美元收购大西洋锂业100%股权，锁定加纳Ewoyaa锂矿项目", "content": "2026年5月6日，浙江华友钴业股份有限公司（603799.SH）发布公告称，公司拟以协议安排收购方式收购Atlantic Lithium Limited（大西洋锂业）100%股权，交易对价为21,000万美元（不含资本利得税），最终收购价款将根据加纳税务局申请资本利得税确定。", "source": "界面新闻", "time": "2026-05-07 09:21:05", "url": "http://finance.eastmoney.com/a/202605073729536213.html"}, {"title": "华友钴业：子公司受让Piedmont公司权利义务", "content": "华友钴业603799.SH)公告称，公司及子公司华友香港与Piedmont公司等签署《合同更替协议》，以7090万美元承接Piedmont公司在大西洋锂业新加坡子公司合同项下的全部权利义务，包括获得新加坡子公司22.5%股权及Ewoyaa锂矿项目不少于50%产品包销权等。", "source": "财联社", "time": "2026-05-10 15:57:21", "url": "http://finance.eastmoney.com/a/202605103732389850.html"}, {"title": "有色金属行业5月13日资金流向日报", "content": "有色金属行业资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 002460 赣锋锂业 -0.79 4.84 -68284.40 002428 云南锗业 0.09 16.52 -55392.59 002466 天齐锂业 -0.49 5.20 -41296.17 603799", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735970444.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "41.22 12.02 -6.45 300014 亿纬锂能 5 37.85 10.84 -9.32 300390 天华新能 5 37.48 9.44 -12.98 002460 赣锋锂业 5 33.64 11.46 -9.25 002407 多氟多 7 28.70 7.73 -4.54 603799", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "华友钴业拟购买海外锂矿资产深化资源布局", "content": "锂电材料上市公司浙江华友钴业股份有限公司（简称“华友钴业”，603799.SH）近日公布，公司拟斥资购买海外锂矿资产，进一步深化上游资源布局，提升锂资源自给率与供应链安全韧性。今年一季度及去年全年，公司经营层面与全球新能源市场景气度共振，业绩实现稳步提升。", "source": "经济参考报", "time": "2026-05-12 03:34:05", "url": "http://finance.eastmoney.com/a/202605123733504145.html"}, {"title": "华友钴业拟14亿元海外买矿 标的尚未扭亏", "content": "5月7日，华友钴业（603799.SH）发布公告，拟以2.1亿美元（约14亿元人民币）对价，通过协议安排方式收购大西洋锂业100%股权。", "source": "中国经营报", "time": "2026-05-09 15:49:49", "url": "http://finance.eastmoney.com/a/202605093732219482.html"}, {"title": "交易对价2.1亿美元！华友钴业拟跨境收购大西洋锂业，后者业绩持续亏损", "content": "5月6日晚间，华友钴业（603799）发布公告称，公司为进一步深化海外资源、国际制造、全球市场的经营格局，夯实锂资源布局，与Atlantic Lithium Limited（以下简称“大西洋锂业”或“标的公司”）签署了《方案实施契约》及相关协议附件，拟收购标的公司全部已发行和待发行", "source": "深圳商报·读创", "time": "2026-05-07 15:41:32", "url": "http://finance.eastmoney.com/a/202605073730064523.html"}, {"title": "斥资超14亿元！千亿巨头华友钴业拟收购澳大利亚锂矿公司", "content": "5月7日，华友钴业（603799.SH）发布公告称，公司拟以2.1亿美元（不含资本利得税，约合14.28亿元人民币）收购Atlantic Lithium Limited（简称“大西洋锂业”）100%股权，最终收购价款将根据加纳税务局（GRA）申请资本利得税确定。", "source": "界面新闻", "time": "2026-05-07 15:48:01", "url": "http://finance.eastmoney.com/a/202605073730033194.html"}]}, "002466": {"name": "天齐锂业", "news": [{"title": "天齐锂业002466.SZ)：2026年一季报净利润为18.76亿元", "content": "2026年4月28日，天齐锂业002466.SZ)发布2026年一季报。 公司营业总收入为51.28亿元。归母净利润为18.76亿元。经营活动现金净流入为2.59亿元，较去年同报告期经营活动现金净流入减少6.93亿元，同比较去年同期下降72.77%。", "source": "界面新闻", "time": "2026-04-28 09:10:32", "url": "http://finance.eastmoney.com/a/202604283721456017.html"}, {"title": "上证早知道｜002466 预增1530.31%至1818.01%！钨精矿 下调4.5万元/标吨！两家公司重大资产收购 复牌！", "content": "○天齐锂业（002466）预计2026年第一季度归母净利润为17亿元至20亿元，同比增长1530.31%至1818.01%。公司表示，受益于新能源产业发展与下游需求增长，主要锂产品销售均价明显增长；联营公司SQM业绩预计同比大幅增长，公司确认的投资收益较上年同期大幅增长。", "source": "上海证券报", "time": "2026-04-21 06:53:00", "url": "http://finance.eastmoney.com/a/202604213711288793.html"}, {"title": "10只个股大宗交易超5000万元", "content": "20.32 770.00 15022.70 3 19.51 -3.99 002695 煌上煌 1.54 13.18 950.91 11220.74 3 11.80 -10.47 601658 邮储银行 -0.60 5.00 2228.93 10609.71 1 4.76 -4.80 002466", "source": "证券时报网", "time": "2026-05-13 21:47:00", "url": "http://finance.eastmoney.com/a/202605133736255771.html"}, {"title": "有色金属行业5月13日资金流向日报", "content": "600549 厦门钨业 1.82 4.10 3979.44 有色金属行业资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 002460 赣锋锂业 -0.79 4.84 -68284.40 002428 云南锗业 0.09 16.52 -55392.59 002466", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735970444.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "主力资金净流出天数 主力资金净流出金额（亿元） 主力资金净流出比例（%） 累计涨跌幅（%） 002709 天赐材料 7 52.79 8.41 -2.36 600028 中国石化 19 52.28 17.70 -11.32 000858 五粮液 10 50.39 14.70 -11.97 002466", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "天齐锂业：公司目前在国内和海外共有六个锂化工产品生产基地，已建成综合锂化工产品产能12.16万吨/年", "content": "天齐锂业（002466.SZ）5月6日在投资者互动平台表示，公司目前在国内和海外共有六个锂化工产品生产基地，已建成综合锂化工产品产能合计 12.16 万吨/年。", "source": "每日经济新闻", "time": "2026-05-06 21:13:42", "url": "http://finance.eastmoney.com/a/202605063728964149.html"}, {"title": "解密主力资金出逃股 连续5日净流出570股", "content": "（%） 累计涨跌幅（%） 600028 中国石化 18 50.77 17.94 -10.81 002709 天赐材料 6 47.51 8.31 -1.23 300475 香农芯创 8 40.50 5.20 7.97 000858 五粮液 9 39.90 13.25 -10.58 002466", "source": "证券时报网", "time": "2026-05-12 16:55:00", "url": "http://finance.eastmoney.com/a/202605123734534376.html"}, {"title": "艾罗能源“掉队”，去年净利下降40.61％，高管却大幅涨薪", "content": "上游锂矿方面，天齐锂业（002466.SZ）扭亏为盈，实现净利润4.63亿元，上年同期则是-79.05亿元；赣锋锂业（002460.SZ）同样扭亏为盈，实现净利润16.13亿元，去年同期则是-20.74亿元。", "source": "华夏时报网", "time": "2026-05-14 06:38:43", "url": "http://finance.eastmoney.com/a/202605143736400256.html"}]}, "002460": {"name": "赣锋锂业", "news": [{"title": "赣锋锂业002460.SZ)：注销2022年股票期权激励计划剩余55.125万份期权，因第四个行权期业绩未达标", "content": "2026年5月12日，江西赣锋锂业集团股份有限公司（002460.SZ）发布公告称，公司对2022年股票期权激励计划第四个行权期因公司层面业绩未达标、当期不得行权的55.125万份股票期权予以注销。", "source": "界面新闻", "time": "2026-05-13 08:58:42", "url": "http://finance.eastmoney.com/a/202605133735371018.html"}, {"title": "赣锋锂业002460.SZ)：2026年一季报净利润为18.37亿元", "content": "2026年4月30日，赣锋锂业002460.SZ)发布2026年一季报。 公司营业总收入为91.96亿元。归母净利润为18.37亿元。经营活动现金净流入为7.87亿元。", "source": "界面新闻", "time": "2026-04-30 08:56:58", "url": "http://finance.eastmoney.com/a/202604303725729183.html"}, {"title": "赣锋锂业002460.SZ)：2026年一季报净利润为18.37亿元，同比扭亏为盈", "content": "2026年4月30日，赣锋锂业002460.SZ)发布2026年一季报。 公司营业总收入为91.96亿元，在已披露的同业公司中排名第3，较去年同报告期营业总收入增加54.24亿元，同比较去年同期上涨143.81%。", "source": "界面新闻", "time": "2026-04-30 09:09:22", "url": "http://finance.eastmoney.com/a/202604303725786820.html"}, {"title": "赣锋锂业002460.SZ)：预计一季度扭亏为盈，净利润最高预增690%达21亿元", "content": "2026年4月16日，江西赣锋锂业集团股份有限公司（002460.SZ）发布2026年第一季度业绩预告。公司预计报告期内实现归属于上市公司股东的净利润为16亿元至21亿元，上年同期亏损3.56亿元，同比增长549.65%–690.17%，实现扭亏为盈。", "source": "界面新闻", "time": "2026-04-16 20:17:33", "url": "http://finance.eastmoney.com/a/202604163707701352.html"}, {"title": "赣锋锂业：副总裁傅利华拟减持公司不超4万股股份", "content": "人民财讯5月12日电，赣锋锂业0024605月12日公告，公司副总裁傅利华计划以集中竞价方式减持公司股份不超过4万股，即不超过公司总股本的0.002%。傅利华持有公司A股股份21.5万股(占公司总股本的0.01%)。", "source": "证券时报网", "time": "2026-05-12 19:30:00", "url": "http://finance.eastmoney.com/a/202605123734692294.html"}, {"title": "赣锋锂业：副总裁傅利华拟减持不超0.002%股份", "content": "赣锋锂业002460.SZ)公告称，公司副总裁傅利华计划自公告披露之日起15个交易日后的3个月内(即2026年6月4日至2026年9月3日)，以集中竞价方式减持公司股份不超过4.00万股(即不超过公司总股本比例0.002%)，减持原因为偿还股权激励贷款。", "source": "财联社", "time": "2026-05-12 19:24:25", "url": "http://finance.eastmoney.com/a/202605123734672553.html"}, {"title": "有色金属行业5月13日资金流向日报", "content": "600711 盛屯矿业 2.04 5.59 5466.94 000408 藏格矿业 3.51 1.33 4174.86 600549 厦门钨业 1.82 4.10 3979.44 有色金属行业资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 002460", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735970444.html"}, {"title": "主力动向：5月13日特大单净流入302.83亿元", "content": "医药生物 002428 云南锗业 101.51 0.09 -5.22 有色金属 002594 比亚迪 98.60 -0.63 -5.21 汽车 600601 方正科技 14.20 -0.77 -5.13 电子 601179 中国西电 19.02 -0.94 -5.13 电力设备 002460", "source": "证券时报网", "time": "2026-05-13 16:52:00", "url": "http://finance.eastmoney.com/a/202605133735953748.html"}]}, "301358": {"name": "湖南裕能", "news": [{"title": "业绩暴增逾13倍，301358开盘大涨！行业盈利拐点到来，融资客出手抢筹股揭晓", "content": "多只锂电龙头业绩暴增 4月28日早盘，湖南裕能（301358）开盘上涨5.8%，盘中一度涨超10%，股价最高达到99元/股，创下历史新高。公司股价强势表现与一季报亮眼成绩不无关系。", "source": "数据宝", "time": "2026-04-28 11:55:00", "url": "http://finance.eastmoney.com/a/202604283721944025.html"}, {"title": "湖南裕能301358.SZ)：2026年一季报净利润为13.56亿元、同比较去年同期上涨1337.77%", "content": "2026年4月28日，湖南裕能301358.SZ)发布2026年一季报。 公司营业总收入为149.65亿元，在已披露的同业公司中排名第4，较去年同报告期营业总收入增加82.03亿元，实现2年连续上涨，同比较去年同期上涨121.31%。", "source": "界面新闻", "time": "2026-04-28 09:55:31", "url": "http://finance.eastmoney.com/a/202604283721707565.html"}, {"title": "湖南裕能301358.SZ)：2025年年报净利润为12.77亿元、同比较去年同期上涨115.18%", "content": "2026年4月23日，湖南裕能301358.SZ)发布2025年年报。 公司营业总收入为346.25亿元，在已披露的同业公司中排名第6，较去年同报告期营业总收入增加120.26亿元，同比较去年同期上涨53.22%。", "source": "界面新闻", "time": "2026-04-23 09:56:04", "url": "http://finance.eastmoney.com/a/202604233715616634.html"}, {"title": "电力设备行业今日净流出资金84.12亿元，宁德时代等44股净流出资金超亿元", "content": "51848.53 002340 格林美 -3.86 4.55 -42338.11 300037 新宙邦 -3.83 5.98 -34276.91 300409 道氏技术 -5.35 7.77 -31107.23 300769 德方纳米 -3.92 14.33 -30898.07 301358", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734502985.html"}, {"title": "创业板公司融资余额五连增 其间累计增加253.70亿元", "content": "1.68 300390 天华新能 28.06 5.61 300870 欧陆通 16.53 -1.59 300570 太辰光 21.32 5.58 300184 力源信息 10.77 -1.23 301666 大普微 9.62 5.32 300724 捷佳伟创 27.83 -1.11 301358", "source": "证券时报网", "time": "2026-05-13 09:33:00", "url": "http://finance.eastmoney.com/a/202605133735568413.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "17.10 8.11 -7.77 601166 兴业银行 10 15.90 8.61 -2.70 000155 川能动力 8 14.28 10.36 -10.92 002240 盛新锂能 6 14.20 6.09 -8.47 300037 新宙邦 7 14.03 9.07 -8.80 301358", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "创业板指调整近1% 全市场超3600只个股上涨", "content": "下跌端，电池产业链板块震荡走弱，湖南裕能（301358.SZ）、天华新能（300390.SZ）、天赐材料（002709.SZ）等个股纷纷下挫。（央广财经）", "source": "央广财经", "time": "2026-05-08 15:39:35", "url": "http://finance.eastmoney.com/a/202605083731458085.html"}, {"title": "电力设备行业资金流出榜：金风科技、圣阳股份等净流出资金居前", "content": "44041.20 600406 国电南瑞 2.95 3.07 -40379.00 603618 杭电股份 -0.85 18.81 -38419.38 688388 嘉元科技 -4.36 9.97 -35540.15 600482 中国动力 -1.15 1.71 -26989.13 301358", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733196638.html"}]}, "002812": {"name": "恩捷股份", "news": [{"title": "002812，拟40亿元投建锂电隔离膜项目！同步终止并购", "content": "恩捷股份0028125月13日晚间公告，公司拟在四川省自贡市荣县投资建设年产50亿平方米锂电池隔离膜项目，预计总投资额40亿元。公司已与自贡市人民政府签订《战略合作协议》，控股子公司上海恩捷与荣县人民政府签订《投资合作协议》。", "source": "证券时报网", "time": "2026-05-14 07:55:00", "url": "http://finance.eastmoney.com/a/202605143736611066.html"}, {"title": "上证早知道｜002812 40亿元投建锂电池隔离膜；001309 机构席位净买入7.7亿元", "content": "○恩捷股份（002812）拟在四川省自贡市荣县投资建设年产50亿平方米锂电池隔离膜项目，预计总投资额40亿元。公司与自贡市人民政府签订《战略合作协议》，控股子公司上海恩捷与荣县人民政府签订《投资合作协议》。", "source": "上海证券报", "time": "2026-05-14 06:55:00", "url": "http://finance.eastmoney.com/a/202605143736401995.html"}, {"title": "002812 一季度净利暴增901.70%", "content": "4月22日晚间，恩捷股份（002812）披露2026年第一季度报告。根据公告，公司一季度实现营业收入39.08亿元，同比增长43.21%；归属于上市公司股东的净利润为2.60亿元，同比增长901.70%。", "source": "上海证券报", "time": "2026-04-22 22:35:00", "url": "http://finance.eastmoney.com/a/202604223714662665.html"}, {"title": "暴增超900%！002812，一季度盈利超去年全年！股价大涨", "content": "4月22日，恩捷股份002812股价盘中最高冲至77.78元/股，刷新年内高点，今年以来最大涨幅超过60%。 22日晚间，该公司披露的2025年年报及2026年一季报显示，期内公司经营业绩不断攀升，2026年一季度归母净利润同比增幅更超过9倍。", "source": "证券时报网", "time": "2026-04-22 20:31:00", "url": "http://finance.eastmoney.com/a/202604223714457162.html"}, {"title": "恩捷股份002812.SZ)：2026年一季报净利润为2.60亿元", "content": "2026年4月23日，恩捷股份002812.SZ)发布2026年一季报。 公司营业总收入为39.08亿元。归母净利润为2.60亿元。经营活动现金净流入为2.07亿元。 公司最新资产负债率为43.65%。 公司最新毛利率为28.09%。最新ROE为1.02%。", "source": "界面新闻", "time": "2026-04-23 09:19:20", "url": "http://finance.eastmoney.com/a/202604233715346264.html"}, {"title": "恩捷股份002812.SZ)：2025年年报净利润为1.43亿元", "content": "2026年4月23日，恩捷股份002812.SZ)发布2025年年报。 公司营业总收入为136.33亿元。归母净利润为1.43亿元，在已披露的同业公司中排名第30。", "source": "界面新闻", "time": "2026-04-23 09:50:12", "url": "http://finance.eastmoney.com/a/202604233715587342.html"}, {"title": "恩捷股份：终止购买中科华联100%股份事项", "content": "恩捷股份002812.SZ)公告称，公司决定终止发行股份购买资产并募集配套资金事项。因交易各方对标的公司中科华联的估值认定未达成一致，未能就交易对价等核心条款达成共识。公司承诺自公告之日起1个月内不再筹划重大资产重组。终止本次交易不会对公司生产经营和财务状况造成重大不利影响。", "source": "财联社", "time": "2026-05-13 20:09:06", "url": "http://finance.eastmoney.com/a/202605133736146451.html"}, {"title": "恩捷股份：拟投建年产50亿平方米锂电池隔离膜项目 预计总投资额为40亿元", "content": "人民财讯5月13日电，恩捷股份0028125月13日公告，公司拟在四川省自贡市荣县投资建设年产50亿平方米锂电池隔离膜项目，项目预计总投资额为40亿元。针对上述事项，公司与自贡市人民政府签订了战略合作协议，公司控股子公司上海恩捷与荣县人民政府签订了《投资合作协议》及补充协议。", "source": "证券时报网", "time": "2026-05-13 20:14:00", "url": "http://finance.eastmoney.com/a/202605133736154378.html"}]}, "002709": {"name": "天赐材料", "news": [{"title": "天赐材料002709龙虎榜数据04-29", "content": "交易所2026年4月29日公布的交易公开信息显示，天赐材料因成为日涨幅偏离值达到7%的前5只证券上榜。天赐材料当日收报59.32元，涨跌幅9.99%，偏离值8.34%，换手率11.97%，成交额103.01亿。 免责声明：本文基于AI生产，仅供参考，不构成任何投资建议，据此操作风险自担", "source": "东方财富Choice数据", "time": "2026-04-29 16:27:13", "url": "http://finance.eastmoney.com/a/202604293724444293.html"}, {"title": "天赐材料002709.SZ)：2026年一季报净利润为16.54亿元", "content": "2026年4月28日，天赐材料002709.SZ)发布2026年一季报。 公司营业总收入为66.73亿元。归母净利润为16.54亿元。经营活动现金净流入为-2139.28万元，在已披露的同业公司中排名第30。", "source": "界面新闻", "time": "2026-04-28 09:06:36", "url": "http://finance.eastmoney.com/a/202604283721449628.html"}, {"title": "电力设备行业今日净流出资金84.12亿元，宁德时代等44股净流出资金超亿元", "content": "代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 300750 宁德时代 -3.33 0.80 -214962.68 601727 上海电气 -4.61 3.67 -102592.83 300014 亿纬锂能 -2.81 3.92 -92963.59 002709", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734502985.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "（数据宝） 连续5日或以上主力资金净流出个股排名 证券代码 证券简称 主力资金净流出天数 主力资金净流出金额（亿元） 主力资金净流出比例（%） 累计涨跌幅（%） 002709 天赐材料 7 52.79 8.41 -2.36 600028 中国石化 19 52.28 17.70", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "创业板指调整近1% 全市场超3600只个股上涨", "content": "下跌端，电池产业链板块震荡走弱，湖南裕能（301358.SZ）、天华新能（300390.SZ）、天赐材料（002709.SZ）等个股纷纷下挫。（央广财经）", "source": "央广财经", "time": "2026-05-08 15:39:35", "url": "http://finance.eastmoney.com/a/202605083731458085.html"}, {"title": "电力设备行业资金流出榜：金风科技、圣阳股份等净流出资金居前", "content": "18512.38 300693 盛弘股份 11.71 14.58 -16690.76 300409 道氏技术 -1.00 6.01 -15933.92 600884 杉杉股份 -1.02 7.79 -15826.60 002364 中恒电气 -0.93 7.90 -15365.18 002709", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733196638.html"}, {"title": "解密主力资金出逃股 连续5日净流出570股", "content": "（数据宝） 连续5日或以上主力资金净流出个股排名 证券代码 证券简称 主力资金净流出天数 主力资金净流出金额（亿元） 主力资金净流出比例（%） 累计涨跌幅（%） 600028 中国石化 18 50.77 17.94 -10.81 002709 天赐材料 6 47.51 8.31", "source": "证券时报网", "time": "2026-05-12 16:55:00", "url": "http://finance.eastmoney.com/a/202605123734534376.html"}, {"title": "解密主力资金出逃股 连续5日净流出509股", "content": "（数据宝） 连续5日或以上主力资金净流出个股排名 证券代码 证券简称 主力资金净流出天数 主力资金净流出金额（亿元） 主力资金净流出比例（%） 累计涨跌幅（%） 600028 中国石化 17 47.88 17.80 -10.63 002709 天赐材料 5 38.94 7.92", "source": "证券时报网", "time": "2026-05-11 17:02:00", "url": "http://finance.eastmoney.com/a/202605113733139857.html"}]}, "300450": {"name": "先导智能", "news": [{"title": "先导智能300450.SZ)：2026年一季报净利润为4.05亿元", "content": "2026年4月29日，先导智能300450.SZ)发布2026年一季报。 公司营业总收入为36.91亿元。归母净利润为4.05亿元。经营活动现金净流入为12.48亿元。  公司最新资产负债率为61.64%，在已披露的同业公司中排名第51。", "source": "界面新闻", "time": "2026-04-29 13:08:52", "url": "http://finance.eastmoney.com/a/202604293724213613.html"}, {"title": "先导智能：公司相关设备有望受益于钠离子电池行业扩产机遇", "content": "先导智能3004505月12日在互动平台表示，公司具备钠离子电池智造整线全流程交付能力，拥有完全自主知识产权，在钠电设备领域份额领先、产品覆盖全形态、技术适配性强，已批量服务国内外头部企业。伴随钠离子电池行业规模化量产提速，公司相关设备后续有望充分受益于行业扩产机遇。", "source": "人民财讯", "time": "2026-05-12 13:30:27", "url": "http://finance.eastmoney.com/a/202605123734338324.html"}, {"title": "先导智能：公司具备钠离子电池智造整线全流程交付能力，已批量服务国内外头部企业", "content": "先导智能（300450.SZ）5月12日在投资者互动平台表示，公司具备钠离子电池智造整线全流程交付能力，拥有完全自主知识产权，在钠电设备领域份额领先、产品覆盖全形态、技术适配性强，已批量服务国内外头部企业。", "source": "每日经济新闻", "time": "2026-05-12 14:31:24", "url": "http://finance.eastmoney.com/a/202605123734385046.html"}, {"title": "先导智能：公司已与多家行业领军企业开展设备合作，先后向国内外头部客户交付各工段固态电池生产设备", "content": "先导智能（300450.SZ）5月11日在投资者互动平台表示，在固态电池领域，公司拥有完全自主知识产权的全固态电池整线解决方案，已打通全固态电池量产全工艺流程，实现整线方案及各工段关键设备全覆盖。", "source": "每日经济新闻", "time": "2026-05-11 19:21:20", "url": "http://finance.eastmoney.com/a/202605113733255444.html"}, {"title": "PET铜箔概念涨0.99%，主力资金净流入16股", "content": "1.42 2.43 -10260.86 -5.98 300724 捷佳伟创 -2.26 5.07 -10450.96 -7.64 603773 沃格光电 2.16 16.76 -13640.02 -4.40 301511 德福科技 1.09 10.65 -14532.10 -3.91 300450", "source": "证券时报网", "time": "2026-05-12 16:30:00", "url": "http://finance.eastmoney.com/a/202605123734500242.html"}, {"title": "电力设备行业今日净流出资金84.12亿元，宁德时代等44股净流出资金超亿元", "content": "85729.14 300390 天华新能 -3.56 10.24 -80554.71 300274 阳光电源 -2.44 3.42 -74579.48 002202 金风科技 -3.16 5.79 -66054.73 600406 国电南瑞 0.19 2.23 -52406.86 300450", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734502985.html"}, {"title": "电力设备行业资金流出榜：金风科技、圣阳股份等净流出资金居前", "content": "5.90 25074.01 601012 隆基绿能 1.53 2.39 22521.80 688223 晶科能源 3.22 2.48 22318.22 600379 宝光股份 10.03 28.74 19289.41 002865 钧达股份 10.00 11.70 18723.12 300450", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733196638.html"}, {"title": "钠电、固液、五代铁锂 超3000家电池生态企业共话技术迭代", "content": "在固态电池方面，有利元亨（688499.SH）、先导智能（300450.SZ）、清研电子、龙鑫智能等多家设备企业参展。先导智能人士对财联社记者表示，公司将展示全固态电池关键制程量产机型，该产品破解了全固态电池叠片工艺中的核心技术难题，定义全固态电池量产新标准。", "source": "财联社", "time": "2026-05-11 17:41:54", "url": "http://finance.eastmoney.com/a/202605113733189675.html"}]}, "002371": {"name": "北方华创", "news": [{"title": "北方华创002371.SZ)：2026年一季报净利润为16.35亿元、同比较去年同期上涨3.42%", "content": "2026年4月30日，北方华创002371.SZ)发布2026年一季报。 公司营业总收入为103.23亿元，在已披露的同业公司中排名第1，较去年同报告期营业总收入增加21.17亿元，实现5年连续上涨，同比较去年同期上涨25.80%。", "source": "界面新闻", "time": "2026-04-30 10:28:04", "url": "http://finance.eastmoney.com/a/202604303726124596.html"}, {"title": "北方华创完成换届：赵晋荣当选董事长，董博宇任总裁", "content": "北方华创（002371）发布公告，公司于2026年5月11日召开2025年度股东会，选举产生了7名非独立董事和4名独立董事，组成公司第九届董事会。 公司第九届董事会非独立董事包括：赵晋荣（董事长）、陶海虹（副董事长）、纪安宽、董博宇、李瑞、冯倩、宗雨冉。", "source": "财中社", "time": "2026-05-11 20:10:00", "url": "http://finance.eastmoney.com/a/202605113733320981.html"}, {"title": "国家大基金持股概念涨3.45%，主力资金净流入这些股", "content": "1.19 5.13 -12777.53 -3.60 603893 瑞芯微 0.63 3.60 -17005.56 -6.39 600206 有研新材 -2.51 11.64 -18348.54 -5.99 002156 通富微电 2.32 9.87 -23950.53 -2.71 002371", "source": "证券时报网", "time": "2026-05-13 16:52:00", "url": "http://finance.eastmoney.com/a/202605133735958655.html"}, {"title": "电子行业今日净流入资金232.29亿元，工业富联等82股净流入资金超亿元", "content": "67325.23 688041 海光信息 -0.29 1.80 -54693.21 688347 华虹公司 -0.02 5.45 -46334.01 688498 源杰科技 -1.33 4.05 -41474.96 688521 芯原股份 2.03 5.84 -33950.35 002371", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735959996.html"}, {"title": "258.42亿元主力资金今日撤离电子板块", "content": "） 电子行业资金流入榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 688256 寒武纪 6.49 3.34 94769.27 300782 卓胜微 2.34 8.13 51862.87 300285 国瓷材料 5.94 8.75 31395.58 002371", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734509258.html"}, {"title": "中芯国际概念涨3.48% 主力资金净流入54股", "content": "12.78 18.09 -12164.47 -4.39 688126 沪硅产业 1.19 5.13 -12777.53 -3.60 603501 豪威集团 0.19 2.98 -16113.96 -4.40 600206 有研新材 -2.51 11.64 -18348.54 -5.99 002371", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735959538.html"}, {"title": "46.90亿主力资金净流入，国家大基金持股概念涨6.11%", "content": "佰维存储 8.69 11.25 35299.07 2.13 600206 有研新材 8.13 15.38 31675.98 7.42 688146 中船特气 20.00 19.24 23229.16 9.21 688702 盛科通信 3.94 6.65 21060.46 4.98 002371", "source": "证券时报网", "time": "2026-05-11 17:03:00", "url": "http://finance.eastmoney.com/a/202605113733139321.html"}, {"title": "52股今日获机构买入评级", "content": "华创证券 强推 强推 11.00 9.18 000157 中联重科 国泰海通 增持 未评级 10.50 8.22 002223 鱼跃医疗 长江证券 买入 买入 30.18 002292 奥飞娱乐 华鑫证券 买入 买入 8.13 002294 信立泰 华安证券 买入 买入 43.11 002371", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733195531.html"}]}, "601127": {"name": "赛力斯", "news": [{"title": "机构风向标 | 赛力斯6011272026年一季度已披露持股减少机构超10家", "content": "2026年4月30日，赛力斯601127.SH)发布2026年第一季报。截至2026年4月30日，共有41个机构投资者披露持有赛力斯A股股份，合计持股量达9.67亿股，占赛力斯总股本的55.54%。", "source": "界面新闻", "time": "2026-05-01 09:48:08", "url": "http://finance.eastmoney.com/a/202605013727077194.html"}, {"title": "赛力斯601127.SH)：2026年一季报净利润为7.54亿元", "content": "2026年4月30日，赛力斯601127.SH)发布2026年一季报。 公司营业总收入为257.46亿元，在已披露的同业公司中排名第5。归母净利润为7.54亿元。", "source": "界面新闻", "time": "2026-04-30 09:04:28", "url": "http://finance.eastmoney.com/a/202604303725770178.html"}, {"title": "赛力斯4月产销数据出炉 产量同比下降4.18%", "content": "5月5日，赛力斯（601127/09927）发布公告，根据4月份产销数据，4月份的总产量为3.72万辆，同比减少4.18%，总销量为3.55万辆，同比减少0.78%。 2026年一季度，赛力斯实现收入257.46亿元，归母净利润7.54亿元。", "source": "财中社", "time": "2026-05-06 08:53:00", "url": "http://finance.eastmoney.com/a/202605063728083927.html"}, {"title": "“电池包碰撞脱离”专利获授权 赛力斯回应：只是公司技术储备", "content": "红星资本局5月12日消息，近日，赛力斯（601127.SH）申请的“一种在碰撞场景下脱离电动车的电池包装置和电动汽车”专利获授权。", "source": "红星资本局", "time": "2026-05-12 19:42:15", "url": "http://finance.eastmoney.com/a/202605123734697455.html"}, {"title": "赛力斯：2026年4月新能源汽车销量同比增长5.22%", "content": "赛力斯601127.SH)公告称，公司发布2026年4月份产销快报，当月新能源汽车销量为33,132辆，同比增长5.22%；本年累计销量111,632辆，同比增长29.74%。其中赛力斯汽车4月销量30,003辆，同比增长10.29%。", "source": "财联社", "time": "2026-05-05 17:00:12", "url": "http://finance.eastmoney.com/a/202605053727883396.html"}, {"title": "赛力斯：4月新能源汽车销量33132辆 同比增长5.22%", "content": "人民财讯5月5日电，赛力斯6011275月5日发布4月份产销快报，4月销量35461辆，同比下降0.78%；1月—4月累计销量12.39万辆，同比增长19.02%。", "source": "人民财讯", "time": "2026-05-05 17:05:00", "url": "http://finance.eastmoney.com/a/202605053727886780.html"}, {"title": "汽车行业今日净流出资金36.14亿元，山子高科等17股净流出资金超亿元", "content": "主力资金流量（万元） 000981 山子高科 -1.75 3.54 -28434.55 600699 均胜电子 -2.36 4.23 -22722.36 002126 银轮股份 -5.14 5.35 -20901.00 600418 江淮汽车 2.51 3.36 -19282.98 601127", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733194831.html"}, {"title": "赛力斯4月新能源汽车销量33132辆 今年累计销量超11万辆", "content": "5月5日晚间，赛力斯601127发布4月产销快报。数据显示，赛力斯新能源汽车销量达33132辆，同比增长5.22%；1—4月累计销量111632辆，同比增长29.74%。 今年以来，问界高端产品矩阵持续完善，新品效应逐步释放。", "source": "证券时报网", "time": "2026-05-05 19:36:00", "url": "http://finance.eastmoney.com/a/202605053727918487.html"}]}, "000625": {"name": "长安汽车", "news": [{"title": "长安汽车000625.SZ)：2026年一季报净利润为3.51亿元、同比较去年同期下降74.09%", "content": "2026年4月28日，长安汽车000625.SZ)发布2026年一季报。 公司营业总收入为327.06亿元，在已披露的同业公司中排名第2，较去年同报告期营业总收入减少14.54亿元，同比较去年同期下降4.26%。", "source": "界面新闻", "time": "2026-04-28 09:28:19", "url": "http://finance.eastmoney.com/a/202604283721557513.html"}, {"title": "兵装重组概念下跌1.41%，主力资金净流出6股", "content": "（数据宝） 兵装重组概念资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 601606 长城军工 -3.13 3.56 -6526.19 002265 建设工业 -3.92 2.31 -845.86 000625 长安汽车 -0.87 0.90", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735959314.html"}, {"title": "兵装重组概念涨2.01%，主力资金净流入这些股", "content": "600178 东安动力 3.37 2.22 1061.39 9.64 002265 建设工业 2.78 3.00 715.47 0.93 688151 华强科技 0.39 0.90 527.85 8.27 002189 中光学 -3.27 2.93 -1350.94 -7.40 000625", "source": "证券时报网", "time": "2026-05-12 16:55:00", "url": "http://finance.eastmoney.com/a/202605123734526166.html"}, {"title": "长安汽车：4月份销量17.93万辆 同比下降5.95%", "content": "人民财讯5月5日电，长安汽车0006255月5日发布产销快报，4月，长安汽车销量17.93万辆，同比下降5.95%，其中海外销量7.77万辆。1月—4月累计销量73.68万辆，同比下降17.75%。", "source": "人民财讯", "time": "2026-05-05 16:53:00", "url": "http://finance.eastmoney.com/a/202605053727885679.html"}, {"title": "长安汽车4月销量18万辆，海外销量为7.77万辆", "content": "5月5日，长安汽车（000625/200625）发布公告，2026年4月份公司销量为18万辆，同比下降5.95%，其中海外销量为7.77万辆。4月份的产量为18万辆，同比下降6.87%；本年累计产量为67万辆，同比下降15.13%。", "source": "财中社", "time": "2026-05-05 20:51:00", "url": "http://finance.eastmoney.com/a/202605053727929722.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "15.90 8.61 -2.70 000155 川能动力 8 14.28 10.36 -10.92 002240 盛新锂能 6 14.20 6.09 -8.47 300037 新宙邦 7 14.03 9.07 -8.80 301358 湖南裕能 5 14.02 6.92 -10.68 000625", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "长安汽车：关于前瞻布局领域，公司先后成立“亿安智航飞行汽车公司”“长安天枢智能机器人公司”", "content": "长安汽车（000625.SZ）5月6日在投资者互动平台表示，关于前瞻布局领域，公司先后成立“亿安智航飞行汽车公司”“长安天枢智能机器人公司”，未来出行生态边界进一步拓展。", "source": "每日经济新闻", "time": "2026-05-06 21:05:23", "url": "http://finance.eastmoney.com/a/202605063728961880.html"}, {"title": "兵装重组概念涨2.15%，主力资金净流入5股", "content": "4.25 600178 东安动力 1.54 1.06 468.56 9.04 600698 湖南天雁 2.56 2.87 431.82 2.40 688151 华强科技 1.37 0.58 50.72 1.22 601606 长城军工 0.72 2.42 -814.09 -1.19 000625", "source": "证券时报网", "time": "2026-05-08 16:52:00", "url": "http://finance.eastmoney.com/a/202605083731539485.html"}]}, "600104": {"name": "上汽集团", "news": [{"title": "上汽集团600104.SH)：2026年一季报净利润为30.26亿元、同比较去年同期上涨0.09%", "content": "2026年4月30日，上汽集团600104.SH)发布2026年一季报。 公司营业总收入为1404.18亿元，在已披露的同业公司中排名第2。", "source": "界面新闻", "time": "2026-04-30 10:03:12", "url": "http://finance.eastmoney.com/a/202604303726083923.html"}, {"title": "物产中大：柒鑫公司现有镁锭产能7.3万吨/年，目前仍有3.5万吨在建产能按计划推进", "content": "公司核心客户涵盖汇川技术（300124.SZ）、思格新能源（06656.HK)）、上汽集团（600104.SH）、中兴通讯（000063.SZ）、固德威（688390.SH）、阳光电源（300274.SZ）、昕诺飞（LIGHT.AS）、奇瑞汽车（09973.HK）、罗托克（Rotork", "source": "每日经济新闻", "time": "2026-05-12 18:25:51", "url": "http://finance.eastmoney.com/a/202605123734623753.html"}, {"title": "上汽集团：浙江伊控动力系统有限公司是上汽集团的并表子公司", "content": "请问浙江伊控动力系统有限公司是上汽集团（600104）的并表子公司吗？ 上汽集团（600104.SH）5月8日在投资者互动平台表示，浙江伊控动力系统有限公司是上汽集团的并表子公司。", "source": "每日经济新闻", "time": "2026-05-08 15:38:10", "url": "http://finance.eastmoney.com/a/202605083731455940.html"}, {"title": "上汽集团：公司5%以上股东未发生减持公司股票的行为", "content": "上汽集团（600104.SH）5月8日在投资者互动平台表示，公司5%以上股东未发生减持公司股票的行为。公司严格履行上市公司信息披露义务，截至目前，公司没有应披露而未披露的事项。", "source": "每日经济新闻", "time": "2026-05-08 15:37:47", "url": "http://finance.eastmoney.com/a/202605083731453539.html"}, {"title": "上汽集团：除上汽大众MEB工厂外，公司其他新能源产品与传统车共线生产，共享产能", "content": "上汽集团（600104.SH）5月8日在投资者互动平台表示，上汽集团新能源车产能情况如年报披露，除上汽大众MEB工厂外，公司其他新能源产品与传统车共线生产，共享产能，公司可结合市场情况对两类产品进行调配，实行柔性化生产。", "source": "每日经济新闻", "time": "2026-05-08 16:36:33", "url": "http://finance.eastmoney.com/a/202605083731523987.html"}, {"title": "上汽集团4月产销快报：产量降14.23% 销量降12.66%", "content": "5月5日，上汽集团（600104）发布公告，2026年4月份产销快报显示，公司整体产量为35万辆，同比减少14.23%；销量为33万辆，同比减少12.66%。 2026年一季度，上汽集团实现收入1404.18亿元，归母净利润30.26亿元。", "source": "财中社", "time": "2026-05-06 08:53:00", "url": "http://finance.eastmoney.com/a/202605063728084065.html"}, {"title": "上汽集团4月销量承压比去年同期少卖近5万辆：上汽大众腰斩，上汽通用同比下跌17.3%", "content": "4月30日，上汽集团（600104）发布2026年一季报，公司实现营业总收入1404.18亿元，同比下降0.31%，归母净利润30.26亿，同比增长0.09%。", "source": "深圳商报·读创", "time": "2026-05-05 16:02:33", "url": "http://finance.eastmoney.com/a/202605053727878438.html"}, {"title": "上汽集团：4月份销量32.88万辆 同比下降12.66%", "content": "人民财讯5月5日电，上汽集团6001045月5日发布产销快报，4月份销量32.88万辆，同比下降12.66%，其中，新能源汽车销量14.25万辆，同比增长11.23%。1月—4月份销量130.16万辆，同比下降1.5%。", "source": "证券时报网", "time": "2026-05-05 16:17:00", "url": "http://finance.eastmoney.com/a/202605053727879087.html"}]}, "601238": {"name": "广汽集团", "news": [{"title": "广汽集团601238.SH)：2026年一季报净利润为-6.56亿元，同比亏损缩小", "content": "2026年4月30日，广汽集团601238.SH)发布2026年一季报。 公司营业总收入为202.29亿元，较去年同报告期营业总收入增加3.50亿元，同比较去年同期上涨1.76%。归母净利润为-6.56亿元，较去年同报告期归母净利润增加7529.73万元。", "source": "界面新闻", "time": "2026-04-30 09:55:27", "url": "http://finance.eastmoney.com/a/202604303726067934.html"}, {"title": "广汽与华为联合打造的启境汽车完成超10亿元增资，宁德时代、博世等参投", "content": "启境汽车是由广汽集团（601238.SH）与华为乾崑联合打造的高端智能新能源汽车品牌。 在本次增资前，启境汽车的注册资本为21亿元，广汽集团持股约71.43%，广汽埃安持股约28.57%。完成增资后，启境汽车由原股东、外部投资方及员工持股平台共同持股。", "source": "红星资本局", "time": "2026-05-13 11:27:42", "url": "http://finance.eastmoney.com/a/202605133735687119.html"}, {"title": "广汽集团：4月汽车销量12.1万辆 同比增长3.88%", "content": "人民财讯5月6日电，广汽集团6012385月6日公告，公司2026年4月汽车产量为13.39万辆，同比增长23.28%，本年累计产量为52.87万辆，同比增长1.71%；4月汽车销量为12.1万辆，同比增长3.88%，本年累计销量为50.09万辆，同比增长2.74%。", "source": "证券时报网", "time": "2026-05-06 16:49:00", "url": "http://finance.eastmoney.com/a/202605063728675458.html"}, {"title": "广汽集团：2026年4月汽车销量同比增长3.88%", "content": "广汽集团601238.SH)公告称，公司2026年4月汽车产量为13.39万辆，同比增长23.28%；销量为12.10万辆，同比增长3.88%。本年累计产量52.87万辆，同比增长1.71%；累计销量50.09万辆，同比增长2.74%。", "source": "财联社", "time": "2026-05-06 16:48:17", "url": "http://finance.eastmoney.com/a/202605063728663124.html"}, {"title": "广汽集团4月汽车销量同比增长3.88% 出口保持高增长", "content": "5月6日晚间，广汽集团601238发布2026年4月产销公告。公司4月汽车销量为12.10万辆，同比增长3.88%。公司1—4月累计销量突破50万辆，同比增长2.74%，累计出口量达70474辆，同比大幅增长133.9%。", "source": "证券时报网", "time": "2026-05-06 17:58:00", "url": "http://finance.eastmoney.com/a/202605063728758016.html"}, {"title": "汽车芯片概念涨3.08%，主力资金净流入70股", "content": "002180 奔图科技 2.34 1.18 -624.55 -2.06 002383 合众思壮 0.51 2.51 -641.74 -3.54 688396 华润微 2.68 2.83 -666.16 -0.30 301117 佳缘科技 0.32 8.16 -673.50 -2.20 601238", "source": "证券时报网", "time": "2026-05-11 17:03:00", "url": "http://finance.eastmoney.com/a/202605113733141845.html"}, {"title": "广汽本田4月销量仅5100辆，同比下滑超72%，6月关闭黄埔工厂", "content": "5月6日，广汽集团（601238.SH，02238.HK）发布了2026年4月的产销快报公告。", "source": "界面新闻", "time": "2026-05-08 09:43:12", "url": "http://finance.eastmoney.com/a/202605083731154630.html"}, {"title": "广汽集团2026年一季度营收同比增长1.98%至200.39亿元", "content": "4月29日晚间，广汽集团（601238.SH）发布一季度业绩公告。2026年第一季度营收约200.39亿元，同比增加1.98%；归属于上市公司股东的净利润亏损约6.56亿元，基本每股收益亏损0.06元。", "source": "央广财经", "time": "2026-04-30 00:10:26", "url": "http://finance.eastmoney.com/a/202604303725179886.html"}]}, "601633": {"name": "长城汽车", "news": [{"title": "长城汽车：4月销量10.63万台 同比增长6.25%", "content": "人民财讯5月5日电，长城汽车6016335月5日发布产销快报，4月销量10.63万台，同比增长6.25%。1月—4月累计销售37.54万台，同比增长5.2%。", "source": "证券时报网", "time": "2026-05-05 15:53:00", "url": "http://finance.eastmoney.com/a/202605053727869246.html"}, {"title": "长城汽车4月销量11万台 产量为12万台", "content": "5月5日，长城汽车（601633/02333/82333）发布公告，公司于2026年4月总计销量为11万台，同比增长6.25%。总计产量为12万台，同比增长14.70%。", "source": "财中社", "time": "2026-05-06 08:53:00", "url": "http://finance.eastmoney.com/a/202605063728082845.html"}, {"title": "6股获重要股东大手笔增持（附股）", "content": "东软集团 1 2 1361.76 12266.19 2.54 002655 共达电声 1 1 360.73 11035.58 41.13 300158 振东制药 1 2 1313.04 7691.43 2.62 301269 华大九天 1 1 73.72 6240.40 11.62 601633", "source": "证券时报网", "time": "2026-05-11 10:39:00", "url": "http://finance.eastmoney.com/a/202605113732807687.html"}, {"title": "贾跃亭“蹭上”物理AI概念，宣布转战机器人业务，FF面临180天“股价保卫战”", "content": "而长城汽车（601633.SH）董事长魏建军则回应称，“那是中间商去做的，是用散件组装的。” 2025年12月1日，贾跃亭表示，FF和FX计划在未来五年努力实现40-50万台的产销目标。", "source": "红星资本局", "time": "2026-05-13 18:00:19", "url": "http://finance.eastmoney.com/a/202605133736031369.html"}, {"title": "王凤英获小鹏上亿股权激励 长城汽车现任总经理年薪超魏建军难进董事会", "content": "四年前，已过50岁的王凤英离开家乡企业长城汽车（601633），随后南下广东加入小鹏汽车。终于在2026年获得约上亿港元的股权激励。 提到王凤英，市场便联想到她任职超过30年的长城汽车。", "source": "财中社", "time": "2026-05-13 14:24:00", "url": "http://finance.eastmoney.com/a/202605133735809569.html"}, {"title": "解密主力资金出逃股 连续5日净流出427股", "content": "南亚新材 6 3.24 4.29 6.34 601229 上海银行 6 3.18 10.71 -4.15 601658 邮储银行 7 3.17 6.97 -2.90 600061 国投资本 13 3.01 7.27 -4.02 600227 赤天化 5 2.99 6.34 -4.94 601633", "source": "证券时报网", "time": "2026-05-08 16:45:00", "url": "http://finance.eastmoney.com/a/202605083731525040.html"}, {"title": "解密主力资金出逃股 连续5日净流出461股", "content": "2.93 12.50 -13.23 601658 邮储银行 6 2.90 7.18 -2.70 600061 国投资本 12 2.85 7.29 -3.88 601229 上海银行 5 2.84 11.20 -3.94 600933 爱柯迪 14 2.79 6.48 2.87 601633", "source": "证券时报网", "time": "2026-05-07 16:40:00", "url": "http://finance.eastmoney.com/a/202605073730121175.html"}, {"title": "社保基金长线坚守54只股（附股）", "content": "601636 旗滨集团 26 1 4751.79 72.27 1.61 600153 建发股份 26 4 12601.87 47.44 4.35 002884 凌霄泵业 25 1 990.02 不变 3.63 601877 正泰电器 25 1 2045.47 -42.41 0.95 601633", "source": "证券时报网", "time": "2026-05-08 11:23:00", "url": "http://finance.eastmoney.com/a/202605083731294975.html"}]}, "002518": {"name": "科士达", "news": [{"title": "科士达002518.SZ)：2026年一季报净利润为1.39亿元", "content": "2026年4月27日，科士达002518.SZ)发布2026年一季报。 公司营业总收入为12.40亿元。归母净利润为1.39亿元。经营活动现金净流入为1.13亿元。 公司最新资产负债率为37.45%，较去年同期资产负债率增加2.58个百分点。", "source": "界面新闻", "time": "2026-04-27 09:09:25", "url": "http://finance.eastmoney.com/a/202604273719523167.html"}, {"title": "科士达002518.SZ)：2025年年报净利润为6.11亿元", "content": "2026年4月27日，科士达002518.SZ)发布2025年年报。 公司营业总收入为52.70亿元。归母净利润为6.11亿元。经营活动现金净流入为9.11亿元。 公司最新资产负债率为37.48%。 公司最新毛利率为28.98%。最新ROE为12.66%。", "source": "界面新闻", "time": "2026-04-27 09:18:53", "url": "http://finance.eastmoney.com/a/202604273719560087.html"}, {"title": "今日盘中突破半年线个股", "content": "半年线（元） 最新价（元） 乖离率（%） 688187 时代电气 20.00 2.39 52.85 59.29 12.18 300559 佳发教育 11.97 8.44 12.64 13.75 8.82 605158 华达新材 9.97 5.64 8.07 8.71 7.99 002518", "source": "证券时报网", "time": "2026-05-13 11:45:00", "url": "http://finance.eastmoney.com/a/202605133735691560.html"}, {"title": "134只股中线走稳 站上半年线", "content": "4.64 17.25 13.99 14.65 4.71 301120 新特电气 6.85 6.68 21.05 22.00 4.53 000936 华西股份 9.96 3.98 7.93 8.28 4.40 002577 雷柏科技 4.65 1.26 17.48 18.24 4.34 002518", "source": "证券时报网", "time": "2026-05-13 11:05:00", "url": "http://finance.eastmoney.com/a/202605133735672466.html"}, {"title": "146只股中线走稳 站上半年线", "content": "10.00 24.19 14.00 15.40 10.02 002629 仁智股份 10.06 15.50 6.97 7.66 9.96 300259 新天科技 12.90 5.46 4.62 4.99 8.03 605158 华达新材 9.97 5.79 8.07 8.71 7.99 002518", "source": "证券时报网", "time": "2026-05-13 16:27:00", "url": "http://finance.eastmoney.com/a/202605133735925161.html"}, {"title": "135只股中线走稳 站上半年线", "content": "） 半年线（元） 最新价（元） 乖离率（%） 688187 时代电气 20.00 3.03 52.85 59.29 12.18 002629 仁智股份 10.06 14.20 6.97 7.66 9.96 605158 华达新材 9.97 5.72 8.07 8.71 7.99 002518", "source": "证券时报网", "time": "2026-05-13 14:31:00", "url": "http://finance.eastmoney.com/a/202605133735822989.html"}, {"title": "基金最新调研公司名单曝光", "content": "3 10.49 3.37 电力设备 002428 云南锗业 2 92.20 33.20 有色金属 600521 华海药业 2 17.46 9.13 医药生物 301002 崧盛股份 1 54.71 15.52 电力设备 300328 宜安科技 1 18.13 2.03 有色金属 002518", "source": "证券时报网", "time": "2026-05-12 11:35:00", "url": "http://finance.eastmoney.com/a/202605123734267167.html"}, {"title": "108只股上午收盘涨停(附股)", "content": "电子 002015 协鑫能科 23.39 7.62 4106.31 96046.53 公用事业 601016 节能风电 5.63 10.06 16918.75 95252.55 公用事业 601991 大唐发电 7.37 1.90 11549.28 85118.17 公用事业 002518", "source": "证券时报网", "time": "2026-05-13 11:45:00", "url": "http://finance.eastmoney.com/a/202605133735743489.html"}]}, "000157": {"name": "中联重科", "news": [{"title": "中联重科000157.SZ)：2026年一季报净利润为8.84亿元、同比较去年同期下降37.30%", "content": "2026年4月29日，中联重科000157.SZ)发布2026年一季报。 公司营业总收入为129.52亿元，在已披露的同业公司中排名第2，较去年同报告期营业总收入增加8.35亿元，实现4年连续上涨，同比较去年同期上涨6.89%。", "source": "界面新闻", "time": "2026-04-29 09:10:01", "url": "http://finance.eastmoney.com/a/202604293723694217.html"}, {"title": "中联重科：具身智能机器人是公司培育的未来产业方向之一", "content": "中联重科（000157.SZ）5月12日在投资者互动平台表示，具身智能机器人是公司培育的未来产业方向之一。机器人领域属于前沿科技、国家重点战略产业，目前行业整体研发及应用尚处于早期投资阶段，离规模性盈利仍需时间。敬请广大投资者谨慎决策，注意投资风险。", "source": "每日经济新闻", "time": "2026-05-12 20:50:00", "url": "http://finance.eastmoney.com/a/202605123734760683.html"}, {"title": "今日盘中突破年线个股", "content": "9.99 3.48 37.33 40.61 8.78 605186 健麾信息 10.02 3.91 20.85 22.39 7.37 601727 上海电气 8.49 4.19 8.38 8.82 5.29 300085 银之杰 7.11 4.75 42.04 43.84 4.28 000157", "source": "证券时报网", "time": "2026-05-11 10:39:00", "url": "http://finance.eastmoney.com/a/202605113732816482.html"}, {"title": "今日突破年线个股", "content": "6.55 5.54 36.15 38.05 5.26 600761 安徽合力 5.19 6.08 19.35 20.27 4.74 002334 英威腾 9.98 19.03 8.75 9.15 4.56 688103 国力电子 7.00 4.67 61.50 64.19 4.38 000157", "source": "证券时报网", "time": "2026-05-11 17:02:00", "url": "http://finance.eastmoney.com/a/202605113733145530.html"}, {"title": "【盘中播报】95只股长线走稳 站上年线", "content": "10.00 1.45 22.52 24.08 6.91 300730 科创信息 16.51 15.24 14.84 15.81 6.56 601727 上海电气 9.10 5.45 8.38 8.87 5.89 300420 五洋自控 9.12 7.74 3.88 4.07 4.83 000157", "source": "证券时报网", "time": "2026-05-11 14:15:00", "url": "http://finance.eastmoney.com/a/202605113732976077.html"}, {"title": "挖掘机龙头联手提价 4月内销增逾三成：行业内卷有望反转？", "content": "2025年，三一重工海外收入同比增长15.14%至558.56亿元，收入占比约64%；徐工机械海外收入同比增长16.58%至485.99亿元，占比约48%；中联重科（000157）海外收入同比增长30.52%至305.15亿元，占比约58%；柳工海外收入同比增长14.78%至157.94", "source": "澎湃新闻", "time": "2026-05-13 07:39:00", "url": "http://finance.eastmoney.com/a/202605133735140555.html"}, {"title": "短线防风险 18只个股短期均线现死叉", "content": "-0.83 0.25 17.15 17.20 -0.28 16.80 -2.30 601003 柳钢股份 -0.88 2.29 4.58 4.59 -0.24 4.53 -1.33 300076 *ST宁视 5.64 4.44 4.82 4.83 -0.21 4.87 0.91 000157", "source": "证券时报网", "time": "2026-05-08 14:17:00", "url": "http://finance.eastmoney.com/a/202605083731405829.html"}, {"title": "10.59亿元资金今日流出机械设备股", "content": "（数据宝） 机械设备行业资金流入榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 002008 大族激光 10.00 7.05 109623.77 000425 徐工机械 10.03 2.53 74130.59 000157 中联重科 5.66 4.01", "source": "证券时报网", "time": "2026-05-11 17:47:00", "url": "http://finance.eastmoney.com/a/202605113733195186.html"}]}, "603659": {"name": "璞泰来", "news": [{"title": "璞泰来603659.SH)：2026年一季报净利润为7.04亿元", "content": "2026年4月23日，璞泰来603659.SH)发布2026年一季报。 公司营业总收入为43.51亿元。归母净利润为7.04亿元。经营活动现金净流入为9.48亿元。", "source": "界面新闻", "time": "2026-04-23 09:19:03", "url": "http://finance.eastmoney.com/a/202604233715348960.html"}, {"title": "PET铜箔概念涨0.99%，主力资金净流入16股", "content": "0.76 7.77 -7990.91 -8.13 600110 诺德股份 -1.00 7.51 -8529.79 -6.03 300706 阿石创 -1.84 14.52 -9422.54 -11.93 300632 光莆股份 13.79 39.33 -9735.96 -4.12 603659", "source": "证券时报网", "time": "2026-05-12 16:30:00", "url": "http://finance.eastmoney.com/a/202605123734500242.html"}, {"title": "解密主力资金出逃股 连续5日净流出588股", "content": "9.07 -8.80 301358 湖南裕能 5 14.02 6.92 -10.68 000625 长安汽车 11 13.95 17.22 -9.19 002326 永太科技 9 13.68 11.47 -14.88 300223 北京君正 5 12.35 4.75 8.75 603659", "source": "证券时报网", "time": "2026-05-13 16:53:00", "url": "http://finance.eastmoney.com/a/202605133735961273.html"}, {"title": "PVDF概念下跌0.45%，主力资金净流出12股", "content": "（数据宝） PVDF概念资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 002407 多氟多 -6.79 16.73 -110542.00 600673 东阳光 -6.84 7.43 -46697.98 603659 璞泰来 -4.98 4.02", "source": "证券时报网", "time": "2026-05-08 16:53:00", "url": "http://finance.eastmoney.com/a/202605083731556580.html"}, {"title": "113.56亿元资金今日流出电力设备股", "content": "60923.25 002812 恩捷股份 -2.56 6.05 -53271.14 603026 石大胜华 -9.82 15.14 -50762.94 300390 天华新能 -3.16 10.85 -46790.17 300450 先导智能 -1.23 3.96 -46266.57 603659", "source": "证券时报网", "time": "2026-05-07 17:24:00", "url": "http://finance.eastmoney.com/a/202605073730188536.html"}, {"title": "PET铜箔概念上涨4.32%，7股主力资金净流入超亿元", "content": "2.18 002191 劲嘉股份 2.64 2.12 1014.68 8.57 002426 胜利精密 2.69 4.44 903.10 1.56 600869 远东股份 7.36 5.04 853.66 0.42 002846 英联股份 3.57 6.77 698.62 2.52 603659", "source": "证券时报网", "time": "2026-05-06 16:37:00", "url": "http://finance.eastmoney.com/a/202605063728653530.html"}, {"title": "钠离子电池概念下跌0.59%，主力资金净流出91股", "content": "69530.78 300438 鹏辉能源 -4.92 10.45 -65776.58 002594 比亚迪 -0.44 1.10 -62052.61 300450 先导智能 -2.77 4.16 -59318.40 300919 中伟新材 -4.15 3.69 -42007.85 603659", "source": "证券时报网", "time": "2026-05-08 16:52:00", "url": "http://finance.eastmoney.com/a/202605083731556077.html"}, {"title": "石墨电极概念下跌1.77%，主力资金净流出17股", "content": "（数据宝） 石墨电极概念资金流出榜 代码 简称 今日涨跌幅（%） 今日换手率（%） 主力资金流量（万元） 300035 中科电气 -6.21 12.71 -29806.44 600884 杉杉股份 -1.48 12.12 -20104.46 603659 璞泰来 -3.59 3.43", "source": "证券时报网", "time": "2026-04-30 17:11:00", "url": "http://finance.eastmoney.com/a/202604303726535757.html"}]}, "002850": {"name": "科达利", "news": [{"title": "科达利002850.SZ)：2026年一季报净利润为4.61亿元", "content": "2026年4月28日，科达利002850.SZ)发布2026年一季报。 公司营业总收入为41.42亿元。归母净利润为4.61亿元。经营活动现金净流入为2.21亿元，较去年同报告期经营活动现金净流入减少4.58亿元，同比较去年同期下降67.43%。", "source": "界面新闻", "time": "2026-04-28 09:39:48", "url": "http://finance.eastmoney.com/a/202604283721751224.html"}, {"title": "沃特股份与华润双鹤签署国内首发生物基PA46产业链战略合作协议", "content": "沃特股份董事长吴宪、朗华集团（08026.HK）董事长张春华，科达利（002850.SZ）总经理励建炬，中兴通讯（000063.SZ）董事长助理俞义方、豪恩汽电（301488.SZ）董事长陈清锋等产业链企业上台见证签约。", "source": "证券时报网", "time": "2026-05-10 20:57:00", "url": "http://finance.eastmoney.com/a/202605103732425015.html"}, {"title": "海外机构调研股名单 百济神州最受关注", "content": "1 59.55 -4.93 轻工制造 003010 若羽臣 2 28.82 -5.07 商贸零售 002920 德赛西威 6 106.10 -5.40 计算机 301216 万凯新材 1 28.31 -5.51 基础化工 689009 九号公司 8 40.76 -5.52 汽车 002850", "source": "证券时报网", "time": "2026-05-13 16:52:00", "url": "http://finance.eastmoney.com/a/202605133735960952.html"}, {"title": "减速器概念涨3.06%，主力资金净流入84股", "content": "步科股份 4.72 6.07 12103.84 17.95 002472 双环传动 4.53 5.68 11939.85 6.70 300421 力星股份 6.65 15.07 10452.03 11.26 301696 三瑞智能 13.12 51.72 7481.26 3.96 002850", "source": "证券时报网", "time": "2026-05-08 16:52:00", "url": "http://finance.eastmoney.com/a/202605083731557438.html"}, {"title": "科达利：江苏三期项目目前已完成部分设备铺设，并预留充足场地，保障后续设备分批投入落地", "content": "谢谢 科达利（002850.SZ）4月29日在投资者互动平台表示，江苏三期项目目前已完成部分设备铺设，并预留充足场地，保障后续设备分批投入落地。同时，产能建设需要一定周期，公司提前规划推进四期产能布局，主要为中长期市场需求提前储备产能，把握后续行业发展机遇。", "source": "每日经济新闻", "time": "2026-04-29 16:07:15", "url": "http://finance.eastmoney.com/a/202604293724419697.html"}, {"title": "科达利一季度归母净利润同比增长19.06% 营收增长37.09%", "content": "科达利002850.SZ)于4月27日发布了2026年第一季度报告。报告显示，公司该季度实现营业收入41.42亿元，较上年同期增长37.09%；归属于母公司所有者的净利润为4.61亿元，同比增幅达19.06%。基本每股收益为1.67元。", "source": "央广财经", "time": "2026-04-27 17:59:41", "url": "http://finance.eastmoney.com/a/202604273720315446.html"}, {"title": "318家公司获海外机构调研", "content": "中钢国际 1 6.57 -3.81 建筑装饰 300498 温氏股份 1 15.40 -3.87 农林牧渔 600166 福田汽车 2 3.59 -4.01 汽车 301087 可孚医疗 1 51.30 -4.20 医药生物 688153 唯捷创芯 1 32.91 -4.30 电子 002850", "source": "证券时报网", "time": "2026-05-12 17:39:00", "url": "http://finance.eastmoney.com/a/202605123734588080.html"}, {"title": "海外机构调研股名单 百济神州最受关注", "content": "聚灿光电 1 9.30 -5.58 电子 688575 亚辉龙 1 13.38 -5.91 医药生物 301039 中集车辆 1 8.71 -5.94 汽车 301087 可孚医疗 1 52.16 -6.22 医药生物 300782 卓胜微 2 107.39 -6.28 电子 002850", "source": "证券时报网", "time": "2026-05-11 17:03:00", "url": "http://finance.eastmoney.com/a/202605113733143577.html"}]}, "300712": {"name": "永福股份", "news": [{"title": "永福股份300712.SZ)2025年净利润为2356.38万元、较去年同期下降35.08%", "content": "2026年4月28日，永福股份300712.SZ)发布2025年年报。 公司营业总收入为16.99亿元，在已披露的同业公司中排名第27，较去年同报告期营业总收入减少3.41亿元，同比较去年同期下降16.71%。", "source": "界面新闻", "time": "2026-04-28 16:09:11", "url": "http://finance.eastmoney.com/a/202604283722228176.html"}, {"title": "柔性直流输电概念涨1.54%，主力资金净流入31股", "content": "603530 神马电力 5.18 2.06 1041.68 1.80 002358 森源电气 2.11 6.69 1030.25 2.14 688517 金冠电气 -2.67 2.77 777.54 8.64 688187 时代电气 0.26 0.89 731.02 1.90 300712", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734501569.html"}, {"title": "7.58亿主力资金净流入，抽水蓄能概念涨0.63%", "content": "600982 宁波能源 2.62 10.78 1706.92 2.15 603315 福鞍股份 -0.26 6.70 1300.45 3.17 603530 神马电力 5.18 2.06 1041.68 1.80 301151 冠龙节能 -0.85 1.41 952.46 22.85 300712", "source": "证券时报网", "time": "2026-05-12 16:30:00", "url": "http://finance.eastmoney.com/a/202605123734499562.html"}, {"title": "【盘中播报】83只个股突破年线", "content": "2.72 1.04 55.89 56.94 1.87 688399 硕世生物 2.62 1.13 60.70 61.80 1.82 301166 优宁维 2.77 1.53 31.34 31.88 1.71 920010 凯添燃气 4.35 8.67 13.20 13.42 1.69 300712", "source": "证券时报网", "time": "2026-05-07 10:48:00", "url": "http://finance.eastmoney.com/a/202605073729822236.html"}, {"title": "特高压概念涨1.07%，主力资金净流入57股", "content": "0.96 688517 金冠电气 -2.67 2.77 777.54 8.64 688187 时代电气 0.26 0.89 731.02 1.90 001388 信通电子 1.30 7.26 572.01 6.45 300656 民德电子 1.45 5.08 516.32 2.54 300712", "source": "证券时报网", "time": "2026-05-12 16:31:00", "url": "http://finance.eastmoney.com/a/202605123734501697.html"}, {"title": "永福股份：2025年净利润2356.38万元 拟10派0.5元", "content": "中证智能财讯永福股份（300712）4月28日披露2025年年度报告。", "source": "中国证券报·中证网", "time": "2026-04-28 10:20:41", "url": "http://finance.eastmoney.com/a/202604283721794993.html"}, {"title": "抽水蓄能概念下跌2.13%，主力资金净流出58股", "content": "1.14 0.72 -872.30 603530 神马电力 -1.02 1.02 -730.52 000777 中核科技 -0.95 1.58 -574.91 002298 中电鑫龙 -1.40 3.92 -487.38 002266 浙富控股 -0.88 1.07 -467.19 300712", "source": "证券时报网", "time": "2026-04-24 17:09:00", "url": "http://finance.eastmoney.com/a/202604243718075519.html"}, {"title": "抽水蓄能概念涨0.43%，主力资金净流入26股", "content": "0.81 600642 申能股份 0.64 0.45 684.63 3.34 001289 龙源电力 1.43 0.29 522.57 2.19 000966 长源电力 3.84 4.49 398.09 0.60 600886 国投电力 0.00 0.31 329.39 1.05 300712", "source": "证券时报网", "time": "2026-04-23 16:41:00", "url": "http://finance.eastmoney.com/a/202604233716054195.html"}]}}, "industry_news": [{"keyword": "宁德时代", "title": "宁德时代和博世集团两大巨头参投启境汽车", "content": "“在传统燃油车时代，博世在中国汽车产业链中占据着重要地位；在新能源汽车时代，宁德时代取代博世成为当下核心零部件的‘隐形控制者’。”", "source": "证券日报", "time": "2026-05-13 07:30:00", "url": "http://finance.eastmoney.com/a/202605133734917726.html"}, {"keyword": "宁德时代", "title": "宇通集团与宁德时代签署全面战略合作备忘录", "content": "据宁德时代消息，5月12日，宇通集团与宁德时代在福建宁德签署全面战略合作备忘录。此次合作将聚焦联合出海、商用车全场景电动化、重卡换电业务、品牌共建四大核心方向。", "source": "界面新闻", "time": "2026-05-13 14:12:02", "url": "http://finance.eastmoney.com/a/202605133735799427.html"}, {"keyword": "宁德时代", "title": "启境汽车完成超10亿元增资 宁德时代等参投", "content": "财联社记者获悉，由广汽集团与华为乾崑联合打造的独立高端智能新能源汽车品牌启境汽车，目前完成超10亿元增资，由宁德时代、博世旗下投资平台以及国央企资本等投资。", "source": "财联社", "time": "2026-05-12 17:31:49", "url": "http://finance.eastmoney.com/a/202605123734570277.html"}, {"keyword": "动力电池", "title": "头部动力电池企业争相布局电动船舶", "content": "船舶电池正成为头部动力电池企业争相布局的新蓝海。 5月13日，第十八届深圳国际电池技术交流会/展览会启幕，船舶电池成为展会现场亮点之一。", "source": "证券日报", "time": "2026-05-14 07:31:00", "url": "http://finance.eastmoney.com/a/202605143736359874.html"}, {"keyword": "动力电池", "title": "全球动力电池装车增速大跳水 | 动力电池排名④", "content": "今年开年，全球动力电池装车量增速大幅下滑。 近日，韩国研究机构SNE Research(下称SNE)发布最新动力电池统计数据，今年一季度，全球动力电池装机总量为244.6 GWh，同比增长9.1%。", "source": "界面新闻", "time": "2026-05-11 21:39:02", "url": "http://finance.eastmoney.com/a/202605113733404231.html"}, {"keyword": "动力电池", "title": "专家：中国动力电池材料体系呈现双重技术路线", "content": "在今日进行的第十八届深圳国际电池技术交流会开幕式上，清华大学教授欧阳明高表示，中国动力电池产业需并行发展高比能全固态电池与低成本长寿命锂离子电池两大路线。", "source": "财联社", "time": "2026-05-13 11:31:04", "url": "http://finance.eastmoney.com/a/202605133735686549.html"}, {"keyword": "新能源汽车", "title": "4月新能源汽车出口同比增长1.1倍", "content": "前4个月，新能源汽车产销累计完成428.5万辆和430.4万辆，销量同比微增0.1%，新能源汽车新车销量达到汽车新车总销量的45%。在新能源汽车主要品种中，与去年同期相比，纯电动汽车产量小幅下降、销量小幅增长，其他两大类新能源汽车品种产销呈不同程度下降。", "source": "经济日报", "time": "2026-05-13 05:42:50", "url": "http://finance.eastmoney.com/a/202605133734949167.html"}, {"keyword": "新能源汽车", "title": "锡南科技：公司新能源汽车相关业务正按计划稳步推进", "content": "证券日报网5月13日讯 ，锡南科技在接受调研者提问时表示，公司新能源汽车相关业务正按计划稳步推进，公司作为汽车零部件二级供应商，产品主要供给包括盖瑞特、康明斯、石川岛、博马科技、博格华纳等知名涡轮增压器一级零部件厂商。", "source": "证券日报", "time": "2026-05-13 21:21:00", "url": "http://finance.eastmoney.com/a/202605133736233321.html"}, {"keyword": "新能源汽车", "title": "牵头制定60余项国际标准 中国新能源汽车贡献中国智慧", "content": "同时，我们也愿意分享新能源汽车领域的技术经验，助力亚太伙伴建设本地化的生产和维护体系。 来源：央视新闻客户端", "source": "央视新闻客户端", "time": "2026-05-13 10:48:19", "url": "http://finance.eastmoney.com/a/202605133736016391.html"}], "financials": {"300750": {"name": "宁德时代", "data": {"报告期": "2026-03-31", "净利润": "207.38亿", "净利润同比增长率": "48.52%", "扣非净利润": "180.93亿", "扣非净利润同比增长率": "52.95%", "营业总收入": "1291.31亿", "营业总收入同比增长率": "52.45%", "基本每股收益": "4.5800", "每股净资产": "78.28", "每股资本公积金": "34.43", "每股未分配利润": "42.81", "每股经营现金流": "7.38", "销售净利率": "17.61%", "销售毛利率": "24.82%", "净资产收益率": "5.98%", "净资产收益率-摊薄": "5.80%", "营业周期": "148.02", "存货周转率": "0.95", "存货周转天数": "94.31", "应收账款周转天数": "53.71", "流动比率": "1.60", "速动比率": "1.27", "保守速动比率": "1.14", "产权比率": "1.83", "资产负债率": "62.32%"}}, "603993": {"name": "洛阳钼业", "data": {"报告期": "2026-03-31", "净利润": "77.60亿", "净利润同比增长率": "96.65%", "扣非净利润": "74.86亿", "扣非净利润同比增长率": "90.58%", "营业总收入": "664.03亿", "营业总收入同比增长率": "44.34%", "基本每股收益": "0.3600", "每股净资产": "4.15", "每股资本公积金": "1.24", "每股未分配利润": "2.65", "每股经营现金流": "0.53", "销售净利率": "13.29%", "销售毛利率": "22.88%", "净资产收益率": "9.06%", "净资产收益率-摊薄": "8.70%", "营业周期": "73.47", "存货周转率": "1.25", "存货周转天数": "71.90", "应收账款周转天数": "1.57", "流动比率": "1.44", "速动比率": "0.81", "保守速动比率": "0.78", "产权比率": "1.31", "资产负债率": "52.03%"}}, "002466": {"name": "天齐锂业", "data": {"报告期": "2026-03-31", "净利润": "18.76亿", "净利润同比增长率": "1699.12%", "扣非净利润": "18.16亿", "扣非净利润同比增长率": "3987.18%", "营业总收入": "51.28亿", "营业总收入同比增长率": "98.44%", "基本每股收益": "1.1200", "每股净资产": "27.17", "每股资本公积金": "15.34", "每股未分配利润": "10.39", "每股经营现金流": "0.15", "销售净利率": "55.40%", "销售毛利率": "62.66%", "净资产收益率": "4.31%", "净资产收益率-摊薄": "4.04%", "营业周期": "142.31", "存货周转率": "0.73", "存货周转天数": "123.51", "应收账款周转天数": "18.80", "流动比率": "2.51", "速动比率": "1.90", "保守速动比率": "1.55", "产权比率": "0.49", "资产负债率": "28.39%"}}, "002460": {"name": "赣锋锂业", "data": {"报告期": "2026-03-31", "净利润": "18.37亿", "净利润同比增长率": "616.34%", "扣非净利润": "14.19亿", "扣非净利润同比增长率": "685.83%", "营业总收入": "91.96亿", "营业总收入同比增长率": "143.81%", "基本每股收益": "0.8800", "每股净资产": "22.16", "每股资本公积金": "6.08", "每股未分配利润": "13.52", "每股经营现金流": "0.38", "销售净利率": "20.90%", "销售毛利率": "29.72%", "净资产收益率": "4.02%", "净资产收益率-摊薄": "3.95%", "营业周期": "257.25", "存货周转率": "0.47", "存货周转天数": "191.73", "应收账款周转天数": "65.52", "流动比率": "1.03", "速动比率": "0.55", "保守速动比率": "0.48", "产权比率": "1.41", "资产负债率": "55.26%"}}, "301358": {"name": "湖南裕能", "data": {"报告期": "2026-03-31", "净利润": "13.56亿", "净利润同比增长率": "1337.77%", "扣非净利润": "13.39亿", "扣非净利润同比增长率": "1476.04%", "营业总收入": "149.65亿", "营业总收入同比增长率": "121.31%", "基本每股收益": "1.7800", "每股净资产": "25.02", "每股资本公积金": "13.03", "每股未分配利润": "10.43", "每股经营现金流": "-1.37", "销售净利率": "9.08%", "销售毛利率": "16.16%", "净资产收益率": "9.98%", "净资产收益率-摊薄": "7.12%", "营业周期": "80.12", "存货周转率": "2.87", "存货周转天数": "31.35", "应收账款周转天数": "48.77", "流动比率": "1.29", "速动比率": "0.98", "保守速动比率": "0.81", "产权比率": "1.58", "资产负债率": "61.23%"}}, "002812": {"name": "恩捷股份", "data": {"报告期": "2026-03-31", "净利润": "2.60亿", "净利润同比增长率": "901.70%", "扣非净利润": "2.61亿", "扣非净利润同比增长率": "793.83%", "营业总收入": "39.08亿", "营业总收入同比增长率": "43.21%", "基本每股收益": "0.2700", "每股净资产": "26.05", "每股资本公积金": "15.37", "每股未分配利润": "9.42", "每股经营现金流": "0.21", "销售净利率": "7.56%", "销售毛利率": "28.09%", "净资产收益率": "1.02%", "净资产收益率-摊薄": "1.02%", "营业周期": "241.89", "存货周转率": "1.32", "存货周转天数": "67.98", "应收账款周转天数": "173.91", "流动比率": "1.11", "速动比率": "0.92", "保守速动比率": "0.83", "产权比率": "0.83", "资产负债率": "43.65%"}}}};
+const analysisData = {"report_date": "2026-05-14", "generated_at": "2026-05-14 09:47:00", "analyses": [{"name": "宁德时代", "code": "SZ.300750", "signal": "strong_buy", "price_info": {"price": 438.19, "change_pct": 0.95, "pe": 24.9, "peg": 0.53}, "analyst_target": {"consensus": "strong_buy", "target_price": 550.0, "upside_pct": 25.5, "banks": ["大摩 TP¥595 增持首选", "高盛 TP¥528 买入", "中信 TP¥570 买入", "东吴 TP¥618 买入"]}, "reason": "宁德时代2026Q1营收1291亿(+52%)、净利207亿(+49%)，PE仅25x处于历史底部，PEG仅0.53严重低估。大摩5月9日上调H股TP至HK$815列为首选股，估值重评在即。凝聚态电池(500Wh/kg)量产验证推进，时代资源集团拟整合300亿矿业资产锁定上游供应链。", "key_factors": ["2026Q1营收¥1291亿同比+52.45%、归母净利¥207亿同比+48.52%", "总资产首破万亿，经营现金流337亿，财务健康度极高", "大摩上调H股目标价至HK$815，列为亚太区首选持仓", "凝聚态电池500Wh/kg商用验证，神行超充3.0 6分钟充400km量产", "PEG仅0.53，历史中枢PE 40-60x，当前严重低估"], "sources": ["摩根士丹利研报 2026-05-09", "宁德时代2026Q1财报", "东吴证券2026-05-12"]}, {"name": "宁德时代", "code": "HK.03750", "signal": "strong_buy", "price_info": {"price": 689.0, "change_pct": 2.38, "pe": 22.0, "peg": 0.48}, "analyst_target": {"consensus": "strong_buy", "target_price": 815.0, "upside_pct": 18.3, "banks": ["大摩 HK$815 首选增持", "高盛 HK$780 买入", "野村 HK$760 买入"]}, "reason": "H股相对A股折价，PE仅22x更具吸引力。大摩将03750升为亚太首选股，目标价HK$815上行空间18%+。港股通资金持续流入，催化剂明确。", "key_factors": ["H股PE 22x低于A股PE 25x，折价幅度显著", "大摩HK$815目标价，首选股评级，亚太区核心持仓", "凝聚态+储能AI双催化，港股缺乏同类替代标的", "南向资金2026年持续净流入新能源板块"], "sources": ["摩根士丹利研报 2026-05-09", "高盛香港研报 2026-05-12"]}, {"name": "华友钴业", "code": "SH.603799", "signal": "buy", "price_info": {"price": 60.82, "change_pct": -3.15, "pe": 22.0, "peg": 0.26}, "analyst_target": {"consensus": "buy", "target_price": 40.0, "upside_pct": 35.0, "banks": ["大摩 ¥38 增持", "招商证券 ¥42 强推", "兴业证券 ¥44 买入"]}, "reason": "凝聚态电池高镍化直接受益，华友钴业与宁德签订1200亿元长单，印尼镍资源120万吨构筑护城河。PEG仅0.26，盈利增速远超PE反映的预期。今日短线回调提供更好买入机会。", "key_factors": ["与宁德时代签订1200亿元长单，凝聚态高镍正极独家供应", "印尼华越镍钴项目年产能12万吨，占宁德镍需求60%+", "PEG 0.26，2026年净利预计同比增长85%+", "刚果钴矿占全球矿产钴产量25%，稀缺资源壁垒"], "sources": ["华友钴业2026一季报", "招商证券研报 2026-05-10"]}, {"name": "洛阳钼业", "code": "HK.03993", "signal": "hold", "price_info": {"price": 20.22, "change_pct": -1.46, "pe": 18.5, "peg": 0.6}, "analyst_target": {"consensus": "hold", "target_price": 22.0, "upside_pct": 8.8, "banks": ["高盛 HK$22 中性", "JP摩根 HK$21 持有"]}, "reason": "洛阳钼业铜钴资源丰富，但TFM铜矿扩产进度受关注，钴价尚未明显回升。短期缺乏强催化，维持持有。", "key_factors": ["TFM铜矿年产量35万吨铜，世界级铜矿资产", "钴价维持低位，短期盈利弹性受限", "分红稳定，防御属性较好"], "sources": ["洛阳钼业2026Q1财报", "高盛研报 2026-05"]}, {"name": "天齐锂业", "code": "HK.09696", "signal": "hold", "price_info": {"price": 58.45, "change_pct": -1.43, "pe": 999.0, "peg": 0.0}, "analyst_target": {"consensus": "hold", "target_price": 65.0, "upside_pct": 11.2, "banks": ["大摩 HK$68 等权重", "中信 HK$62 中性"]}, "reason": "天齐锂业持有泰利森锂辉石矿（全球最大），是SQM第二大股东，长期资源价值明确。但当前锂价仍处低位，盈利能力待修复，短期持有等待锂价拐点。", "key_factors": ["泰利森锂矿全球最大，年产量600万吨锂精矿", "持有SQM23.77%股权，间接受益智利资源溢价", "锂价若回升至18万/吨，利润弹性极大", "当前亏损转盈需锂价持续回暖"], "sources": ["天齐锂业2026Q1财报", "中信证券研报 2026-05"]}, {"name": "赣锋锂业", "code": "HK.01772", "signal": "watch", "price_info": {"price": 78.95, "change_pct": -1.31, "pe": 28.0, "peg": 0.8}, "analyst_target": {"consensus": "hold", "target_price": 85.0, "upside_pct": 7.7, "banks": ["摩根大通 HK$88 中性", "野村 HK$82 减持"]}, "reason": "赣锋锂业固态电池研发进展领先同行，但客户集中度分散，缺乏与宁德的深度绑定。观望等待固态电池量产催化剂出现。", "key_factors": ["固态锂电池研发进入中试阶段，2027年量产规划", "多元化客户降低单一依赖，业务韧性强", "锂价低位影响短期盈利，PEG 0.8相对合理", "等待明确催化剂：固态电池进展或锂价拐点"], "sources": ["赣锋锂业2026Q1财报", "摩根大通研报 2026-05"]}, {"name": "特斯拉", "code": "US.TSLA", "signal": "buy", "price_info": {"price": 445.27, "change_pct": 2.73, "pe": 165.0, "peg": 2.8}, "analyst_target": {"consensus": "buy", "target_price": 380.0, "upside_pct": -14.7, "banks": ["威德布什 $550 强买", "大摩 $400 等权重", "高盛 $285 卖出"]}, "reason": "特斯拉作为宁德最大海外客户，采购LFP电池，与宁德利益深度绑定。今日+2.73%反映AI/机器人叙事。PE偏高，估值分歧大，宁德持有者建议不单独持有TSLA。", "key_factors": ["Optimus机器人2026年量产进展超预期", "与宁德签订大规模LFP采购协议", "高PE和高争议度，分析师目标价分歧极大", "FSD 13.0商业化推进，自动驾驶订阅收入提速"], "sources": ["威德布什证券研报 2026-05-13", "特斯拉Q1 2026财报"]}, {"name": "理想汽车", "code": "US.LI", "signal": "buy", "price_info": {"price": 20.02, "change_pct": 6.83, "pe": 18.0, "peg": 0.45}, "analyst_target": {"consensus": "buy", "target_price": 28.0, "upside_pct": 39.9, "banks": ["高盛 $28 买入", "花旗 $25 买入", "摩根大通 $22 中性"]}, "reason": "理想汽车2026Q1交付量环比+23%，Mind GPT车载AI系统上线，PE仅18x，PEG仅0.45，今日大涨6.83%。智驾+增程双优势，宁德供应链中最优质的下游标的之一。", "key_factors": ["2026Q1交付量超预期+23%，全年目标80万辆", "Mind GPT车载AI搭载自研芯片，月活用户超600万", "纯增程无里程焦虑，PE 18x严重低估", "宁德电池深度绑定，赋能快充"], "sources": ["理想汽车Q1 2026财报", "高盛研报 2026-05-10"]}, {"name": "蔚来汽车", "code": "US.NIO", "signal": "hold", "price_info": {"price": 6.54, "change_pct": 7.57, "pe": 0.0, "peg": 0.0}, "analyst_target": {"consensus": "hold", "target_price": 8.0, "upside_pct": 22.3, "banks": ["花旗 $8 中性", "瑞银 $6 卖出"]}, "reason": "蔚来今日大涨7.57%，换电站体系（3200座）构筑护城河，但持续亏损、毛利率修复慢。换电2.0普及或为估值提振点，短期持有观察。", "key_factors": ["换电站3200座，全球最大换电网络", "连续亏损，2026Q1亏损仍超50亿", "ONVO品牌20万价格带切入，有望改善盈利结构", "与宁德合作换电专用电池包，技术绑定"], "sources": ["蔚来Q1 2026财报", "花旗研报 2026-05"]}]};
+
+// ============= CATEGORY LABELS =============
+const catLabels = {
+  core: '核心', upstream_mining: '矿产', upstream_material: '材料',
+  upstream_equipment: '设备', downstream_auto: '整车厂', downstream_energy: '储能'
+};
+const catTagClass = {
+  core: 'tag-core', upstream_mining: 'tag-upstream', upstream_material: 'tag-upstream',
+  upstream_equipment: 'tag-upstream', downstream_auto: 'tag-downstream', downstream_energy: 'tag-downstream'
+};
+
+// ============= RENDER SUMMARY =============
+function renderSummary() {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  let upCount = 0, downCount = 0, flatCount = 0;
+  let maxUp = {name:'', pct: -999}, maxDown = {name:'', pct: 999};
+  
+  companies.forEach(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) return;
+    const pct = q.change_pct || 0;
+    if (pct > 0) upCount++;
+    else if (pct < 0) downCount++;
+    else flatCount++;
+    if (pct > maxUp.pct) maxUp = {name: c.name, pct};
+    if (pct < maxDown.pct) maxDown = {name: c.name, pct};
+  });
+
+  document.getElementById('summary-grid').innerHTML = `
+    <div class="summary-card up"><div class="value">${upCount}</div><div class="label">上涨</div></div>
+    <div class="summary-card down"><div class="value">${downCount}</div><div class="label">下跌</div></div>
+    <div class="summary-card flat"><div class="value">${flatCount}</div><div class="label">持平/停牌</div></div>
+    <div class="summary-card up"><div class="value">${maxUp.pct > -999 ? maxUp.pct.toFixed(2)+'%' : '-'}</div><div class="label">🔥 ${maxUp.name || '-'}</div></div>
+    <div class="summary-card down"><div class="value">${maxDown.pct < 999 ? maxDown.pct.toFixed(2)+'%' : '-'}</div><div class="label">📉 ${maxDown.name || '-'}</div></div>
+    <div class="summary-card"><div class="value">${companies.length}</div><div class="label">追踪标的</div></div>
+  `;
+}
+
+// ============= RENDER TABLE =============
+function renderTable(catFilter) {
+  const quotes = stockData.quotes || {};
+  const companies = stockData.companies || [];
+  const tbody = document.getElementById('stock-tbody');
+  
+  const filtered = catFilter === 'all' ? companies : companies.filter(c => c.category === catFilter);
+  
+  tbody.innerHTML = filtered.map(c => {
+    const q = quotes[c.code];
+    if (!q || q.error) {
+      return `<tr><td>${c.name}</td><td>${c.code}</td><td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || c.category}</span></td><td colspan="8" style="color:var(--text2)">暂无数据</td></tr>`;
+    }
+    const pctClass = q.change_pct > 0 ? 'up' : q.change_pct < 0 ? 'down' : '';
+    const sign = q.change_pct > 0 ? '+' : '';
+    const mktUnit = c.market === 'US' ? '$' : c.market === 'HK' ? 'HK$' : '¥';
+    const fmtVol = q.volume > 1e8 ? (q.volume/1e8).toFixed(2)+'亿' : q.volume > 1e4 ? (q.volume/1e4).toFixed(0)+'万' : q.volume.toFixed(0);
+    const fmtAmt = q.amount > 1e8 ? (q.amount/1e8).toFixed(2)+'亿' : q.amount > 1e4 ? (q.amount/1e4).toFixed(0)+'万' : q.amount.toFixed(0);
+    
+    // 计算 PEG
+    let pegStr = '-';
+    let pegColor = '';
+    if (q.pe && newsData && newsData.financials && newsData.financials[c.code]) {
+      const fin = newsData.financials[c.code].data || {};
+      const growthStr = fin['净利润同比增长率'] || '';
+      const growth = parseFloat(growthStr);
+      if (!isNaN(growth) && growth > 0) {
+        const peg = q.pe / growth;
+        pegStr = peg.toFixed(2);
+        if (peg < 1) pegColor = 'var(--green)'; // 低估
+        else if (peg > 1.5) pegColor = 'var(--red)'; // 明显高估
+      } else if (growth <= 0) {
+        pegStr = 'N/A'; // 负增长或零增长无法计算有效 PEG
+      }
+    }
+    
+    return `<tr>
+      <td><strong>${c.name}</strong><br><small style="color:var(--text2)">${c.name_en}</small></td>
+      <td>${c.market}.${c.code}</td>
+      <td><span class="tag ${catTagClass[c.category] || ''}">${catLabels[c.category] || ''}</span></td>
+      <td class="price ${pctClass}">${mktUnit}${q.price.toFixed(2)}</td>
+      <td>${mktUnit}${q.prev_close.toFixed(2)}</td>
+      <td class="${pctClass}" style="font-weight:600">${sign}${q.change_pct.toFixed(2)}%</td>
+      <td class="${pctClass}">${sign}${q.change_amt.toFixed(2)}</td>
+      <td>${fmtVol}</td>
+      <td>${fmtAmt}</td>
+      <td>${q.turnover ? q.turnover.toFixed(2)+'%' : '-'}</td>
+      <td>${q.pe ? q.pe.toFixed(1) : '-'}</td>
+      <td style="color:${pegColor}; font-weight:600;">${pegStr}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ============= RENDER ANALYSIS =============
+function renderAnalysis() {
+  const grid = document.getElementById('analysis-grid');
+  const items = analysisData.analyses || [];
+
+  if (items.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text2);padding:20px;">暂无分析数据</p>';
+    return;
+  }
+
+  const signalClass = {buy:'signal-buy', sell:'signal-sell', hold:'signal-hold', watch:'signal-watch'};
+  const signalText = {buy:'📈 建议买入', sell:'📉 建议卖出', hold:'✋ 建议持有', watch:'👀 观望'};
+
+  grid.innerHTML = items.map(a => {
+    // price_info 兼容字符串（旧格式）和对象（新格式）
+    let priceStr = '';
+    let peStr = '', pegStr = '', analystStr = '';
+    if (typeof a.price_info === 'object' && a.price_info) {
+      const pi = a.price_info;
+      const sign = pi.change_pct >= 0 ? '+' : '';
+      priceStr = `¥${(pi.price||0).toFixed(2)} (${sign}${(pi.change_pct||0).toFixed(2)}%)`;
+      if (pi.pe != null) peStr = `PE ${pi.pe.toFixed(1)}x`;
+      if (pi.peg != null) {
+        const pegColor = pi.peg < 1 ? '#34d399' : pi.peg > 1.5 ? '#f87171' : '#fbbf24';
+        pegStr = `<span style="color:${pegColor};font-weight:600;">PEG ${pi.peg.toFixed(2)}</span>`;
+      }
+    } else {
+      priceStr = a.price_info || '';
+    }
+    // analyst_target
+    if (a.analyst_target) {
+      const at = a.analyst_target;
+      const consMap = {buy:'买入', outperform:'跑赢市场', hold:'中性', sell:'卖出'};
+      const consText = consMap[at.consensus] || at.consensus || '';
+      const tpStr = at.target_price ? `TP¥${at.target_price}` : '';
+      const upStr = at.upside_pct != null ? ` ↑${at.upside_pct.toFixed(1)}%` : '';
+      const banksStr = at.banks && at.banks.length ? at.banks.join(' · ') : '';
+      analystStr = `<div style="margin:8px 0;padding:8px 10px;background:rgba(56,189,248,0.08);border-left:3px solid #38bdf8;border-radius:4px;font-size:12px;">
+        <span style="color:#38bdf8;font-weight:600;">🏦 机构共识：</span>
+        <span style="color:var(--green);font-weight:600;">${consText}</span>
+        ${tpStr ? `<span style="color:var(--text);margin-left:8px;">${tpStr}${upStr}</span>` : ''}
+        ${banksStr ? `<div style="color:var(--muted);margin-top:4px;">${banksStr}</div>` : ''}
+      </div>`;
+    }
+    // key_factors 兼容字符串和数组
+    let factorsHtml = '';
+    if (a.key_factors) {
+      if (Array.isArray(a.key_factors)) {
+        factorsHtml = `<div style="margin:8px 0;font-size:13px;"><strong>关键因素：</strong><ul style="margin:4px 0 0 16px;padding:0;color:var(--text2);line-height:1.8;">${a.key_factors.map(f => `<li>${f}</li>`).join('')}</ul></div>`;
+      } else {
+        factorsHtml = `<div style="margin:8px 0;font-size:13px;"><strong>关键因素：</strong>${a.key_factors}</div>`;
+      }
+    }
+    return `
+    <div class="analysis-card">
+      <h3>
+        <span>${a.name || ''}</span>
+        <span class="signal ${signalClass[a.signal] || 'signal-watch'}">${signalText[a.signal] || a.signal || ''}</span>
+      </h3>
+      <div style="font-size:13px;color:var(--text2);display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+        <span>${a.code || ''}</span>
+        <span>${priceStr}</span>
+        ${peStr ? `<span style="color:var(--muted);">${peStr}</span>` : ''}
+        ${pegStr}
+      </div>
+      <div class="reason">${a.reason || ''}</div>
+      ${factorsHtml}
+      ${analystStr}
+      ${a.sources && a.sources.length ? `
+        <div class="sources">
+          <div style="font-size:11px;color:var(--text2);margin-bottom:4px;">📎 参考来源：</div>
+          ${a.sources.map(s => `<a href="${s.url || '#'}" target="_blank">${s.title || s.url || ''}</a>`).join('')}
+        </div>
+      ` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ============= RENDER NEWS =============
+function renderNews() {
+  // Industry
+  const iNews = newsData.industry_news || [];
+  document.getElementById('industry-news').innerHTML = iNews.length ? iNews.map(n => `
+    <div class="news-item">
+      <h4>${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无行业新闻</p>';
+
+  // Company
+  const cNews = newsData.company_news || {};
+  const allCompanyNews = [];
+  Object.entries(cNews).forEach(([code, data]) => {
+    (data.news || []).forEach(n => allCompanyNews.push({...n, company: data.name}));
+  });
+  allCompanyNews.sort((a, b) => (b.time || '').localeCompare(a.time || ''));
+  
+  document.getElementById('company-news').innerHTML = allCompanyNews.length ? allCompanyNews.slice(0, 30).map(n => `
+    <div class="news-item">
+      <h4><span class="tag tag-core" style="font-size:11px;margin-right:4px;">${n.company}</span> ${n.title || ''}</h4>
+      <div class="snippet">${n.content || ''}</div>
+      <div class="news-meta">
+        <span>${n.source || ''} · ${n.time || ''}</span>
+        ${n.url ? `<a href="${n.url}" target="_blank">查看原文 →</a>` : ''}
+      </div>
+    </div>
+  `).join('') : '<p style="color:var(--text2)">暂无个股新闻</p>';
+}
+
+// ============= TAB SWITCHING =============
+document.getElementById('main-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#main-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  const name = tab.dataset.tab;
+  ['quotes','analysis','news','ecosystem'].forEach(p => {
+    document.getElementById('panel-'+p).style.display = p === name ? '' : 'none';
+  });
+});
+
+document.getElementById('cat-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('#cat-tabs .tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  renderTable(tab.dataset.cat);
+});
+
+// ============= INIT =============
+renderSummary();
+renderTable('all');
+renderAnalysis();
+renderNews();
+</script>
+</body>
+</html>
