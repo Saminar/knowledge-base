@@ -1,5 +1,5 @@
 {
-  "date": "2026-05-15",
+  "date": "2026-05-18",
   "positions": [
     {
       "code": "03750",
@@ -7,9 +7,9 @@
       "theme": "catl",
       "signal": "strong_buy",
       "shares": 48,
-      "amount_hkd": 32832.0,
-      "weight_pct": 16.4,
-      "target_price": 909.72
+      "amount_hkd": 32928.0,
+      "weight_pct": 16.5,
+      "target_price": 912.38
     },
     {
       "code": "00470",
@@ -17,19 +17,19 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 300,
-      "amount_hkd": 16320.0,
+      "amount_hkd": 16485.0,
       "weight_pct": 8.2,
-      "target_price": 65.0
+      "target_price": 79.68
     },
     {
       "code": "01772",
       "name": "赣锋锂业",
       "theme": "catl",
-      "signal": "watch",
-      "shares": 116,
-      "amount_hkd": 8937.8,
-      "weight_pct": 4.5,
-      "target_price": 111.72
+      "signal": "accumulate",
+      "shares": 130,
+      "amount_hkd": 9464.0,
+      "weight_pct": 4.7,
+      "target_price": 105.56
     },
     {
       "code": "01211",
@@ -37,19 +37,19 @@
       "theme": "byd",
       "signal": "buy",
       "shares": 100,
-      "amount_hkd": 9735.0,
-      "weight_pct": 4.9,
-      "target_price": 141.0
+      "amount_hkd": 9580.0,
+      "weight_pct": 4.8,
+      "target_price": 136.0
     },
     {
       "code": "00285",
       "name": "比亚迪电子",
       "theme": "byd",
       "signal": "buy",
-      "shares": 292,
-      "amount_hkd": 8397.9,
+      "shares": 302,
+      "amount_hkd": 8377.5,
       "weight_pct": 4.2,
-      "target_price": 39.2
+      "target_price": 38.5
     },
     {
       "code": "09866",
@@ -57,7 +57,7 @@
       "theme": "byd",
       "signal": "accumulate",
       "shares": 127,
-      "amount_hkd": 6273.8,
+      "amount_hkd": 6258.6,
       "weight_pct": 3.1,
       "target_price": 65.0
     },
@@ -66,29 +66,19 @@
       "name": "中芯国际",
       "theme": "nvda",
       "signal": "buy",
-      "shares": 377,
-      "amount_hkd": 28595.4,
+      "shares": 407,
+      "amount_hkd": 28530.7,
       "weight_pct": 14.3,
       "target_price": 106.36
-    },
-    {
-      "code": "02382",
-      "name": "舜宇光学",
-      "theme": "nvda",
-      "signal": "accumulate",
-      "shares": 87,
-      "amount_hkd": 5785.5,
-      "weight_pct": 2.9,
-      "target_price": 95.41
     },
     {
       "code": "09903",
       "name": "天数智芯",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 15,
-      "amount_hkd": 7410.0,
-      "weight_pct": 3.7,
+      "shares": 16,
+      "amount_hkd": 7648.0,
+      "weight_pct": 3.8,
       "target_price": 828.06
     },
     {
@@ -96,17 +86,27 @@
       "name": "壁仞科技",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 148,
-      "amount_hkd": 7799.6,
+      "shares": 162,
+      "amount_hkd": 7759.8,
       "weight_pct": 3.9,
       "target_price": 93.6
+    },
+    {
+      "code": "02382",
+      "name": "舜宇光学",
+      "theme": "nvda",
+      "signal": "hold",
+      "shares": 60,
+      "amount_hkd": 3897.0,
+      "weight_pct": 1.9,
+      "target_price": 94.18
     },
     {
       "code": "00700",
       "name": "腾讯控股",
       "theme": "ai",
       "signal": "strong_buy",
-      "shares": 45,
+      "shares": 44,
       "amount_hkd": 20592.0,
       "weight_pct": 10.3,
       "target_price": 553.0
@@ -116,8 +116,8 @@
       "name": "阿里巴巴-W",
       "theme": "ai",
       "signal": "strong_buy",
-      "shares": 114,
-      "amount_hkd": 15583.8,
+      "shares": 115,
+      "amount_hkd": 15582.5,
       "weight_pct": 7.8,
       "target_price": 160.0
     },
@@ -126,8 +126,8 @@
       "name": "中广核电力",
       "theme": "power",
       "signal": "buy",
-      "shares": 2580,
-      "amount_hkd": 8797.8,
+      "shares": 2642,
+      "amount_hkd": 8797.9,
       "weight_pct": 4.4,
       "target_price": 4.2
     },
@@ -136,12 +136,12 @@
       "name": "时代电气",
       "theme": "power",
       "signal": "buy",
-      "shares": 108,
-      "amount_hkd": 4773.6,
+      "shares": 111,
+      "amount_hkd": 4759.7,
       "weight_pct": 2.4,
       "target_price": 55.0
     }
   ],
-  "total_invested": 181834.0,
-  "cash_reserve": 18166.0
+  "total_invested": 180661.0,
+  "cash_reserve": 19339.0
 }
