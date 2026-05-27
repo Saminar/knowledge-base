@@ -1,113 +1,113 @@
 {
-  "date": "2026-05-22",
+  "date": "2026-05-27",
   "positions": [
     {
       "code": "03750",
       "name": "宁德时代",
       "theme": "catl",
-      "signal": "buy",
-      "shares": 48,
-      "amount_hkd": 32904.0,
-      "weight_pct": 16.5,
-      "target_price": 911.72
+      "signal": "观望",
+      "shares": 23,
+      "amount_hkd": 16192.0,
+      "weight_pct": 8.1,
+      "target_price": 936.32
     },
     {
       "code": "01772",
       "name": "赣锋锂业",
       "theme": "catl",
-      "signal": "accumulate",
-      "shares": 198,
-      "amount_hkd": 13444.2,
-      "weight_pct": 6.7,
-      "target_price": 98.45
+      "signal": "hold",
+      "shares": 134,
+      "amount_hkd": 8978.0,
+      "weight_pct": 4.5,
+      "target_price": 97.15
     },
     {
       "code": "09696",
       "name": "天齐锂业",
       "theme": "catl",
       "signal": "hold",
-      "shares": 171,
-      "amount_hkd": 8960.4,
+      "shares": 174,
+      "amount_hkd": 8969.7,
       "weight_pct": 4.5,
-      "target_price": 78.08
+      "target_price": 76.81
     },
     {
       "code": "00470",
       "name": "先导智能",
       "theme": "catl",
-      "signal": "hold",
-      "shares": 80,
-      "amount_hkd": 4176.0,
-      "weight_pct": 2.1,
-      "target_price": 65.0
+      "signal": "减持",
+      "shares": 100,
+      "amount_hkd": 4900.0,
+      "weight_pct": 2.5,
+      "target_price": 71.05
     },
     {
       "code": "01211",
       "name": "比亚迪股份",
       "theme": "byd",
-      "signal": "buy",
-      "shares": 100,
-      "amount_hkd": 9100.0,
-      "weight_pct": 4.5,
-      "target_price": 128.31
+      "signal": "买入",
+      "shares": 82,
+      "amount_hkd": 7638.3,
+      "weight_pct": 3.8,
+      "target_price": 131.34
     },
     {
       "code": "00285",
       "name": "比亚迪电子",
       "theme": "byd",
-      "signal": "buy",
-      "shares": 322,
-      "amount_hkd": 8384.9,
-      "weight_pct": 4.2,
-      "target_price": 39.06
+      "signal": "买入",
+      "shares": 150,
+      "amount_hkd": 4191.0,
+      "weight_pct": 2.1,
+      "target_price": 41.91
     },
     {
       "code": "09866",
       "name": "蔚来-SW",
       "theme": "byd",
       "signal": "hold",
-      "shares": 95,
-      "amount_hkd": 4178.1,
+      "shares": 99,
+      "amount_hkd": 4177.8,
       "weight_pct": 2.1,
-      "target_price": 61.57
+      "target_price": 65.0
     },
     {
       "code": "00981",
       "name": "中芯国际",
       "theme": "nvda",
-      "signal": "buy",
-      "shares": 383,
-      "amount_hkd": 28533.5,
-      "weight_pct": 14.3,
-      "target_price": 96.6
+      "signal": "买入",
+      "shares": 166,
+      "amount_hkd": 14276.0,
+      "weight_pct": 7.1,
+      "target_price": 105.5
     },
     {
       "code": "09903",
       "name": "天数智芯",
       "theme": "nvda",
-      "signal": "accumulate",
-      "shares": 25,
-      "amount_hkd": 11410.0,
-      "weight_pct": 5.7,
-      "target_price": 878.0
+      "signal": "hold",
+      "shares": 14,
+      "amount_hkd": 7490.0,
+      "weight_pct": 3.7,
+      "target_price": 791.8
     },
     {
       "code": "06082",
       "name": "壁仞科技",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 164,
-      "amount_hkd": 7799.8,
+      "shares": 152,
+      "amount_hkd": 7767.2,
       "weight_pct": 3.9,
-      "target_price": 95.0
+      "target_price": 81.76
     },
     {
       "code": "02382",
       "name": "舜宇光学",
       "theme": "nvda",
       "signal": "hold",
-      "shares": 54,
-      "amount_hkd": 3763.8,
+      "shares": 52,
+      "amount_hkd": 3900.0,
       "weight_pct": 1.9,
       "target_price": 90.0
     },
@@ -115,29 +115,39 @@
       "code": "00700",
       "name": "腾讯控股",
       "theme": "ai",
-      "signal": "strong_buy",
-      "shares": 47,
-      "amount_hkd": 20877.4,
-      "weight_pct": 10.4,
-      "target_price": 606.0
+      "signal": "买入",
+      "shares": 23,
+      "amount_hkd": 10023.4,
+      "weight_pct": 5.0,
+      "target_price": 526.8
     },
     {
       "code": "09988",
       "name": "阿里巴巴-W",
       "theme": "ai",
-      "signal": "strong_buy",
-      "shares": 121,
-      "amount_hkd": 15342.8,
-      "weight_pct": 7.7,
-      "target_price": 172.6
+      "signal": "买入",
+      "shares": 81,
+      "amount_hkd": 10343.7,
+      "weight_pct": 5.2,
+      "target_price": 165.9
+    },
+    {
+      "code": "01810",
+      "name": "小米集团-W",
+      "theme": "ai",
+      "signal": "hold",
+      "shares": 192,
+      "amount_hkd": 5683.2,
+      "weight_pct": 2.8,
+      "target_price": 42.92
     },
     {
       "code": "01816",
       "name": "中广核电力",
       "theme": "power",
       "signal": "buy",
-      "shares": 2811,
-      "amount_hkd": 8798.4,
+      "shares": 2838,
+      "amount_hkd": 8797.8,
       "weight_pct": 4.4,
       "target_price": 4.2
     },
@@ -146,12 +156,12 @@
       "name": "时代电气",
       "theme": "power",
       "signal": "buy",
-      "shares": 120,
-      "amount_hkd": 4776.0,
+      "shares": 117,
+      "amount_hkd": 4799.3,
       "weight_pct": 2.4,
       "target_price": 55.0
     }
   ],
-  "total_invested": 182449.0,
-  "cash_reserve": 17551.0
+  "total_invested": 128127.0,
+  "cash_reserve": 71873.0
 }

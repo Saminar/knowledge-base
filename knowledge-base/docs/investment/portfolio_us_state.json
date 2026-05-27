@@ -1,25 +1,25 @@
 {
-  "date": "2026-05-22",
+  "date": "2026-05-27",
   "positions": [
     {
-      "code": "NVDA",
-      "name": "NVIDIA",
+      "code": "MU",
+      "name": "美光科技",
       "theme": "nvda",
-      "signal": "strong_buy",
-      "shares": 5,
-      "amount_usd": 1097.55,
-      "weight_pct": 11.0,
-      "target_price": 325.0
+      "signal": "买入",
+      "shares": 1,
+      "amount_usd": 895.88,
+      "weight_pct": 9.0,
+      "target_price": 1030.0
     },
     {
       "code": "MSFT",
       "name": "微软",
       "theme": "ai",
-      "signal": "strong_buy",
+      "signal": "buy",
       "shares": 2,
-      "amount_usd": 838.18,
-      "weight_pct": 8.4,
-      "target_price": 557.0
+      "amount_usd": 832.06,
+      "weight_pct": 8.3,
+      "target_price": 561.64
     },
     {
       "code": "GOOG",
@@ -27,19 +27,29 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 2,
-      "amount_usd": 766.94,
+      "amount_usd": 769.68,
       "weight_pct": 7.7,
-      "target_price": 521.52
+      "target_price": 523.38
     },
     {
-      "code": "MU",
-      "name": "美光科技",
+      "code": "NVDA",
+      "name": "英伟达",
       "theme": "nvda",
+      "signal": "买入",
+      "shares": 3,
+      "amount_usd": 644.58,
+      "weight_pct": 6.4,
+      "target_price": 268.0
+    },
+    {
+      "code": "BYDDY",
+      "name": "比亚迪 ADR",
+      "theme": "byd",
       "signal": "buy",
-      "shares": 1,
-      "amount_usd": 762.1,
-      "weight_pct": 7.6,
-      "target_price": 1052.0
+      "shares": 52,
+      "amount_usd": 615.68,
+      "weight_pct": 6.2,
+      "target_price": 18.0
     },
     {
       "code": "META",
@@ -47,29 +57,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 607.38,
+      "amount_usd": 612.34,
       "weight_pct": 6.1,
-      "target_price": 820.0
-    },
-    {
-      "code": "BYDDY",
-      "name": "比亚迪 ADR",
-      "theme": "byd",
-      "signal": "buy",
-      "shares": 51,
-      "amount_usd": 588.54,
-      "weight_pct": 5.9,
-      "target_price": 17.54
-    },
-    {
-      "code": "ON",
-      "name": "安森美半导体",
-      "theme": "byd",
-      "signal": "buy",
-      "shares": 5,
-      "amount_usd": 548.05,
-      "weight_pct": 5.5,
-      "target_price": 151.26
+      "target_price": 838.91
     },
     {
       "code": "AMZN",
@@ -77,9 +67,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 2,
-      "amount_usd": 536.92,
-      "weight_pct": 5.4,
-      "target_price": 380.0
+      "amount_usd": 530.58,
+      "weight_pct": 5.3,
+      "target_price": 371.41
     },
     {
       "code": "ALB",
@@ -87,19 +77,29 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 3,
-      "amount_usd": 509.7,
+      "amount_usd": 524.07,
+      "weight_pct": 5.2,
+      "target_price": 253.3
+    },
+    {
+      "code": "ON",
+      "name": "安森美半导体",
+      "theme": "byd",
+      "signal": "buy",
+      "shares": 4,
+      "amount_usd": 508.0,
       "weight_pct": 5.1,
-      "target_price": 246.35
+      "target_price": 175.26
     },
     {
       "code": "AMAT",
       "name": "应用材料",
       "theme": "nvda",
-      "signal": "buy",
+      "signal": "买入",
       "shares": 1,
-      "amount_usd": 427.36,
-      "weight_pct": 4.3,
-      "target_price": 589.76
+      "amount_usd": 454.89,
+      "weight_pct": 4.5,
+      "target_price": 523.0
     },
     {
       "code": "AVGO",
@@ -107,19 +107,19 @@
       "theme": "nvda",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 414.57,
-      "weight_pct": 4.1,
-      "target_price": 621.0
+      "amount_usd": 422.01,
+      "weight_pct": 4.2,
+      "target_price": 603.47
     },
     {
       "code": "TSM",
       "name": "台积电",
       "theme": "nvda",
-      "signal": "buy",
+      "signal": "买入",
       "shares": 1,
-      "amount_usd": 407.15,
+      "amount_usd": 412.32,
       "weight_pct": 4.1,
-      "target_price": 452.0
+      "target_price": 487.0
     },
     {
       "code": "COHR",
@@ -127,19 +127,19 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 378.0,
+      "amount_usd": 381.35,
       "weight_pct": 3.8,
-      "target_price": 585.9
+      "target_price": 591.09
     },
     {
       "code": "ARM",
-      "name": "Arm Holdings",
+      "name": "ARM控股",
       "theme": "nvda",
-      "signal": "strong_buy",
+      "signal": "增持",
       "shares": 1,
-      "amount_usd": 298.23,
-      "weight_pct": 3.0,
-      "target_price": 373.0
+      "amount_usd": 321.22,
+      "weight_pct": 3.2,
+      "target_price": 392.0
     },
     {
       "code": "MRVL",
@@ -147,11 +147,11 @@
       "theme": "nvda",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 190.69,
-      "weight_pct": 1.9,
-      "target_price": 240.0
+      "amount_usd": 208.26,
+      "weight_pct": 2.1,
+      "target_price": 314.47
     }
   ],
-  "total_invested": 8371.36,
-  "cash_reserve": 1628.64
+  "total_invested": 8132.92,
+  "cash_reserve": 1867.08
 }
