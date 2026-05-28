@@ -1,5 +1,5 @@
 {
-  "date": "2026-05-27",
+  "date": "2026-05-28",
   "positions": [
     {
       "code": "MU",
@@ -7,8 +7,8 @@
       "theme": "nvda",
       "signal": "买入",
       "shares": 1,
-      "amount_usd": 895.88,
-      "weight_pct": 9.0,
+      "amount_usd": 928.41,
+      "weight_pct": 9.3,
       "target_price": 1030.0
     },
     {
@@ -17,9 +17,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 2,
-      "amount_usd": 832.06,
+      "amount_usd": 825.34,
       "weight_pct": 8.3,
-      "target_price": 561.64
+      "target_price": 557.1
     },
     {
       "code": "GOOG",
@@ -27,9 +27,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 2,
-      "amount_usd": 769.68,
+      "amount_usd": 769.66,
       "weight_pct": 7.7,
-      "target_price": 523.38
+      "target_price": 523.37
     },
     {
       "code": "NVDA",
@@ -37,19 +37,9 @@
       "theme": "nvda",
       "signal": "买入",
       "shares": 3,
-      "amount_usd": 644.58,
+      "amount_usd": 637.8,
       "weight_pct": 6.4,
       "target_price": 268.0
-    },
-    {
-      "code": "BYDDY",
-      "name": "比亚迪 ADR",
-      "theme": "byd",
-      "signal": "buy",
-      "shares": 52,
-      "amount_usd": 615.68,
-      "weight_pct": 6.2,
-      "target_price": 18.0
     },
     {
       "code": "META",
@@ -57,9 +47,19 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 612.34,
+      "amount_usd": 635.26,
+      "weight_pct": 6.4,
+      "target_price": 870.31
+    },
+    {
+      "code": "BYDDY",
+      "name": "比亚迪 ADR",
+      "theme": "byd",
+      "signal": "buy",
+      "shares": 53,
+      "amount_usd": 613.21,
       "weight_pct": 6.1,
-      "target_price": 838.91
+      "target_price": 17.59
     },
     {
       "code": "AMZN",
@@ -67,9 +67,9 @@
       "theme": "ai",
       "signal": "buy",
       "shares": 2,
-      "amount_usd": 530.58,
-      "weight_pct": 5.3,
-      "target_price": 371.41
+      "amount_usd": 543.7,
+      "weight_pct": 5.4,
+      "target_price": 380.59
     },
     {
       "code": "ALB",
@@ -77,9 +77,9 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 3,
-      "amount_usd": 524.07,
-      "weight_pct": 5.2,
-      "target_price": 253.3
+      "amount_usd": 532.41,
+      "weight_pct": 5.3,
+      "target_price": 257.33
     },
     {
       "code": "ON",
@@ -87,29 +87,19 @@
       "theme": "byd",
       "signal": "buy",
       "shares": 4,
-      "amount_usd": 508.0,
-      "weight_pct": 5.1,
-      "target_price": 175.26
+      "amount_usd": 499.56,
+      "weight_pct": 5.0,
+      "target_price": 172.35
     },
     {
       "code": "AMAT",
       "name": "应用材料",
       "theme": "nvda",
-      "signal": "买入",
+      "signal": "持有",
       "shares": 1,
-      "amount_usd": 454.89,
+      "amount_usd": 448.25,
       "weight_pct": 4.5,
       "target_price": 523.0
-    },
-    {
-      "code": "AVGO",
-      "name": "博通",
-      "theme": "nvda",
-      "signal": "buy",
-      "shares": 1,
-      "amount_usd": 422.01,
-      "weight_pct": 4.2,
-      "target_price": 603.47
     },
     {
       "code": "TSM",
@@ -117,9 +107,19 @@
       "theme": "nvda",
       "signal": "买入",
       "shares": 1,
-      "amount_usd": 412.32,
-      "weight_pct": 4.1,
+      "amount_usd": 422.73,
+      "weight_pct": 4.2,
       "target_price": 487.0
+    },
+    {
+      "code": "AVGO",
+      "name": "博通",
+      "theme": "nvda",
+      "signal": "buy",
+      "shares": 1,
+      "amount_usd": 421.86,
+      "weight_pct": 4.2,
+      "target_price": 603.26
     },
     {
       "code": "COHR",
@@ -127,18 +127,18 @@
       "theme": "catl",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 381.35,
+      "amount_usd": 380.18,
       "weight_pct": 3.8,
-      "target_price": 591.09
+      "target_price": 589.28
     },
     {
       "code": "ARM",
       "name": "ARM控股",
       "theme": "nvda",
-      "signal": "增持",
+      "signal": "观望",
       "shares": 1,
-      "amount_usd": 321.22,
-      "weight_pct": 3.2,
+      "amount_usd": 302.71,
+      "weight_pct": 3.0,
       "target_price": 392.0
     },
     {
@@ -147,11 +147,11 @@
       "theme": "nvda",
       "signal": "buy",
       "shares": 1,
-      "amount_usd": 208.26,
-      "weight_pct": 2.1,
-      "target_price": 314.47
+      "amount_usd": 198.7,
+      "weight_pct": 2.0,
+      "target_price": 300.04
     }
   ],
-  "total_invested": 8132.92,
-  "cash_reserve": 1867.08
+  "total_invested": 8159.78,
+  "cash_reserve": 1840.22
 }
