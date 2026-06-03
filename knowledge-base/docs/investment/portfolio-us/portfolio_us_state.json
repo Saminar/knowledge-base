@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-02",
+  "date": "2026-06-03",
   "positions": [
     {
       "code": "COHR",
@@ -9,12 +9,12 @@
       "shares": 6,
       "avg_cost": 308.5,
       "cost_basis": 1851.0,
-      "current_mv": 2177.4,
-      "unrealized_pnl": 326.4,
-      "unrealized_pct": 17.6,
-      "weight_pct": 17.1,
-      "target_price": 562.5,
-      "stop_price": 264.92
+      "current_mv": 2561.34,
+      "unrealized_pnl": 710.34,
+      "unrealized_pct": 38.4,
+      "weight_pct": 19.2,
+      "target_price": 661.68,
+      "stop_price": 311.63
     },
     {
       "code": "ON",
@@ -24,12 +24,12 @@
       "shares": 17,
       "avg_cost": 95.18,
       "cost_basis": 1618.06,
-      "current_mv": 2055.64,
-      "unrealized_pnl": 437.58,
-      "unrealized_pct": 27.0,
-      "weight_pct": 16.1,
-      "target_price": 166.87,
-      "stop_price": 96.74
+      "current_mv": 2186.88,
+      "unrealized_pnl": 568.82,
+      "unrealized_pct": 35.2,
+      "weight_pct": 16.4,
+      "target_price": 177.52,
+      "stop_price": 102.91
     },
     {
       "code": "ALB",
@@ -39,12 +39,12 @@
       "shares": 8,
       "avg_cost": 197.41,
       "cost_basis": 1579.28,
-      "current_mv": 1369.04,
-      "unrealized_pnl": -210.24,
-      "unrealized_pct": -13.3,
-      "weight_pct": 10.7,
-      "target_price": 248.14,
-      "stop_price": 133.48
+      "current_mv": 1374.16,
+      "unrealized_pnl": -205.12,
+      "unrealized_pct": -13.0,
+      "weight_pct": 10.3,
+      "target_price": 249.07,
+      "stop_price": 133.98
     },
     {
       "code": "NVDA",
@@ -54,12 +54,12 @@
       "shares": 6,
       "avg_cost": 205.03,
       "cost_basis": 1230.18,
-      "current_mv": 1346.16,
-      "unrealized_pnl": 115.98,
-      "unrealized_pct": 9.4,
-      "weight_pct": 10.6,
-      "target_price": 314.1,
-      "stop_price": 186.22
+      "current_mv": 1336.92,
+      "unrealized_pnl": 106.74,
+      "unrealized_pct": 8.7,
+      "weight_pct": 10.0,
+      "target_price": 311.95,
+      "stop_price": 184.94
     },
     {
       "code": "MU",
@@ -69,12 +69,12 @@
       "shares": 1,
       "avg_cost": 495.55,
       "cost_basis": 495.55,
-      "current_mv": 1035.5,
-      "unrealized_pnl": 539.95,
-      "unrealized_pct": 109.0,
-      "weight_pct": 8.1,
-      "target_price": 1501.47,
-      "stop_price": 849.11
+      "current_mv": 1064.1,
+      "unrealized_pnl": 568.55,
+      "unrealized_pct": 114.7,
+      "weight_pct": 8.0,
+      "target_price": 1542.94,
+      "stop_price": 872.56
     },
     {
       "code": "MSFT",
@@ -84,12 +84,12 @@
       "shares": 2,
       "avg_cost": 421.58,
       "cost_basis": 843.16,
-      "current_mv": 921.04,
-      "unrealized_pnl": 77.88,
-      "unrealized_pct": 9.2,
-      "weight_pct": 7.2,
-      "target_price": 621.7,
-      "stop_price": 391.44
+      "current_mv": 882.62,
+      "unrealized_pnl": 39.46,
+      "unrealized_pct": 4.7,
+      "weight_pct": 6.6,
+      "target_price": 595.77,
+      "stop_price": 375.11
     },
     {
       "code": "GOOG",
@@ -99,12 +99,12 @@
       "shares": 2,
       "avg_cost": 345.35,
       "cost_basis": 690.7,
-      "current_mv": 745.16,
-      "unrealized_pnl": 54.46,
-      "unrealized_pct": 7.9,
-      "weight_pct": 5.8,
-      "target_price": 506.71,
-      "stop_price": 305.52
+      "current_mv": 716.78,
+      "unrealized_pnl": 26.08,
+      "unrealized_pct": 3.8,
+      "weight_pct": 5.4,
+      "target_price": 487.41,
+      "stop_price": 293.88
     },
     {
       "code": "META",
@@ -114,12 +114,12 @@
       "shares": 1,
       "avg_cost": 664.53,
       "cost_basis": 664.53,
-      "current_mv": 600.47,
-      "unrealized_pnl": -64.06,
-      "unrealized_pct": -9.6,
-      "weight_pct": 4.7,
-      "target_price": 822.64,
-      "stop_price": 474.37
+      "current_mv": 597.63,
+      "unrealized_pnl": -66.9,
+      "unrealized_pct": -10.1,
+      "weight_pct": 4.5,
+      "target_price": 818.75,
+      "stop_price": 472.13
     },
     {
       "code": "AMZN",
@@ -129,27 +129,12 @@
       "shares": 2,
       "avg_cost": 265.19,
       "cost_basis": 530.38,
-      "current_mv": 522.52,
-      "unrealized_pnl": -7.86,
-      "unrealized_pct": -1.5,
-      "weight_pct": 4.1,
-      "target_price": 365.76,
-      "stop_price": 209.01
-    },
-    {
-      "code": "AVGO",
-      "name": "博通",
-      "theme": "nvda",
-      "signal": "hold",
-      "shares": 1,
-      "avg_cost": 427.98,
-      "cost_basis": 427.98,
-      "current_mv": 459.97,
-      "unrealized_pnl": 31.99,
-      "unrealized_pct": 7.5,
-      "weight_pct": 3.6,
-      "target_price": 657.76,
-      "stop_price": 381.78
+      "current_mv": 513.04,
+      "unrealized_pnl": -17.34,
+      "unrealized_pct": -3.3,
+      "weight_pct": 3.8,
+      "target_price": 359.13,
+      "stop_price": 205.22
     },
     {
       "code": "AMAT",
@@ -159,12 +144,27 @@
       "shares": 1,
       "avg_cost": 420.53,
       "cost_basis": 420.53,
-      "current_mv": 458.17,
-      "unrealized_pnl": 37.64,
-      "unrealized_pct": 9.0,
+      "current_mv": 490.05,
+      "unrealized_pnl": 69.52,
+      "unrealized_pct": 16.5,
+      "weight_pct": 3.7,
+      "target_price": 676.27,
+      "stop_price": 392.04
+    },
+    {
+      "code": "AVGO",
+      "name": "博通",
+      "theme": "nvda",
+      "signal": "hold",
+      "shares": 1,
+      "avg_cost": 427.98,
+      "cost_basis": 427.98,
+      "current_mv": 481.57,
+      "unrealized_pnl": 53.59,
+      "unrealized_pct": 12.5,
       "weight_pct": 3.6,
-      "target_price": 632.27,
-      "stop_price": 366.54
+      "target_price": 688.65,
+      "stop_price": 399.7
     },
     {
       "code": "TSM",
@@ -174,12 +174,12 @@
       "shares": 1,
       "avg_cost": 419.4,
       "cost_basis": 419.4,
-      "current_mv": 435.63,
-      "unrealized_pnl": 16.23,
-      "unrealized_pct": 3.9,
-      "weight_pct": 3.4,
-      "target_price": 592.46,
-      "stop_price": 357.22
+      "current_mv": 446.69,
+      "unrealized_pnl": 27.29,
+      "unrealized_pct": 6.5,
+      "weight_pct": 3.3,
+      "target_price": 607.5,
+      "stop_price": 366.29
     },
     {
       "code": "ARM",
@@ -189,12 +189,12 @@
       "shares": 1,
       "avg_cost": 224.11,
       "cost_basis": 224.11,
-      "current_mv": 408.85,
-      "unrealized_pnl": 184.74,
-      "unrealized_pct": 82.4,
-      "weight_pct": 3.2,
-      "target_price": 580.57,
-      "stop_price": 318.9
+      "current_mv": 402.71,
+      "unrealized_pnl": 178.6,
+      "unrealized_pct": 79.7,
+      "weight_pct": 3.0,
+      "target_price": 571.85,
+      "stop_price": 314.11
     },
     {
       "code": "MRVL",
@@ -204,16 +204,16 @@
       "shares": 1,
       "avg_cost": 163.84,
       "cost_basis": 163.84,
-      "current_mv": 219.43,
-      "unrealized_pnl": 55.59,
-      "unrealized_pct": 33.9,
-      "weight_pct": 1.7,
-      "target_price": 331.34,
-      "stop_price": 173.35
+      "current_mv": 290.79,
+      "unrealized_pnl": 126.95,
+      "unrealized_pct": 77.5,
+      "weight_pct": 2.2,
+      "target_price": 439.09,
+      "stop_price": 229.72
     }
   ],
   "total_cost": 11158.7,
-  "total_mv": 12754.98,
-  "total_pnl": 1596.28,
+  "total_mv": 13345.28,
+  "total_pnl": 2186.58,
   "cash_reserve": 0.0
 }
