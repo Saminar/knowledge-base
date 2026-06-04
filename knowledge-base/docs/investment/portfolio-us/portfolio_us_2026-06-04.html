@@ -131,6 +131,16 @@
   .adj-rm   { background:rgba(248,113,113,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
   .adj-adj  { background:rgba(251,191,36,0.1);   color:#fde68a; border:1px solid rgba(251,191,36,0.25);}
 
+  /* 真实持仓快照徽章 */
+  .rbadge {
+    display: inline-block; padding: 2px 8px; border-radius: 6px;
+    font-size: 10px; font-weight: 600; white-space: nowrap;
+  }
+  .rin    { background:rgba(52,211,153,0.12);  color:#34d399; border:1px solid rgba(52,211,153,0.3); }
+  .rout   { background:rgba(248,113,113,0.12); color:#f87171; border:1px solid rgba(248,113,113,0.3); }
+  .rwatch { background:rgba(251,191,36,0.12);  color:#fbbf24; border:1px solid rgba(251,191,36,0.3); }
+  .mono   { font-family: 'SF Mono', monospace; font-size: 12px; }
+
   .footer { text-align: center; color: var(--muted); font-size: 11px; padding: 32px; border-top: 1px solid var(--border); margin-top: 40px; }
 </style>
 </head>
@@ -527,7 +537,268 @@
   </div>
 
   
-  <div class="section-title">🎯 今日操作建议（2026-06-04）</div>
+  <div class="section-title">📱 真实持仓快照 — 当前账户 vs 推荐组合</div>
+  
+  <div class="summary-grid" style="margin-bottom:20px">
+    <div class="s-card">
+      <div class="s-label">📦 持仓市值</div>
+      <div class="s-value">$13,315</div>
+    </div>
+    <div class="s-card">
+      <div class="s-label">💵 总净资产</div>
+      <div class="s-value">$13,315</div>
+    </div>
+    <div class="s-card">
+      <div class="s-label">📈 浮动盈亏</div>
+      <div class="s-value" style="color:var(--green)">+$2,157（+19.3%）</div>
+    </div>
+    <div class="s-card">
+      <div class="s-label">🏦 现金余额</div>
+      <div class="s-value">$0（0.0%）</div>
+    </div>
+  </div>
+  
+  <div class="alloc-wrapper" style="overflow-x:auto;margin-bottom:20px">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="color:var(--muted);border-bottom:1px solid var(--border)">
+          <th style="padding:8px 6px;text-align:left">代码</th>
+          <th style="padding:8px 6px;text-align:left">名称</th>
+          <th style="padding:8px 6px;text-align:left">仓位/主题</th>
+          <th style="padding:8px 6px;text-align:right">股数</th>
+          <th style="padding:8px 6px;text-align:right">均价</th>
+          <th style="padding:8px 6px;text-align:right">现价</th>
+          <th style="padding:8px 6px;text-align:right">市值</th>
+          <th style="padding:8px 6px;text-align:right">浮盈亏</th>
+          <th style="padding:8px 6px;text-align:center">信号</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="mono" style="font-weight:600">COHR</td>
+        <td style="color:var(--muted);font-size:12px">Coherent 光</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">6</td>
+        <td class="mono" style="text-align:right">$308.50</td>
+        <td class="mono" style="text-align:right">$417.43</td>
+        <td class="mono" style="text-align:right">$2,505</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$654<br><span style="font-size:10px">+35.3%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">ON</td>
+        <td style="color:var(--muted);font-size:12px">安森美半导体</td>
+        <td><span class="rbadge" style="background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.3)">卫星</span> <span class="tag tag-ev" style="font-size:10px">EV</span></td>
+        <td class="mono" style="text-align:right">17</td>
+        <td class="mono" style="text-align:right">$95.18</td>
+        <td class="mono" style="text-align:right">$133.93</td>
+        <td class="mono" style="text-align:right">$2,277</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$659<br><span style="font-size:10px">+40.7%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">ALB</td>
+        <td style="color:var(--muted);font-size:12px">雅保（锂矿龙头）</td>
+        <td><span class="rbadge" style="background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.3)">卫星</span> <span class="tag tag-ev" style="font-size:10px">EV</span></td>
+        <td class="mono" style="text-align:right">8</td>
+        <td class="mono" style="text-align:right">$197.41</td>
+        <td class="mono" style="text-align:right">$168.34</td>
+        <td class="mono" style="text-align:right">$1,347</td>
+        <td class="mono" style="text-align:right;color:var(--red)">$233<br><span style="font-size:10px">-14.7%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">NVDA</td>
+        <td style="color:var(--muted);font-size:12px">英伟达</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">6</td>
+        <td class="mono" style="text-align:right">$205.03</td>
+        <td class="mono" style="text-align:right">$214.75</td>
+        <td class="mono" style="text-align:right">$1,288</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$58<br><span style="font-size:10px">+4.7%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">MU</td>
+        <td style="color:var(--muted);font-size:12px">美光科技</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$495.55</td>
+        <td class="mono" style="text-align:right">$1079.57</td>
+        <td class="mono" style="text-align:right">$1,080</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$584<br><span style="font-size:10px">+117.9%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">MSFT</td>
+        <td style="color:var(--muted);font-size:12px">微软</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-ai" style="font-size:10px">AI</span></td>
+        <td class="mono" style="text-align:right">2</td>
+        <td class="mono" style="text-align:right">$421.58</td>
+        <td class="mono" style="text-align:right">$427.34</td>
+        <td class="mono" style="text-align:right">$855</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$12<br><span style="font-size:10px">+1.4%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">GOOG</td>
+        <td style="color:var(--muted);font-size:12px">谷歌</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-ai" style="font-size:10px">AI</span></td>
+        <td class="mono" style="text-align:right">2</td>
+        <td class="mono" style="text-align:right">$345.35</td>
+        <td class="mono" style="text-align:right">$355.68</td>
+        <td class="mono" style="text-align:right">$711</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$21<br><span style="font-size:10px">+3.0%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">META</td>
+        <td style="color:var(--muted);font-size:12px">Meta Platf</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-ai" style="font-size:10px">AI</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$664.53</td>
+        <td class="mono" style="text-align:right">$622.98</td>
+        <td class="mono" style="text-align:right">$623</td>
+        <td class="mono" style="text-align:right;color:var(--red)">$42<br><span style="font-size:10px">-6.3%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">AMAT</td>
+        <td style="color:var(--muted);font-size:12px">应用材料</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$420.53</td>
+        <td class="mono" style="text-align:right">$500.77</td>
+        <td class="mono" style="text-align:right">$501</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$80<br><span style="font-size:10px">+19.1%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">AMZN</td>
+        <td style="color:var(--muted);font-size:12px">亚马逊</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-ai" style="font-size:10px">AI</span></td>
+        <td class="mono" style="text-align:right">2</td>
+        <td class="mono" style="text-align:right">$265.19</td>
+        <td class="mono" style="text-align:right">$250.02</td>
+        <td class="mono" style="text-align:right">$500</td>
+        <td class="mono" style="text-align:right;color:var(--red)">$30<br><span style="font-size:10px">-5.7%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">AVGO</td>
+        <td style="color:var(--muted);font-size:12px">博通</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$427.98</td>
+        <td class="mono" style="text-align:right">$479.23</td>
+        <td class="mono" style="text-align:right">$479</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$51<br><span style="font-size:10px">+12.0%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">TSM</td>
+        <td style="color:var(--muted);font-size:12px">台积电</td>
+        <td><span class="rbadge" style="background:rgba(99,102,241,.15);color:#818cf8;border:1px solid rgba(99,102,241,.3)">核心</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$419.40</td>
+        <td class="mono" style="text-align:right">$436.69</td>
+        <td class="mono" style="text-align:right">$437</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$17<br><span style="font-size:10px">+4.1%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">ARM</td>
+        <td style="color:var(--muted);font-size:12px">Arm Holdin</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$224.11</td>
+        <td class="mono" style="text-align:right">$411.83</td>
+        <td class="mono" style="text-align:right">$412</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$188<br><span style="font-size:10px">+83.8%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+      <tr>
+        <td class="mono" style="font-weight:600">MRVL</td>
+        <td style="color:var(--muted);font-size:12px">迈威尔科技</td>
+        <td><span class="rbadge" style="background:rgba(52,211,153,.12);color:#34d399;border:1px solid rgba(52,211,153,.3)">进攻</span> <span class="tag tag-nvda" style="font-size:10px">NVDA</span></td>
+        <td class="mono" style="text-align:right">1</td>
+        <td class="mono" style="text-align:right">$163.84</td>
+        <td class="mono" style="text-align:right">$301.65</td>
+        <td class="mono" style="text-align:right">$302</td>
+        <td class="mono" style="text-align:right;color:var(--green)">+$138<br><span style="font-size:10px">+84.1%</span></td>
+        <td style="text-align:center"><span class="rbadge rwatch">持有</span></td>
+      </tr>
+        <tr style="border-top:2px solid var(--border);font-weight:700">
+          <td colspan="6" style="padding:8px 6px;color:var(--muted)">合计</td>
+          <td class="mono" style="padding:8px 6px;text-align:right">$13,315</td>
+          <td class="mono" style="padding:8px 6px;text-align:right;var(--green)">+$2,157</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="alloc-wrapper" style="overflow-x:auto;margin-bottom:24px">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">主题配置 vs 目标权重偏离</div>
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead>
+        <tr style="color:var(--muted);border-bottom:1px solid var(--border)">
+          <th style="padding:8px 6px;text-align:left">主题</th>
+          <th style="padding:8px 6px;text-align:right">持仓市值</th>
+          <th style="padding:8px 6px;text-align:right">实际%</th>
+          <th style="padding:8px 6px;text-align:right">目标%</th>
+          <th style="padding:8px 6px;text-align:right">偏离</th>
+          <th style="padding:8px 6px">比例条</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px 6px"><span class="tag tag-nvda">🟦 英伟达产业链</span></td>
+        <td class="mono" style="padding:8px 6px;text-align:right">$7,003</td>
+        <td class="mono" style="padding:8px 6px;text-align:right">52.6%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--muted)">55.0%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--green);font-weight:600">-2.4%</td>
+        <td style="padding:8px 6px;min-width:80px">
+          <div style="background:var(--border);border-radius:4px;height:6px">
+            <div style="background:var(--blue);border-radius:4px;height:6px;width:96%"></div>
+          </div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px 6px"><span class="tag tag-ai">🟣 AI浪潮平台</span></td>
+        <td class="mono" style="padding:8px 6px;text-align:right">$2,689</td>
+        <td class="mono" style="padding:8px 6px;text-align:right">20.2%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--muted)">35.0%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--red);font-weight:600">-14.8%</td>
+        <td style="padding:8px 6px;min-width:80px">
+          <div style="background:var(--border);border-radius:4px;height:6px">
+            <div style="background:var(--purple);border-radius:4px;height:6px;width:58%"></div>
+          </div>
+        </td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:8px 6px"><span class="tag tag-ev">🟢 新能源主题</span></td>
+        <td class="mono" style="padding:8px 6px;text-align:right">$3,624</td>
+        <td class="mono" style="padding:8px 6px;text-align:right">27.2%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--muted)">10.0%</td>
+        <td class="mono" style="padding:8px 6px;text-align:right;color:var(--red);font-weight:600">+17.2%</td>
+        <td style="padding:8px 6px;min-width:80px">
+          <div style="background:var(--border);border-radius:4px;height:6px">
+            <div style="background:var(--green);border-radius:4px;height:6px;width:140%"></div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">💡 可操作调仓建议</div>
+  <div style="margin-bottom:24px">
+    <div style="padding:10px 14px;border-left:3px solid var(--border);margin-bottom:8px;font-size:13px;background:var(--card);border-radius:0 6px 6px 0"><span class="rbadge rin">欠配</span> 🟣 AI浪潮平台 实际 20.2% 低于目标 35.0% 达 -14.8%，可逢回调补充配置</div><div style="padding:10px 14px;border-left:3px solid var(--border);margin-bottom:8px;font-size:13px;background:var(--card);border-radius:0 6px 6px 0"><span class="rbadge rout">超配</span> 🟢 新能源主题 实际 27.2% 超目标 10.0% 达 +17.2%，可逢反弹适当减仓平衡配置</div>
+  </div>
+
+  
+  <div class="section-title">🎯 今日操作建议 — 进攻仓 / 卫星仓 / 核心底仓（建仓第 42 天）</div>
   <div style="font-size:12px;color:var(--muted);margin-bottom:16px">
     建仓第 <strong style="color:var(--blue)">42</strong> 天 ·
     总浮盈: <strong style="color:var(--green)">
@@ -642,7 +913,7 @@
   </div>
 
   <!-- ═══ RISK MATRIX ═══ -->
-  <div class="section-title">⚠️ 风险矩阵 & 对冲思路</div>
+  <div class="section-title">⚠️ 风险矩阵 — 主要风险 · 催化剂 · 纪律规则</div>
   <div class="risk-grid">
     <div class="risk-card">
       <div class="r-title" style="color:var(--red)">🔴 高风险因素</div>
@@ -697,10 +968,10 @@
   </div>
 
   
-  <div class="section-title">📋 持仓变动说明（相较 2026-06-03）</div>
+  <div class="section-title">📋 持仓变动说明（相较 2026-06-04）</div>
   <div class="adj-box">
     <div style="font-size:12px;color:var(--muted);margin-bottom:12px">
-      建仓第 <strong style="color:var(--blue)">42</strong> 天 · 对比: 2026-06-03 → 2026-06-04
+      建仓第 <strong style="color:var(--blue)">42</strong> 天 · 对比: 2026-06-04 → 2026-06-04
     </div>
     <div class="alloc-wrapper">
     <table>
